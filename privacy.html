@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Política de Privacidade — Encontro com The Chosen</title>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<style>
+:root{--bg:#0A0A0A;--bg-2:#111;--bg-raised:#232323;--white:#fff;--grey-1:#d4d4d4;--grey-2:#a3a3a3;--teal:#00C9B1;--pad:clamp(20px,4.5vw,56px);--t-fast:all .18s ease;--font:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--grey-1);font-family:var(--font);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{background:none;border:none;cursor:pointer;font-family:inherit;color:inherit}
+
+/* ===== NAVBAR (idêntico ao index) ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;
+  padding:0 var(--pad);
+  background:rgba(10,10,10,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.05)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;width:100%;gap:24px}
+.logo{display:flex;align-items:center}
+.logo img{height:34px;width:auto;display:block}
+.nav-links{display:flex;gap:2px;margin-right:auto;margin-left:18px}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--grey-2);padding:7px 13px;border-radius:5px;transition:var(--t-fast)}
+.nav-links a:hover{color:var(--white)}
+.nav-acts{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;border-radius:5px;transition:var(--t-fast);font-size:14px}
+.btn-gold{background:#01b8af;color:#04211f;padding:10px 22px;text-transform:uppercase;letter-spacing:.06em;font-size:12.5px;font-weight:800}
+.btn-gold:hover{background:#02d4ca;box-shadow:0 4px 22px rgba(1,184,175,.35)}
+.burger{display:none;flex-direction:column;gap:5px;width:38px;height:38px;align-items:center;justify-content:center}
+.burger span{width:20px;height:2px;background:var(--grey-1);border-radius:2px;transition:var(--t-fast)}
+.burger.x span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.burger.x span:nth-child(2){opacity:0}
+.burger.x span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mnav{display:none;position:fixed;inset:68px 0 auto 0;z-index:999;background:rgba(10,10,10,.98);backdrop-filter:blur(16px);padding:12px var(--pad) 28px;flex-direction:column;gap:2px;border-bottom:1px solid rgba(255,255,255,.07)}
+.mnav.open{display:flex}
+.mnav a{padding:13px 14px;font-size:16px;font-weight:500;color:var(--grey-1);border-radius:7px}
+.mnav a:hover{background:rgba(255,255,255,.06)}
+.mnav-cta{display:flex;gap:10px;margin-top:14px}
+.mnav-cta .btn{flex:1}
+@media(max-width:860px){.nav-links,.nav-acts .btn{display:none}.burger{display:flex}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== CONTEÚDO ===== */
+main{max-width:760px;margin:68px auto 0;padding:clamp(40px,7vh,80px) clamp(20px,5vw,32px) 80px}
+h1{color:var(--white);font-size:clamp(28px,4.5vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1.15;margin-bottom:10px}
+h1::after{content:'';display:block;width:56px;height:3px;background:#01b8af;margin-top:18px;border-radius:2px}
+main > div > p:first-child{display:none}
+main p{font-size:15.5px;margin:16px 0}
+main b,main strong{color:var(--white)}
+main a{color:#01b8af;text-decoration:underline;text-underline-offset:2px}
+main a:hover{color:#02d4ca}
+main ul,main ol{margin:16px 0 16px 22px}
+main li{font-size:15.5px;margin:8px 0}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+th,td{border:1px solid rgba(255,255,255,.15);padding:10px 12px;text-align:left;vertical-align:top}
+th{color:var(--white);background:var(--bg-2)}
+.foot{border-top:1px solid rgba(255,255,255,.07);padding:28px var(--pad);text-align:center;font-size:12.5px;color:var(--grey-2)}
+.foot a{color:var(--grey-2);text-decoration:underline;text-underline-offset:2px}
+.foot a:hover{color:#01b8af}
+</style>
+<!-- Consentimento de cookies (LGPD) + Microsoft Clarity (carrega apenas após aceite) -->
+<style>
+.ck-wrap{position:fixed;left:16px;right:16px;bottom:16px;z-index:2500;display:none;justify-content:flex-start;pointer-events:none}
+.ck-wrap.on{display:flex}
+.ck-box{pointer-events:auto;width:100%;max-width:440px;background:#161616;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px 22px 18px;box-shadow:0 18px 60px rgba(0,0,0,.65);font-family:'Roboto',system-ui,sans-serif;color:#d4d4d4;animation:ckUp .35s cubic-bezier(.2,.7,.3,1)}
+@keyframes ckUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.ck-box h4{color:#fff;font-size:16.5px;font-weight:800;margin:0 0 8px}
+.ck-box p{font-size:13px;line-height:1.6;margin:0 0 14px;color:#a3a3a3}
+.ck-box a{color:#01b8af;text-decoration:underline;text-underline-offset:2px}
+.ck-btns{display:flex;gap:8px;flex-wrap:wrap}
+.ck-btns button{flex:1;min-width:110px;padding:11px 12px;border:none;border-radius:8px;font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .18s ease}
+.ck-deny,.ck-prefs-btn{background:rgba(255,255,255,.08);color:#d4d4d4}
+.ck-deny:hover,.ck-prefs-btn:hover{background:rgba(255,255,255,.14)}
+.ck-accept{background:#01b8af;color:#04211f}
+.ck-accept:hover{background:#02d4ca}
+.ck-prefs{display:none;margin:4px 0 14px;border-top:1px solid rgba(255,255,255,.1);padding-top:14px}
+.ck-prefs.on{display:block}
+.ck-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+.ck-row-t{font-size:13.5px;color:#fff;font-weight:600}
+.ck-row-d{font-size:11.5px;color:#8a8a8a;margin-top:2px;line-height:1.45}
+.ck-tag{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#01b8af}
+.ck-sw{position:relative;width:42px;height:24px;flex:none}
+.ck-sw input{opacity:0;width:0;height:0}
+.ck-sw span{position:absolute;inset:0;background:#3a3a3a;border-radius:24px;transition:.2s;cursor:pointer}
+.ck-sw span::before{content:'';position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.ck-sw input:checked+span{background:#01b8af}
+.ck-sw input:checked+span::before{transform:translateX(18px)}
+@media(max-width:520px){.ck-wrap{left:10px;right:10px;bottom:10px}.ck-btns button{min-width:100%}}
+</style>
+<script>
+(function(){
+  var KEY='tc_consent_v1';
+  function loadClarity(){
+    if(window.__ckClarity) return; window.__ckClarity=true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xiqxbcumud");
+  }
+  function getC(){ try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; } }
+  function setC(v){ try{ localStorage.setItem(KEY, JSON.stringify({analytics:!!v, t:Date.now()})); }catch(e){} }
+  function applyC(c){ if(c && c.analytics) loadClarity(); }
+
+  function build(){
+    if(document.getElementById('ckWrap')) return;
+    var w=document.createElement('div');
+    w.className='ck-wrap'; w.id='ckWrap'; w.setAttribute('role','dialog'); w.setAttribute('aria-label','Consentimento de cookies');
+    w.innerHTML='<div class="ck-box">'
+      +'<h4>Gerenciar o consentimento</h4>'
+      +'<p>Para fornecer as melhores experi\u00eancias, usamos tecnologias como cookies para armazenar e/ou acessar informa\u00e7\u00f5es do dispositivo. N\u00e3o consentir pode afetar certos recursos. Leia nossa <a href="/privacy" target="_blank" rel="noopener">Pol\u00edtica de Privacidade</a>.</p>'
+      +'<div class="ck-prefs" id="ckPrefs">'
+        +'<div class="ck-row"><div><div class="ck-row-t">Essenciais</div><div class="ck-row-d">Necess\u00e1rios para o funcionamento do site (ex.: lembrar a senha de acesso e este consentimento).</div></div><span class="ck-tag">Sempre ativos</span></div>'
+        +'<div class="ck-row"><div><div class="ck-row-t">Estat\u00edsticas</div><div class="ck-row-d">Microsoft Clarity: mapas de calor e an\u00e1lise an\u00f4nima de navega\u00e7\u00e3o para melhorarmos a p\u00e1gina.</div></div><label class="ck-sw"><input type="checkbox" id="ckAnalytics" checked><span></span></label></div>'
+      +'</div>'
+      +'<div class="ck-btns">'
+        +'<button type="button" class="ck-deny" id="ckDeny">Negar todas</button>'
+        +'<button type="button" class="ck-prefs-btn" id="ckPrefsBtn">Ver prefer\u00eancias</button>'
+        +'<button type="button" class="ck-accept" id="ckAccept">Aceitar todas</button>'
+      +'</div></div>';
+    document.body.appendChild(w);
+    w.classList.add('on');
+    var prefsOpen=false;
+    document.getElementById('ckPrefsBtn').addEventListener('click', function(){
+      prefsOpen=!prefsOpen;
+      document.getElementById('ckPrefs').classList.toggle('on', prefsOpen);
+      this.textContent = prefsOpen ? 'Salvar prefer\u00eancias' : 'Ver prefer\u00eancias';
+      if(!prefsOpen){ var v=document.getElementById('ckAnalytics').checked; setC(v); applyC(getC()); hide(); }
+    });
+    document.getElementById('ckAccept').addEventListener('click', function(){ setC(true); loadClarity(); hide(); });
+    document.getElementById('ckDeny').addEventListener('click', function(){ setC(false); hide(); });
+    function hide(){ w.classList.remove('on'); }
+  }
+  window.__ckOpen = function(e){ if(e&&e.preventDefault)e.preventDefault(); var c=getC(); build(); var el=document.getElementById('ckWrap'); el.classList.add('on'); if(c){ document.getElementById('ckAnalytics').checked=!!c.analytics; } };
+  function bindManage(){ var ls=document.querySelectorAll('.ck-manage'); for(var i=0;i<ls.length;i++){ ls[i].addEventListener('click', window.__ckOpen); } }
+  function init(){
+    var c=getC();
+    if(c){ applyC(c); } else { build(); }
+    bindManage();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="logo" href="/#home" aria-label="The Chosen — início"><img src="img/logo.webp" alt="The Chosen"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/#visao">Visão Para Líderes</a>
+      <a href="/#home">Encontro com The Chosen</a>
+      <a href="/#kit">Kit de Divulgação</a>
+      <a href="/#faq">Perguntas Frequentes</a>
+    </nav>
+    <div class="nav-acts">
+      <a class="btn btn-gold" href="/#relatar">Relatar Encontro</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MENU MOBILE ============ -->
+<nav class="mnav" id="mnav" aria-label="Menu móvel">
+  <a href="/#visao">Visão Para Líderes</a>
+  <a href="/#home">Encontro com The Chosen</a>
+  <a href="/#kit">Kit de Divulgação</a>
+  <a href="/#faq">Perguntas Frequentes</a>
+  <div class="mnav-cta"><a class="btn btn-gold" href="/#relatar" style="width:100%">✦ Relatar Encontro</a></div>
+</nav>
+
+<main>
+<h1>Política de Privacidade</h1><div><p>Política de Privacidade</p>
+<p>Última atualização: 13 de abril de 2026</p>
+<p><b>A presente Política de Privacidade aplica-se a nível global. Informações adicionais para utilizadores em determinadas jurisdições, incluindo o Espaço Económico Europeu, o Reino Unido e determinados estados dos EUA, são disponibilizadas abaixo.</b></p>
+<p><b>Utilizamos o termo “informações pessoais” para descrever informações que identificam ou se relacionam com um indivíduo, as quais também poderão ser designadas por “dados pessoais” ao abrigo da legislação aplicável em matéria de proteção de dados.</b></p>
+<p>A 5&amp;2 Studios, Inc. (“<b>5&amp;2</b>”, “<b>nós</b>”, “<b>nosso</b>” ou “<b>nos</b>”) está empenhada em respeitar e proteger a privacidade dos consumidores.&nbsp;Leia atentamente a presente Política de Privacidade para compreender que informações recolhemos e de que forma utilizamos, conservamos, divulgamos e, de outro modo, tratamos informações relativas a indivíduos que acedem ou utilizam o(s) Site(s) ou os Serviços (conforme definidos abaixo) (as nossas “<b>Práticas de Informação</b>”).&nbsp;AO ACEDER OU UTILIZAR OS NOSSOS SERVIÇOS, RECONHECE QUE LEU A PRESENTE POLÍTICA DE PRIVACIDADE E QUE COMPREENDE AS NOSSAS PRÁTICAS DE INFORMAÇÃO; SE NÃO CONCORDAR, NÃO DEVE ACEDER OU UTILIZAR OS SERVIÇOS. Para mais informações sobre a nossa recolha e utilização de informações pessoais em experiências direcionadas a crianças, incluindo&nbsp;The Chosen Adventures, consulte a nossa&nbsp;Política de Privacidade para Crianças.</p>
+<p>A presente Política de Privacidade aplica-se às informações recolhidas quando utiliza o website,&nbsp;https://gifts.thechosen.tv, e outros websites afiliados e serviços online que remetem para a presente política, incluindo The Chosen Adventures, funcionalidades interativas no(s) website(s) (o “<b>Site</b>” ou “<b>Sites</b>”), ou quaisquer outros serviços ou plataformas disponibilizados pela 5&amp;2, ocasionalmente (coletivamente, em conjunto com o(s) Site(s), os “<b>Serviços</b>”).&nbsp;Aplica-se igualmente às informações obtidas de fontes de terceiros ou quando interage com a 5&amp;2 offline (por exemplo, em eventos, no âmbito da nossa programação pública ou noutros contextos). O website The Chosen, localizado em thechosen.tv, e a aplicação móvel The Chosen são propriedade da Come and See Foundation. Para informações sobre a recolha, utilização e divulgação de informações pessoais pela Come and See Foundation, consulte a política de privacidade da Come and See Foundation, disponível&nbsp;aqui.</p>
+<p>A presente Política de Privacidade aplica-se a nível global. Utilizamos o termo “informações pessoais” para nos referirmos a informações que identificam, se relacionam com, descrevem ou podem, de forma razoável, ser associadas a um indivíduo, as quais também poderão ser designadas por “dados pessoais” ao abrigo da legislação aplicável em matéria de proteção de dados, incluindo o Regulamento Geral sobre a Proteção de Dados (“<b>RGPD</b>”).</p>
+<p>Nota sobre Acessibilidade:&nbsp;A presente Política de Privacidade foi concebida para ser razoavelmente acessível a pessoas com deficiência. Se tiver quaisquer dificuldades em aceder às informações constantes desta Política de Privacidade, contacte-nos através de&nbsp;legal@thechosen.tv.</p>
+<ul>
+<li><b>Quem Somos; Responsável pelo Tratamento de Dados</b></li>
+</ul>
+<p>A 5&amp;2 é responsável pela recolha, utilização e divulgação das suas informações pessoais ao abrigo da presente Política de Privacidade. Quando aplicável ao abrigo da legislação em matéria de proteção de dados, incluindo no Espaço Económico Europeu e no Reino Unido, o responsável pelo tratamento dos seus dados pessoais é:</p>
+<p>5&amp;2 Studios, Inc.</p>
+<p>8291 Baucum Road</p>
+<p>Midlothian, TX 76065</p>
+<p>EUA</p>
+<p>E-mail: legal@thechosen.tv</p>
+<p>Pode contactar-nos utilizando os dados indicados na secção “Contacte-nos” abaixo, incluindo para quaisquer questões relacionadas com privacidade.</p>
+<ul>
+<li><b>Recolha e Utilização de Informações Pessoais</b></li>
+</ul>
+<p><b><i>Informações que Recolhemos</i></b></p>
+<p>Poderemos recolher as seguintes informações pessoais, provenientes de si e/ou sobre si e sobre a sua utilização dos Serviços, incluindo diretamente de si, indiretamente através da sua utilização dos Serviços, de terceiros e dos nossos parceiros comerciais (por exemplo, quando associa os seus perfis de redes sociais aos Serviços ou interage connosco em plataformas de redes sociais) ou de fontes publicamente disponíveis:&nbsp;</p>
+<ul>
+<li><b>Identificadores Pessoais</b>,&nbsp;tais como nome, morada, e-mail, data de nascimento, número de telefone e outros identificadores online.&nbsp;&nbsp;</li>
+<li><b>Informações Demográficas</b>,&nbsp;tais como o seu género, idade ou código postal.</li>
+<li><b>Informações de Conteúdo</b>,&nbsp;tais como informações de visualização de vídeos e conteúdos, publicações em redes sociais, mensagens de e-mail e outras comunicações.&nbsp;</li>
+<li><b>Dados do Dispositivo e de Utilização</b>,&nbsp;tais como tipo e versão do navegador, páginas web visitadas, conteúdos visualizados, identificadores do dispositivo e endereço IP. Se estiver a utilizar a nossa aplicação móvel (a “<b>App</b>”), poderemos recolher localização, ID do dispositivo e outros identificadores únicos do dispositivo.&nbsp;</li>
+<li><b>Informações Comerciais</b>,&nbsp;tais como o seu histórico de compras, incluindo produtos, serviços e número SKU.&nbsp;&nbsp;Se realizar uma compra através dos Serviços, poderá ser-lhe solicitado que forneça informações do cartão de crédito. Nessa situação, é nossa política redirecioná-lo para um portal de processamento de pagamentos alojado por um processador de pagamentos terceiro. Leia a política de privacidade no website do nosso processador de pagamentos relativamente à utilização, armazenamento e proteção das informações do seu cartão de crédito antes de submeter quaisquer informações do cartão de crédito.&nbsp;Não nos envie quaisquer informações financeiras fora da sessão de navegação segura.&nbsp;&nbsp;</li>
+</ul>
+<ul>
+<li><b>Informações de Geolocalização</b>,&nbsp;que, por vezes, conseguimos determinar indiretamente a partir do seu endereço IP.</li>
+<li><b>Informações de Áudio, Visuais ou Eletrónicas</b>,&nbsp;tais como fotografias, vídeos, etc.&nbsp;&nbsp;</li>
+<li><b>Inferências retiradas da sua utilização dos Serviços</b>,&nbsp;incluindo as suas preferências.</li>
+<li><b>Informações Sensíveis</b>,&nbsp;tais como informações sobre o seu género, raça, etnia, estatuto de imigração, cidadania, identificadores governamentais (números de Segurança Social), orientação sexual, crenças religiosas ou filosóficas, crenças políticas, informações de saúde, informações genéticas, informações biométricas ou filiação em organizações profissionais, ou a sua geolocalização precisa (isto é, se ativar a geolocalização no seu dispositivo móvel quando utiliza a App).&nbsp;Na medida em que recolhamos qualquer uma destas informações sensíveis, utilizaremos e divulgaremos estas informações a terceiros apenas para as finalidades comerciais de cumprimento do nosso contrato consigo (isto é, para prestar os Serviços) ou conforme exigido por lei.&nbsp;</li>
+</ul>
+<p>Ao utilizar os nossos Serviços, compreende e reconhece que determinadas informações que disponibiliza publicamente através da utilização da nossa plataforma, incluindo fotografias, comentários e outros materiais, poderão ser pesquisadas, vistas, utilizadas ou partilhadas por outros utilizadores, de acordo com os nossos Termos de Serviço. Não tratamos como privadas quaisquer informações que disponibilize publicamente, por exemplo, quando publica informações e materiais nos nossos quadros de mensagens, secções de comentários e fóruns. Poderemos recolher, utilizar, partilhar ou divulgar informações que não o identifiquem (incluindo informações agregadas ou desidentificadas), exceto quando tal seja proibido pela legislação aplicável.</p>
+<p><b><i>Finalidades da Utilização de Informações Pessoais</i></b></p>
+<p>Recolhemos e utilizamos informações pessoais para as seguintes finalidades, que poderão incluir finalidades necessárias para prestar os Serviços (finalidades principais) e finalidades adicionais compatíveis com essas finalidades ou de outro modo permitidas pela legislação aplicável (finalidades secundárias):</p>
+<ul>
+<li>Finalidades Principais:</li>
+<ul>
+<li>Fornecer os produtos e serviços que encomendou, criar a sua conta e conceder-lhe acesso aos nossos programas de recompensas, passatempos e desafios;&nbsp;&nbsp;</li>
+<li>Confirmar que tem idade legal para utilizar os nossos Serviços;&nbsp;&nbsp;</li>
+<li>Implementar funcionalidades de redes sociais solicitadas, gerir as nossas comunidades online e responder a perguntas e pedidos de clientes e parceiros;&nbsp;</li>
+</ul>
+<li>Finalidades Secundárias:</li>
+<ul>
+<li>Analisar, gerir e melhorar os Serviços, incluindo a análise de preferências, interesses e compras;&nbsp;</li>
+<li>Melhorar os nossos Serviços, incluindo personalizar a sua experiência, disponibilizando-lhe as suas compras anteriores e compras de clientes semelhantes;&nbsp;&nbsp;</li>
+<li>Desenvolver e implementar novos produtos, serviços ou funcionalidades;</li>
+<li>Participar em desafios, passatempos e programas de recompensas;&nbsp;&nbsp;&nbsp;</li>
+<li>Detetar, investigar e prevenir fraude e outros crimes ou práticas indevidas, ou de outro modo proteger ou exercer os nossos direitos legais;</li>
+<li>Responder a pedidos de autoridades de aplicação da lei ou para qualquer outra finalidade, ou em ligação com quaisquer processos judiciais (incluindo processos judiciais potenciais);</li>
+<li>Criar um perfil que nos permita apresentar-lhe sugestões personalizadas relativamente aos nossos Serviços;&nbsp;</li>
+<li>Anunciar e comunicar consigo, incluindo fornecer-lhe informações sobre os nossos Serviços ou sobre os serviços e produtos dos nossos parceiros, ou de outro modo disponibilizar-lhe publicidade nos nossos Serviços; e</li>
+<li>Ajudar-nos a proteger os Serviços e os nossos clientes e parceiros, bem como a prestar-lhe os Serviços.&nbsp;&nbsp;</li>
+</ul>
+</ul>
+<p>Tratamos informações pessoais para as finalidades acima descritas em conformidade com a legislação aplicável. Dependendo da sua jurisdição, o nosso tratamento poderá basear-se num ou mais dos seguintes fundamentos:</p>
+<ul>
+<li><b>Execução de um contrato</b>, quando o tratamento é necessário para prestar os Serviços ou cumprir as nossas obrigações contratuais;</li>
+<li><b>Consentimento</b>, quando tiver prestado consentimento para o tratamento para uma ou mais finalidades específicas, o qual poderá retirar a qualquer momento;<b> </b></li>
+<li><b>Obrigações legais</b>, quando o tratamento é necessário para cumprir requisitos legais ou regulamentares aplicáveis;<b> </b></li>
+<li><b>Reclamações legais</b>, quando o tratamento é necessário para estabelecer, exercer ou defender direitos legais; ou</li>
+<li><b>Interesses legítimos</b>, quando o tratamento é necessário para os nossos interesses comerciais legítimos ou os de um terceiro, desde que tais interesses não sejam prevalecentes face aos seus direitos ou interesses. Estes interesses poderão incluir:</li>
+<ul>
+<li>Operar, manter e melhorar a nossa atividade e os Serviços;</li>
+<li>Assegurar a conformidade com políticas e procedimentos internos;</li>
+<li>Proteger a nossa propriedade intelectual e outros direitos;</li>
+<li>Manter a segurança dos nossos sistemas e Serviços; e</li>
+<li>Realizar análises e investigação internas.</li>
+</ul>
+</ul>
+<p>Sempre que exigido pela legislação aplicável, obteremos o seu consentimento antes de recolher ou tratar as suas informações pessoais, assistindo-lhe o direito de retirar esse consentimento a qualquer momento.</p>
+<p><b>3.&nbsp;Divulgação e Partilha de Informações Pessoais</b></p>
+<p>Poderemos divulgar, partilhar ou vender informações pessoais para as finalidades acima descritas, ou de outro modo permitido pela legislação aplicável. As categorias de entidades com quem partilhamos informações incluem:</p>
+<ul>
+<li><b>Prestadores de Serviços</b>.&nbsp; Divulgamos informações a prestadores de serviços que tratam informações em nosso nome. Os prestadores de serviços apoiam-nos com serviços como processamento de pagamentos, análise de dados, marketing e publicidade, alojamento de websites e suporte técnico. Proibimos contratualmente os nossos prestadores de serviços de conservar, utilizar ou divulgar informações sobre si para qualquer finalidade que não seja a prestação de serviços para nós, embora possamos permitir-lhes utilizar informações que não o identifiquem (incluindo informações agregadas ou desidentificadas) para qualquer finalidade, exceto quando tal seja proibido pela legislação aplicável.</li>
+<li><b>Fornecedores e Outras Entidades</b>.&nbsp; Divulgamos informações a fornecedores e outras entidades para fins relacionados com análise e publicidade. Estas entidades poderão atuar como nossos prestadores de serviços ou, em determinados contextos, decidir de forma independente como tratar as suas informações. Para mais informações sobre como poderemos divulgar ou partilhar as suas informações, consulte a secção “Análise e Publicidade Baseada em Interesses” abaixo.</li>
+<li><b>Entidades Afiliadas</b>.&nbsp; Poderemos partilhar informações com as nossas entidades afiliadas e com entidades com as quais partilhamos a mesma titularidade para prestar, melhorar, disponibilizar, comercializar ou, de outro modo, comunicar consigo sobre os nossos Serviços.&nbsp;</li>
+</ul>
+<ul>
+<li><b>Parceiros Comerciais e Terceiros</b>.&nbsp; Poderemos igualmente partilhar informações com a Come and See Foundation, uma organização sem fins lucrativos, bem como com outros parceiros comerciais, tais como distribuidores, produtoras, co-produtoras e editoras, para as suas próprias finalidades, incluindo para lhe comercializar produtos e serviços, apresentar-lhe publicidade relevante ou proporcionar-lhe uma experiência melhorada. Para optar por não permitir essa partilha, disponibilizamos um mecanismo no momento da recolha ou através dos mecanismos de escolha previstos na presente Política de Privacidade.&nbsp;</li>
+<li><b>Promoções</b>.&nbsp; Disponibilizamos recompensas, desafios, sorteios, concursos, inquéritos e outras promoções (cada uma, uma “<b>Promoção</b>”) co-patrocinadas ou disponibilizadas por entidades distintas que podem exigir a submissão de informações pessoais. Se optar voluntariamente por participar numa Promoção, partilharemos informações conforme estabelecido no regulamento oficial que rege a Promoção, bem como para fins administrativos e conforme exigido por lei (por exemplo, numa lista de vencedores). Ao participar numa Promoção, concorda com o regulamento oficial que rege essa Promoção e poderá, exceto quando proibido pela legislação aplicável, permitir que o patrocinador e/ou outras entidades utilizem o seu nome, voz e/ou imagem em materiais publicitários ou de marketing.</li>
+<li><b>Operações Societárias</b>.&nbsp; Poderemos partilhar informações no âmbito de, ou durante negociações para, qualquer fusão, compra, venda ou outro tipo de aquisição, combinação empresarial, insolvência ou administração judicial, de todos ou parte dos nossos ativos, ou transferência de todo ou parte da nossa atividade para outra empresa.</li>
+<li><b>Autoridades Legais e Reguladoras</b>.&nbsp;&nbsp;Cumpriremos, de boa-fé, processos legais válidos, incluindo quando seja necessário divulgar informações pessoais em resposta a pedidos lícitos de autoridades públicas, nomeadamente para cumprir requisitos de segurança nacional ou de aplicação da lei.&nbsp;</li>
+<li><b>Segurança</b>.&nbsp;&nbsp;Poderemos divulgar informações pessoais para proteger os direitos, a propriedade, a vida, a saúde, a segurança e a integridade de nós, dos Serviços, ou de qualquer outra pessoa.</li>
+<li><b>Com o seu Consentimento</b>.&nbsp; Divulgaremos informações conforme por si indicado ou com o seu consentimento.&nbsp;</li>
+</ul>
+<p>A 5&amp;2 poderá partilhar dados anónimos ou agregados com terceiros, tais como prestadores de serviços ou parceiros comerciais, com o objetivo de facilitar as nossas operações empresariais.</p>
+<p><b>4.&nbsp;Os seus Direitos e Opções em Matéria de Privacidade</b></p>
+<p>Dependendo da sua localização, poderá ter os seguintes direitos relativamente às suas informações pessoais:&nbsp;</p>
+<ul>
+<li>Direito de saber.&nbsp; Tem o direito de solicitar que divulguemos as categorias de informações pessoais que recolhemos sobre si, as categorias de fontes de onde recolhemos essas informações pessoais, as categorias de informações pessoais que vendemos ou divulgámos, a nossa finalidade empresarial ou comercial para recolher e vender as suas informações pessoais, as categorias de terceiros com quem partilhámos as suas informações pessoais e os elementos específicos de informações pessoais que recolhemos sobre si.</li>
+<li>Direito de retificação. Em determinadas circunstâncias, tem o direito de solicitar que retifiquemos quaisquer informações pessoais inexatas que tenhamos recolhido diretamente de si.&nbsp; Para proteger as suas informações pessoais, somos obrigados a verificar a sua identidade antes de podermos dar seguimento ao seu pedido.&nbsp; Poderá igualmente atualizar as suas informações, conforme descrito na secção “Atualização das Informações da sua Conta”.</li>
+<li>Direito ao apagamento. Tem o direito de solicitar que apaguemos as informações pessoais que recolhemos sobre si, sujeito a determinadas exceções.</li>
+<li>Direito à portabilidade dos dados. Tem o direito de solicitar uma cópia portátil das suas informações pessoais, na medida do tecnicamente viável, num formato facilmente acessível.&nbsp;&nbsp;</li>
+<li>Direito de retirar o consentimento. Tem o direito, a qualquer momento, de retirar o consentimento previamente prestado.&nbsp; Note que a retirada do consentimento não afeta a licitude do tratamento das suas informações pessoais que ocorreu antes dessa retirada.</li>
+<li>Direito de oposição, limitação ou restrição de determinadas utilizações das suas informações pessoais&nbsp;(por exemplo, publicidade direcionada, venda, partilha ou definição de perfis).&nbsp;&nbsp;</li>
+<li>Não Discriminação. Tem o direito de não ser discriminado por exercer os direitos acima referidos.</li>
+<li>Limitar a utilização de informações pessoais sensíveis.</li>
+<li>Direito de apresentar reclamação junto da sua autoridade local de proteção de dados&nbsp;&nbsp; Se se encontrar no Espaço Económico Europeu (EEE), na Suíça ou no Reino Unido (RU), poderá apresentar uma reclamação (mas, antes de o fazer, agradecemos que nos comunique as suas preocupações para tentarmos resolvê-las).&nbsp; Pode contactar o Information Commissioner’s Office do Reino Unido para iniciar uma reclamação clicando&nbsp;aqui. As informações de contacto de outras autoridades de proteção de dados no EEE encontram-se&nbsp;aqui.</li>
+</ul>
+<p>Respeitaremos os direitos em conformidade com a legislação aplicável. A 5&amp;2 adotará medidas para verificar a sua identidade antes de tratar o seu pedido. Poderemos não dar seguimento ao seu pedido se não tiver fornecido informações suficientes para podermos verificar, de forma razoável, que é o indivíduo relativamente ao qual recolhemos informações pessoais. Apenas utilizaremos as informações pessoais fornecidas no processo de verificação para verificar a sua identidade ou autoridade para apresentar um pedido e para acompanhar e documentar as respostas aos pedidos, salvo se tiver inicialmente fornecido essas informações pessoais para outra finalidade. Se não conseguirmos verificar a sua identidade para dar cumprimento a um pedido, explicaremos o motivo na nossa comunicação consigo.</p>
+<p>Poderá recorrer a um representante autorizado para apresentar um pedido. Quando verificamos o pedido do seu representante, poderemos verificar tanto a sua identidade como a identidade do seu representante e solicitar-lhe documentação que autorize o seu representante a apresentar o pedido em seu nome. Para proteger as suas informações pessoais, reservamo-nos o direito de recusar um pedido de um representante que não apresente prova de que foi autorizado por si a atuar em seu nome.</p>
+<p><b>5.&nbsp;Atualização das Informações da sua Conta</b></p>
+<p>Pode aceder à sua conta através dos Serviços para aceder, remover ou atualizar determinadas informações de conta que temos registadas sobre si e sobre a sua empresa e que foram submetidas através dos Serviços. Em alternativa, poderá enviar-nos um e-mail para&nbsp;&nbsp;legal@thechosen.tv&nbsp;ou solicitar que as informações sejam atualizadas ou removidas. Poderemos exigir-lhe informações adicionais para nos permitir confirmar a sua identidade. Note que, se nos solicitar a remoção de informações, procederemos à sua remoção dos Serviços, mas poderemos continuar a armazenar e utilizar essas informações para fins internos de análise ou de outro modo permitido pela legislação aplicável. Conservaremos e utilizaremos as suas informações conforme necessário para cumprir as nossas obrigações legais ou políticas de conservação de dados, resolver litígios e fazer cumprir os nossos acordos.&nbsp;</p>
+<p><b>6.&nbsp;Comunicações Promocionais</b></p>
+<ul>
+<li><b>E-mails</b>.&nbsp; Pode, a qualquer momento, optar por não receber e-mails de marketing ou promocionais da nossa parte seguindo as instruções de cancelamento de subscrição incluídas nesses e-mails ou contactando-nos através das informações disponibilizadas na secção “Contacte-nos” abaixo. Tenha em conta que poderá continuar a receber comunicações não promocionais da nossa parte, tais como as relacionadas com a sua conta, transações, assistência ou a nossa relação comercial contínua, na medida permitida pela legislação aplicável. O seu pedido de exclusão aplicar-se-á ao endereço de e-mail utilizado para submeter o pedido e poderá não afetar subscrições futuras. Quando recorrermos a terceiros para enviar comunicações em nosso nome, poderá optar por não receber essas comunicações através dos métodos descritos acima. Se receber comunicações de marketing diretamente de um terceiro, deverá seguir as instruções de exclusão desse terceiro. Quando exigido pela legislação aplicável, obteremos o seu consentimento antes de lhe enviar comunicações de marketing, podendo retirar o seu consentimento a qualquer momento.</li>
+<li><b>Mensagens de texto e chamadas telefónicas</b>.&nbsp; Pode optar por não receber mensagens de texto de marketing ou chamadas de marketing da nossa parte a qualquer momento, seguindo as instruções fornecidas nessas comunicações, incluindo, quando aplicável, respondendo “STOP” a uma mensagem de texto, solicitando a exclusão durante uma chamada, ou contactando-nos através das informações constantes da secção “Contacte-nos” abaixo. Quando exigido pela legislação aplicável, obteremos o seu consentimento antes de enviar mensagens de texto de marketing ou efetuar chamadas de marketing, podendo retirar o seu consentimento a qualquer momento. Note que poderá continuar a receber comunicações não comerciais (tais como mensagens relacionadas com o serviço, alertas de segurança ou notificações transacionais) na medida permitida pela legislação aplicável. Trataremos os pedidos de exclusão dentro de um prazo razoável, em conformidade com a legislação aplicável. Poderão aplicar-se custos de mensagens e dados. A frequência das mensagens poderá variar.</li>
+<li><b>Notificações push</b>.&nbsp; Para notificações push ou mensagens na aplicação, poderá ajustar as permissões no seu dispositivo móvel ou desinstalar a App.&nbsp;</li>
+</ul>
+<p><b>7.&nbsp;Transferências Internacionais</b></p>
+<p>Estamos sediados nos Estados Unidos, que podem oferecer níveis de proteção da privacidade diferentes dos do seu país de residência. Se aceder aos Serviços a partir de fora dos EUA, tenha em atenção que as informações recolhidas através dos Serviços poderão ser transferidas para, tratadas, armazenadas e utilizadas nos EUA e noutras jurisdições. Quando exigido pela legislação aplicável, implementamos salvaguardas adequadas para proteger as informações pessoais quando estas são transferidas internacionalmente. Estas salvaguardas podem incluir:</p>
+<ul>
+<li>Recurso a decisões de adequação emitidas pelas autoridades competentes;</li>
+<li>Utilização de cláusulas contratuais-tipo aprovadas pelas autoridades reguladoras aplicáveis; ou</li>
+<li>Outros mecanismos lícitos de transferência.</li>
+</ul>
+<p>Pode solicitar informações adicionais sobre estas salvaguardas contactando-nos através das informações disponibilizadas na secção “Contacte-nos”.</p>
+<p>Ao utilizar os Serviços, reconhece que as suas informações pessoais poderão ser transferidas para os EUA ou outras jurisdições para a(s) finalidade(s) estabelecida(s) na presente Política de Privacidade.&nbsp;&nbsp;</p>
+<p><b>8.&nbsp;Cookies e Tecnologias de Rastreamento</b></p>
+<p>Poderemos utilizar cookies, web beacons/pixel tags, ficheiros de registo e outras tecnologias semelhantes (coletivamente, “<b>Cookies</b>”) para recolher determinadas informações sobre os visitantes dos nossos Sites, a utilização das nossas funcionalidades online e as interações com os nossos e-mails e anúncios online. Para mais informações sobre os tipos de Cookies que utilizamos nos Sites, consulte a nossa Política de Cookies, disponível&nbsp;aqui.&nbsp;</p>
+<p><b>9.&nbsp;Análise e Publicidade Baseada em Interesses</b></p>
+<p>Utilizamos parceiros de análise e publicidade para nos ajudar a compreender como os utilizadores interagem com os Serviços e para disponibilizar publicidade que possa ser relevante para os seus interesses. Estes parceiros poderão utilizar cookies, identificadores móveis e tecnologias semelhantes para recolher informações sobre as suas atividades ao longo do tempo e em diferentes websites ou serviços. Quando exigido pela legislação aplicável, obteremos o seu consentimento antes de utilizarmos tais tecnologias para fins de análise ou publicidade baseada em interesses. Pode gerir as suas preferências relativamente a cookies e tecnologias semelhantes através da nossa ferramenta de definições de cookies (quando disponível) ou através das definições do seu navegador ou dispositivo. Além disso, poderá conseguir optar por não receber determinada publicidade baseada em interesses através de programas setoriais de exclusão, como os disponibilizados pela Digital Advertising Alliance (DAA), visitando:</p>
+<ul>
+<li>https://www.aboutads.info/choices (para publicidade na web); e</li>
+<li>https://www.aboutads.info/appchoices (para aplicações móveis).</li>
+</ul>
+<p>Poderá também limitar a utilização de determinadas informações para publicidade baseada em interesses através das definições do seu dispositivo (por exemplo, ativando “Limitar o rastreamento de anúncios” em dispositivos iOS ou “Recusar a personalização de anúncios” em dispositivos Android).</p>
+<p>A Google disponibiliza ferramentas adicionais para gerir preferências de publicidade e rastreamento analítico, incluindo:</p>
+<ul>
+<li>https://tools.google.com/dlpage/gaoptout</li>
+<li>https://www.google.com/settings/ads/onweb/</li>
+</ul>
+<p>Tenha em atenção que optar por não receber publicidade baseada em interesses não significa que deixará de receber anúncios; significa, antes, que os anúncios que visualizar poderá ser menos relevantes para os seus interesses. As opções de exclusão são, em geral, específicas do dispositivo e do navegador e podem não se aplicar a todos os dispositivos ou navegadores. Não controlamos ferramentas ou programas de exclusão de terceiros e não podemos garantir a sua eficácia; contudo, incentivamo-lo a consultar as políticas de privacidade desses terceiros para mais informações sobre as suas práticas.&nbsp;</p>
+<p>Em determinadas jurisdições, incluindo o EEE e o RU, a publicidade baseada em interesses apenas será utilizada com o seu consentimento.</p>
+<p><b>10.&nbsp;Ligações para Sites de Terceiros</b></p>
+<p>Os nossos Serviços poderão conter ligações para, ou integrar com, websites, plataformas e outros serviços operados por terceiros e não controlados por nós (“<b>Serviços de Terceiros</b>”).</p>
+<p>Por exemplo:</p>
+<ul>
+<li>Poderemos disponibilizar os nossos conteúdos através de plataformas de redes sociais. Se interagir com os nossos conteúdos nessas plataformas (por exemplo, através de uma página de marca ou de uma funcionalidade de mensagens), quaisquer informações que forneça poderão ser tratadas tanto por nós como pela plataforma da aplicação, em conformidade com as respetivas políticas de privacidade. Poderemos utilizar referências publicamente disponíveis aos nossos Serviços (tais como publicações em redes sociais) para fins promocionais, em conformidade com a legislação aplicável.</li>
+<li>Poderá optar por partilhar conteúdos dos nossos Serviços ou iniciar sessão utilizando uma conta de terceiros (tais como um fornecedor de redes sociais ou de e-mail).</li>
+</ul>
+<p>Quando interage com Serviços de Terceiros, incluindo quando abandona os nossos Serviços, esses terceiros poderão recolher informações sobre si de forma independente. A recolha, utilização e divulgação dessas informações rege-se pelas políticas de privacidade desses terceiros, e não pela presente Política de Privacidade. Recomendamos que reveja as políticas de privacidade e os termos de utilização de quaisquer Serviços de Terceiros que utilize. Na medida do permitido pela legislação aplicável, não somos responsáveis pelas práticas de privacidade ou pelos conteúdos dos Serviços de Terceiros. Sempre que recebamos informações de Serviços de Terceiros e as combinem com informações pessoais que recolhemos diretamente, trataremos as informações combinadas em conformidade com a presente Política de Privacidade. Em determinados casos, nós e o fornecedor terceiro poderemos atuar como responsáveis pelo tratamento independentes ou, quando aplicável, como corresponsáveis pelo tratamento ao abrigo da legislação aplicável. Sempre que exigido pela legislação aplicável, obteremos o seu consentimento antes de ativar determinadas integrações com terceiros ou a partilha de dados.</p>
+<p><b>11.&nbsp;Segurança das suas Informações Pessoais</b></p>
+<p>Implementamos e mantemos salvaguardas de segurança administrativas, físicas e técnicas razoáveis e adequadas, concebidas para proteger as informações pessoais contra perda, utilização indevida, acesso não autorizado, divulgação, alteração, destruição ou modificação. Estas salvaguardas são concebidas tendo em conta a natureza das informações pessoais e os riscos associados ao seu tratamento. No entanto, nenhum método de transmissão pela Internet ou método de armazenamento eletrónico é completamente seguro. Embora nos esforcemos por proteger as informações pessoais, não podemos garantir segurança absoluta.</p>
+<p><b>12.&nbsp;Conservação de Informações Pessoais</b></p>
+<p>Conservaremos as suas informações pessoais durante o tempo necessário para cumprir as finalidades para as quais foram recolhidas, conforme descrito na presente Política de Privacidade, e em conformidade com a legislação aplicável. Diferentes tipos de informações pessoais poderão ser conservados por períodos diferentes, consoante a natureza e a finalidade do tratamento. Os critérios utilizados para determinar os períodos de conservação poderão incluir:</p>
+<ul>
+<li>A duração da nossa relação (por exemplo, enquanto utilizador dos Serviços ou colaborador);</li>
+<li>A existência de uma obrigação legal, regulamentar ou contratual de conservar as informações;</li>
+<li>Se a conservação é aconselhável tendo em conta prazos de prescrição aplicáveis, reclamações legais ou litígios; e</li>
+<li>As nossas necessidades comerciais legítimas, tais como manter registos para fins de segurança, prevenção de fraude e continuidade do negócio.</li>
+</ul>
+<p>Quando já não tivermos uma necessidade legítima de tratar as suas informações pessoais, procederemos à sua eliminação ou anonimização, utilizando métodos concebidos para impedir o acesso não autorizado, a divulgação ou a reconstituição, em conformidade com a legislação aplicável e com as nossas políticas internas de conservação de dados. Quando seja utilizada a anonimização, as informações deixarão de estar associadas a si e não serão tratadas como informações pessoais. Se a eliminação ou anonimização não for imediatamente possível (por exemplo, porque as informações pessoais se encontram armazenadas em sistemas de cópia de segurança), armazenaremos as informações de forma segura e isolá-las-emos de tratamento adicional até que a eliminação seja possível.</p>
+<p><b>13.&nbsp;Crianças</b></p>
+<p>Os nossos Serviços não se destinam a ser utilizados por crianças com menos de 18 anos de idade. Não recolhemos, de forma consciente, informações de qualquer pessoa com menos de 18 anos de idade.&nbsp;Os utilizadores com menos de 18 anos apenas poderão utilizar os Serviços com o consentimento parental. Se tivermos conhecimento de que recolhemos informações pessoais de uma criança identificada, adotaremos medidas para eliminar imediatamente essas informações.&nbsp;No entanto, The Chosen Adventures, disponível em&nbsp;https://thechosenadventures.com/, destina-se a crianças com menos de 18 anos.&nbsp;Para mais informações sobre a nossa recolha e utilização de dados de crianças em The Chosen Adventures, consulte a Política de Privacidade para Crianças, disponível&nbsp;aqui.</p>
+<p><b>14.&nbsp;Contacte-nos</b></p>
+<p>Após analisar a presente Política de Privacidade, se tiver questões adicionais, pretender obter mais informações sobre as nossas práticas de privacidade, desejar exercer os seus direitos ou apresentar uma reclamação, contacte-nos por e-mail para&nbsp;legal@thechosen.tv&nbsp;ou por correio, utilizando os dados abaixo indicados:</p>
+<p>5&amp;2 Studios, Inc.<br>
+8291 Baucum Road<br>
+Midlothian, TX 76065<br>
+EUA</p>
+<p><b>15.&nbsp;Alterações à presente Política de Privacidade</b></p>
+<p>A 5&amp;2 reserva-se o direito de alterar a presente Política de Privacidade a qualquer momento, publicando a versão revista neste website e atualizando a data de “última atualização” acima indicada. Quaisquer alterações à presente Política de Privacidade entrarão em vigor no momento da sua publicação.&nbsp;Recomendamos que consulte este website com frequência para verificar a política de privacidade em vigor e quaisquer alterações que lhe tenham sido introduzidas.</p>
+<p><b>16.&nbsp;Reclamações e Autoridades de Controlo</b></p>
+<p>Se tiver preocupações quanto à forma como tratamos as suas informações pessoais, recomendamos que nos contacte primeiro, utilizando os dados constantes da secção “Contacte-nos”, para que possamos tentar resolver a questão. Dependendo da sua localização ou jurisdição de residência, poderá igualmente ter o direito de apresentar uma reclamação junto de uma autoridade de proteção de dados ou de controlo na sua jurisdição.</p>
+<p><b><i>Espaço Económico Europeu e Reino Unido</i></b></p>
+<p>Tem o direito de apresentar uma reclamação junto da sua autoridade local de proteção de dados. Pode encontrar uma lista das autoridades de controlo do EEE em: https://www.edpb.europa.eu/about-edpb/about-edpb/members_en </p>
+<p><b><i>Argentina</i></b></p>
+<p>A Agência Argentina de Acesso à Informação Pública (Agencia de Acceso a la Información Pública), na qualidade de autoridade de controlo da Lei n.º 25.326, tem competência para apreciar queixas e reclamações apresentadas por indivíduos cujos direitos tenham sido violados por incumprimentos da regulamentação aplicável em matéria de proteção de dados.</p>
+<p><b><i>Brasil</i></b></p>
+<p>Poderá apresentar uma reclamação junto da Autoridade Nacional de Proteção de Dados do Brasil (Autoridade Nacional de Proteção de Dados – ANPD).</p>
+<p><b><i>Portugal</i></b></p>
+<p>Se se encontrar em Portugal, tem o direito de apresentar uma reclamação junto da Comissão Nacional de Proteção de Dados (CNPD), a autoridade portuguesa de proteção de dados.</p>
+<p><b>17.&nbsp;Direitos Suplementares de Privacidade de Estados dos EUA (incluindo a Califórnia)</b></p>
+<p>Os residentes de determinados estados dos EUA, incluindo a Califórnia, a Virgínia, o Colorado, o Connecticut e outros estados com legislação aplicável em matéria de privacidade, poderão ter certos direitos relativamente às suas informações pessoais, sujeitos às exceções e limitações aplicáveis.</p>
+<p><b><i>Os seus Direitos</i></b></p>
+<p>Dependendo do seu estado de residência, poderá ter o direito de:</p>
+<ul>
+<li>Aceder às informações pessoais que mantemos sobre si</li>
+<li>Retificar inexatidões nas suas informações pessoais</li>
+<li>Apagar as suas informações pessoais</li>
+<li>Obter uma cópia das suas informações pessoais num formato portátil</li>
+<li>Optar por não (i) permitir a venda de informações pessoais; (ii) permitir a partilha de informações pessoais para publicidade direcionada; e (iii) permitir determinadas formas de definição de perfis ou tomada de decisão automatizada, quando aplicável</li>
+</ul>
+<p><b><i>Categorias de Informações Pessoais</i></b></p>
+<p>Poderá ter o direito de receber informações sobre as categorias de informações pessoais que recolhemos, vendemos, divulgamos ou, de outro modo, partilhamos. Poderá igualmente ter o direito de receber informações sobre as fontes das informações pessoais que recolhemos, as finalidades para as quais as recolhemos e os terceiros e prestadores de serviços com quem as partilhámos, o período de conservação ou os critérios utilizados para determinar a conservação desses dados, e se vendemos ou partilhamos tais dados.&nbsp;Essas informações são-lhe disponibilizadas na presente Política de Privacidade. Nos últimos 12 meses, recolhemos as seguintes categorias de Informações Pessoais:&nbsp;</p>
+<table>
+<tbody>
+<tr>
+<td>
+<p>Informações Pessoais que Recolhemos</p>
+<p><br></p>
+</td>
+<td>
+<p>Como Utilizamos as suas Informações Pessoais&nbsp;</p>
+<p>(Finalidade Empresarial)</p>
+<p><br></p>
+</td>
+<td>
+<p>Durante quanto tempo conservamos as suas Informações Pessoais?</p>
+<p><br></p>
+</td>
+<td>
+<p>A quem divulgamos as suas Informações Pessoais?</p>
+<p><br></p>
+</td>
+<td>
+<p>Vendemos ou partilhamos as suas Informações Pessoais?</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Identificadores pessoais, tais como nome, morada de envio, e-mail, endereço IP, identificador online do dispositivo, nome de utilizador e número de telefone</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecer os nossos produtos e Serviços</li>
+<li>Criar a sua conta</li>
+<li>Inscrevê-lo(a) nos nossos desafios e promoções</li>
+</ul>
+<ul>
+<li>Inscrevê-lo(a) na nossa lista de correio ou, de outro modo, fornecer-lhe informações ou publicidade que possam ser do seu interesse</li>
+<li>Responder ao seu pedido ou solicitação</li>
+<li>Permitir a sua participação em transmissões em direto, eventos ao vivo, conversas (chats) e fóruns</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Durante o tempo necessário para cumprir as nossas obrigações contratuais para consigo (por exemplo, para prestar os Serviços) e as nossas obrigações legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecedores, incluindo fornecedores de publicidade e de análise</li>
+<li>Parceiros de redes sociais e de marketing</li>
+<li>Entidades afiliadas e parceiros comerciais (por exemplo, a Come And See Foundation)</li>
+</ul>
+<p><br></p>
+</td>
+<td>
+<p>Sim*</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações demográficas, tais como género, idade e código postal</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Confirmar que tem idade legal para utilizar os nossos produtos e Serviços</li>
+<li>Cumprir as nossas obrigações legais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Durante o tempo necessário para cumprir as nossas obrigações contratuais para consigo (por exemplo, para prestar os Serviços; no caso dos nossos colaboradores) e as nossas obrigações legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecedores, incluindo fornecedores de publicidade e de análise</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Sim*</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações de conteúdo, tais como informações de visualização de vídeos e conteúdos, publicações em redes sociais e comunicações por mensagens de texto</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Responder aos seus pedidos e questões</li>
+<li>Permitir a sua participação em transmissões em direto, eventos ao vivo, fóruns e conversas (chats)</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Durante o tempo necessário para cumprir as nossas obrigações contratuais para consigo (por exemplo, para prestar os Serviços) e as nossas obrigações legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Plataformas de redes sociais</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Não</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações de atividade na Internet, tais como navegador, endereço IP, identificadores do dispositivo</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Detetar incidentes de segurança e proteger contra atividade maliciosa, enganosa, fraudulenta ou ilegal</li>
+<li>Ajudar-nos a proteger os Serviços e os nossos clientes contra danos</li>
+<li>Melhorar os nossos Sites e Serviços e desenvolver novos Serviços ou funcionalidades</li>
+<li>Realizar investigação e análises empresariais e identificar tendências de utilização</li>
+<li>Gerir equipamentos e sistemas da empresa</li>
+<li>Monitorizar a conformidade com as nossas políticas de TI; assegurar a segurança da rede e da informação</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Durante 24 meses, salvo se tal for necessário para fins legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecedores, incluindo fornecedores de publicidade e de análise</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Sim*</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações de geolocalização, tais como GPS e WiFi</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Prestar os Serviços</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Durante o tempo necessário para cumprir as nossas obrigações contratuais para consigo (por exemplo, para prestar os Serviços)</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecedores, incluindo fornecedores de publicidade e de análise</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Sim*</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações comerciais, incluindo histórico de compras</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecer-lhe os produtos e Serviços</li>
+</ul>
+<p><br></p>
+</td>
+<td>
+<p>Em conformidade com as nossas obrigações legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Processador de pagamentos terceiro, como a Stripe e a Shopify</li>
+<li>Fornecedores, incluindo fornecedores de publicidade e de análise</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+</ul>
+<p><br></p>
+</td>
+<td>
+<p>Sim*</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações de áudio e visuais, incluindo gravações e fotografias.</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Permitir a sua participação em transmissões em direto, eventos e fóruns</li>
+</ul>
+<ul>
+<li>Prestar apoio ao cliente</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Em conformidade com as nossas obrigações legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecedores</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Não</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações de Perfil (isto é, inferências retiradas das informações aqui indicadas que refletem as suas preferências)</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Prestar os nossos Serviços</li>
+<li>Melhorar os nossos Serviços e desenvolver novos Serviços ou funcionalidades</li>
+<li>Inscrevê-lo(a) na nossa lista de correio ou, de outro modo, fornecer-lhe informações ou publicidade que possam ser do seu interesse</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Em conformidade com as nossas obrigações legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecedores, incluindo fornecedores de publicidade e de análise</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Sim*</p>
+<p><br></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Informações Sensíveis</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Prestar os nossos Serviços</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Apenas durante o tempo razoavelmente necessário (isto é, limitado e de curto prazo) para cumprir as nossas obrigações contratuais para consigo (por exemplo, para prestar os Serviços, no contexto laboral), e em conformidade com as nossas obrigações legais</p>
+<p><br></p>
+</td>
+<td>
+<ul>
+<li>Fornecedores</li>
+<li>Entidades afiliadas e parceiros comerciais</li>
+<li></li>
+</ul>
+</td>
+<td>
+<p>Não</p>
+<p><br></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>* Poderá ter o direito de restringir a “venda” e a “partilha” das suas informações pessoais, conforme tais termos são definidos ao abrigo da legislação aplicável.&nbsp; Não “vendemos” informações pessoais; contudo, poderemos “partilhar” informações pessoais para fins de publicidade entre contextos (cross-contextual), conforme descrito na secção “Análise e Publicidade Baseada em Interesses” acima, bem como com os nossos parceiros comerciais, incluindo a Come and See Foundation. Para optar por não permitir a venda ou a partilha das suas informações pessoais, contacte-nos.</p>
+<p>Para mais detalhes sobre as informações que recolhemos, incluindo as categorias e fontes de informações pessoais, consulte “Recolha e Utilização de Informações Pessoais” acima. Recolhemos e utilizamos estas categorias de informações pessoais para as finalidades empresariais descritas na secção “Divulgação e Partilha de Informações Pessoais” acima, incluindo para gerir os nossos Serviços.&nbsp;</p>
+<p><b><i>Informações Pessoais Sensíveis (Residentes na Califórnia)</i></b></p>
+<p>Na medida em que recolhamos “informações pessoais sensíveis”, conforme definidas pela legislação da Califórnia, utilizamos essas informações apenas para finalidades permitidas por lei, incluindo prestar os Serviços, assegurar a segurança e cumprir obrigações legais. Não utilizamos nem divulgamos informações pessoais sensíveis para finalidades que desencadeiem um direito de limitar a sua utilização ao abrigo da legislação aplicável.</p>
+<p><b><i>Exercício dos seus Direitos</i></b></p>
+<p>Pode exercer os seus direitos contactando-nos através das informações disponibilizadas na secção “Submissão de Pedidos de Consumidores” abaixo ou submetendo um pedido através do Site. Poderemos necessitar de verificar a sua identidade antes de tratar o seu pedido e poderemos solicitar informações adicionais para esse efeito.</p>
+<p>Pode designar um representante autorizado para submeter pedidos em seu nome, sujeito a requisitos de verificação. Se pretender designar um representante autorizado para submeter pedidos em seu nome, envie-nos um e-mail para&nbsp;legal@thechosen.tv.&nbsp; Antes de responder a qualquer pedido apresentado em seu nome por um representante autorizado, poderemos exigir que nos forneça confirmação escrita, diretamente, de que concedeu ao representante autorizado permissão para apresentar esse(s) pedido(s) em seu nome.</p>
+<p><b><i>Não Discriminação</i></b></p>
+<p>Não o(a) discriminaremos pelo facto de optar por exercer os seus direitos ao abrigo da legislação aplicável, incluindo, designadamente, através de:</p>
+<ul>
+<li>Recusar-lhe bens ou Serviços</li>
+<li>Cobrar-lhe preços ou tarifas diferentes por bens ou Serviços, incluindo através de descontos ou outros benefícios, ou impor penalizações</li>
+<li>Prestar-lhe um nível ou qualidade diferentes de bens ou Serviços</li>
+<li>Sugerir que receberá um preço ou tarifa diferentes por bens ou Serviços, ou um nível ou qualidade diferentes de bens ou Serviços</li>
+</ul>
+<p>Nada do anteriormente exposto impede, contudo, que disponibilizemos programas, benefícios ou outras ofertas permitidas ao abrigo da legislação aplicável e razoavelmente relacionadas com o valor das informações pessoais, quando aplicável. Forneceremos quaisquer avisos exigidos e obteremos o seu consentimento sempre que tal seja exigido por lei.</p>
+<p><b><i>Submissão de Pedidos de Consumidores</i></b></p>
+<p>Pode submeter um pedido para exercer o seu direito da seguinte forma:&nbsp;</p>
+<ul>
+<li>Contactando-nos através dos nossos Sites, aqui.&nbsp;</li>
+<li>Enviando-nos um e-mail para&nbsp;legal@thechosen.tv.</li>
+</ul>
+<p><b><i>Recursos (quando aplicável)</i></b></p>
+<p>Se recusarmos o seu pedido, ou um pedido apresentado por um representante autorizado, poderá ter o direito de recorrer da nossa decisão, dependendo do seu estado de residência. Para apresentar um recurso, contacte-nos conforme indicado na secção “Submissão de Pedidos de Consumidores” acima.</p>
+<p><b><i>Incentivos Financeiros</i></b></p>
+<p>Ocasionalmente, poderemos disponibilizar incentivos financeiros em ligação com a recolha ou utilização de informações pessoais. Os termos materiais do incentivo financeiro ser-lhe-ão, em regra, apresentados no momento da adesão. Pode retirar-se de qualquer incentivo financeiro a qualquer momento enviando-nos um e-mail para&nbsp;legal@thechosen.tv. Contudo, se nos solicitar que retiremos qualquer incentivo financeiro, poderemos ficar impossibilitados de devolver incentivos anteriormente disponibilizados num momento posterior.&nbsp;</p></div><div><a href="/">← Voltar</a></div>
+</main>
+<footer class="foot">
+  Conteúdo oficial de <a href="https://chosenencounters.com/privacy" target="_blank" rel="noopener">chosenencounters.com</a> · 5&amp;2 Studios, Inc. · <a href="/privacy">Política de Privacidade</a> · <a href="/terms">Termos e Condições</a> · <a href="#" class="ck-manage">Gerenciar cookies</a>
+</footer>
+
+<script>
+(function(){
+  const burger=document.getElementById('burger'), mnav=document.getElementById('mnav');
+  if(!burger||!mnav) return;
+  function closeMnav(){ mnav.classList.remove('open'); burger.classList.remove('x'); burger.setAttribute('aria-expanded','false'); }
+  burger.addEventListener('click', e=>{ e.stopPropagation(); const o=mnav.classList.toggle('open'); burger.classList.toggle('x',o); burger.setAttribute('aria-expanded',String(o)); });
+  document.addEventListener('click', e=>{ if(mnav.classList.contains('open') && !mnav.contains(e.target) && e.target!==burger) closeMnav(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMnav(); });
+})();
+</script>
+</body>
+</html>
