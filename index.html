@@ -1774,13 +1774,86 @@ HERO — full-bleed
 &lt;div class=&quot;hero-rule&quot;&gt;&lt;/div&gt;
 &lt;p class=&quot;hero-sub&quot;&gt;A Temporada 6 de The Chosen abordar&amp;aacute; A Crucifica&amp;ccedil;&amp;atilde;o, e queremos compartilhar com voc&amp;ecirc; como a Igreja pode exercer um papel essencial no acolhimento &amp;agrave;s vidas impactadas pela mensagem da Cruz.&lt;/p&gt;
 &lt;div class=&quot;hero-cta&quot;&gt;
-&lt;a href=&quot;#visao&quot; class=&quot;btn btn-no-arrow&quot; onclick=&quot;smoothTo(&#x27;visao&#x27;,event)&quot;&gt;Quero participar&lt;/a&gt;
+&lt;a href=&quot;#caminho&quot; class=&quot;btn btn-no-arrow&quot; onclick=&quot;smoothTo(&#x27;caminho&#x27;,event)&quot;&gt;Quero participar&lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;scroll-hint&quot;&gt;
 &lt;svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;rgba(240,240,240,.45)&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/svg&gt;
 &lt;/div&gt;
 &lt;/header&gt;
+&lt;!-- =================================================
+O CAMINHO ATÉ A TEMPORADA 6 (countdown + timeline)
+================================================= --&gt;
+&lt;style&gt;
+.t6-band { padding: 2.4rem 0 2.6rem; background: var(--bg-deep); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.t6-head { display:flex; align-items:center; justify-content:center; gap:1.1rem; margin-bottom:1.5rem; }
+.t6-head::before, .t6-head::after { content:&quot;&quot;; height:1px; width:min(72px,14vw); background: var(--teal); opacity:.65; }
+.t6-title { font-family: var(--body); font-weight:600; font-size:.8rem; letter-spacing:.26em; text-transform:uppercase; color: var(--teal); margin:0; text-align:center; }
+.t6-count { display:flex; align-items:baseline; justify-content:center; gap:.55rem; margin-bottom:1.8rem; }
+.t6-unit { display:flex; flex-direction:column; align-items:center; min-width:3.2rem; }
+.t6-num { font-family: var(--display); font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height:1; color: var(--ink); letter-spacing:.02em; font-variant-numeric: tabular-nums; }
+.t6-lbl { font-family: var(--body); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color: var(--ink-mute); margin-top:.5rem; }
+.t6-sep { font-family: var(--display); font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--teal); transform: translateY(-.35rem); }
+.t6-avail { text-align:center; font-family: var(--body); font-size:1.05rem; color: var(--ink); margin: 0 0 2.4rem; }
+.t6-line { list-style:none; margin:0 auto; padding:0; display:grid; grid-template-columns: repeat(3,1fr); gap:1.4rem; max-width:880px; position:relative; }
+.t6-line::before { content:&quot;&quot;; position:absolute; top:5px; left:12%; right:12%; height:1px; background: var(--line); }
+.t6-step { position:relative; text-align:center; padding-top:1.35rem; }
+.t6-dot { position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; border:1.5px solid var(--teal); background: var(--bg-deep); }
+.t6-step.is-now .t6-dot { background: var(--teal); box-shadow: 0 0 0 4px rgba(1,184,175,.14); }
+.t6-when { display:block; font-family: var(--body); font-weight:700; font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color: var(--ink); margin-bottom:.45rem; }
+.t6-what { display:block; font-family: var(--body); font-size:.86rem; line-height:1.55; color: var(--ink-soft); max-width:250px; margin:0 auto; }
+.t6-cta { text-align:center; margin-top:2.4rem; }
+.t6-link { font-family: var(--body); font-weight:600; font-size:.82rem; letter-spacing:.14em; text-transform:uppercase; color: var(--teal); text-decoration:none; border-bottom:1px solid rgba(1,184,175,.4); padding-bottom:2px; transition: border-color .25s; }
+.t6-link:hover { border-color: var(--teal); }
+@media (max-width: 700px){
+.t6-line { grid-template-columns: 1fr; gap:1.6rem; max-width:330px; padding-left:1.4rem; }
+.t6-line::before { left:5px; right:auto; top:6px; bottom:6px; width:1px; height:auto; }
+.t6-step { text-align:left; padding-top:0; padding-left:1.2rem; }
+.t6-dot { left:-1.4rem; top:3px; transform:none; }
+.t6-what { margin:0; }
+}
+&lt;/style&gt;
+&lt;section class=&quot;t6-band&quot; id=&quot;caminho&quot; aria-label=&quot;O caminho até a Temporada 6&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;t6-head reveal&quot;&gt;&lt;h2 class=&quot;t6-title&quot;&gt;O caminho até a Temporada 6&lt;/h2&gt;&lt;/div&gt;
+&lt;div class=&quot;t6-count reveal&quot; id=&quot;t6Count&quot; aria-live=&quot;polite&quot;&gt;
+&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6d&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;dias&lt;/span&gt;&lt;/div&gt;
+&lt;span class=&quot;t6-sep&quot;&gt;:&lt;/span&gt;
+&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6h&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;horas&lt;/span&gt;&lt;/div&gt;
+&lt;span class=&quot;t6-sep&quot;&gt;:&lt;/span&gt;
+&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6m&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;min&lt;/span&gt;&lt;/div&gt;
+&lt;span class=&quot;t6-sep&quot;&gt;:&lt;/span&gt;
+&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6s&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;seg&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;t6-avail reveal&quot; id=&quot;t6Avail&quot; style=&quot;display:none&quot;&gt;A Temporada 6 já está disponível.&lt;span id=&quot;t6AvailCta&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;ol class=&quot;t6-line reveal&quot;&gt;
+&lt;li class=&quot;t6-step is-now&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;Agora&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;Realize Encontros com The Chosen e prepare sua comunidade.&lt;/span&gt;&lt;/li&gt;
+&lt;li class=&quot;t6-step&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;15 nov 2026&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;Estreia da Temporada 6 no Prime Video.&lt;/span&gt;&lt;/li&gt;
+&lt;li class=&quot;t6-step&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;Início de 2027&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;A Crucificação nos cinemas do mundo todo.&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;script&gt;
+(function(){
+try{
+var target = new Date(&#x27;2026-11-15T00:00:00-03:00&#x27;).getTime();
+var elD=document.getElementById(&#x27;t6d&#x27;), elH=document.getElementById(&#x27;t6h&#x27;), elM=document.getElementById(&#x27;t6m&#x27;), elS=document.getElementById(&#x27;t6s&#x27;);
+var wrap=document.getElementById(&#x27;t6Count&#x27;), avail=document.getElementById(&#x27;t6Avail&#x27;);
+function p2(n){ return n&lt;10 ? &#x27;0&#x27;+n : &#x27;&#x27;+n; }
+function tick(){
+var diff = target - Date.now();
+if(diff &lt;= 0){ wrap.style.display=&#x27;none&#x27;; avail.style.display=&#x27;&#x27;; clearInterval(iv); return; }
+var s = Math.floor(diff/1000);
+elD.textContent = Math.floor(s/86400);
+elH.textContent = p2(Math.floor(s%86400/3600));
+elM.textContent = p2(Math.floor(s%3600/60));
+elS.textContent = p2(s%60);
+}
+var iv = setInterval(tick, 1000);
+tick();
+}catch(err){}
+})();
+&lt;/script&gt;
 &lt;!-- =================================================
 VISÃO + PILARES
 ================================================= --&gt;
