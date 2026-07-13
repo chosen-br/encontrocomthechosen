@@ -1261,20 +1261,20 @@ pointer-events: none;
 position: relative;
 z-index: 1;
 display: grid;
-grid-template-columns: 1fr 1.25fr;
+grid-template-columns: 1.15fr 1fr;
 gap: clamp(2rem, 5vw, 4.5rem);
 align-items: center;
 }
 .video-text .eyebrow { margin-bottom: 1.6rem; }
 .video-text h2 {
 font-family: var(--display);
-font-size: clamp(2rem, 4.5vw, 3.6rem);
+font-size: clamp(2rem, 4vw, 3.2rem);
 line-height: 0.95;
 text-transform: uppercase;
 color: var(--ink);
 margin-bottom: 1.4rem;
 }
-.video-text h2 .accent { color: var(--teal); display: block; }
+.video-text h2 .accent { color: var(--teal); }
 .video-lead { font-size: 1.05rem; line-height: 1.65; color: var(--ink-soft); max-width: 46ch; }
 .video-wrapper {
 position: relative;
@@ -1774,7 +1774,7 @@ HERO — full-bleed
 &lt;div class=&quot;hero-rule&quot;&gt;&lt;/div&gt;
 &lt;p class=&quot;hero-sub&quot;&gt;A Temporada 6 de The Chosen abordar&amp;aacute; A Crucifica&amp;ccedil;&amp;atilde;o, e queremos compartilhar com voc&amp;ecirc; como a Igreja pode exercer um papel essencial no acolhimento &amp;agrave;s vidas impactadas pela mensagem da Cruz.&lt;/p&gt;
 &lt;div class=&quot;hero-cta&quot;&gt;
-&lt;a href=&quot;#caminho&quot; class=&quot;btn btn-no-arrow&quot; onclick=&quot;smoothTo(&#x27;caminho&#x27;,event)&quot;&gt;Quero participar&lt;/a&gt;
+&lt;a href=&quot;#mensagem&quot; class=&quot;btn btn-no-arrow&quot; onclick=&quot;smoothTo(&#x27;mensagem&#x27;,event)&quot;&gt;Quero participar&lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;scroll-hint&quot;&gt;
@@ -1782,14 +1782,63 @@ HERO — full-bleed
 &lt;/div&gt;
 &lt;/header&gt;
 &lt;!-- =================================================
+VÍDEO — DALLAS JENKINS
+================================================= --&gt;
+&lt;section class=&quot;section video-fold&quot; id=&quot;mensagem&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;video-row&quot;&gt;
+&lt;div class=&quot;video-text reveal&quot;&gt;
+&lt;div class=&quot;eyebrow&quot;&gt;Dallas Jenkins &amp;middot; Criador de The Chosen&lt;/div&gt;
+&lt;h2&gt;Uma mensagem para&lt;br&gt;as &lt;span class=&quot;accent&quot;&gt;lideran&amp;ccedil;as do Brasil&lt;/span&gt;&lt;/h2&gt;
+&lt;p class=&quot;video-lead&quot;&gt;Dallas Jenkins, criador e diretor de The Chosen, compartilha diretamente com os l&amp;iacute;deres brasileiros por que esse momento &amp;eacute; &amp;uacute;nico, e por que a Igreja &amp;eacute; a pe&amp;ccedil;a central do que vem a seguir.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;reveal&quot; data-delay=&quot;2&quot;&gt;
+&lt;div class=&quot;video-wrapper&quot; id=&quot;vw&quot;&gt;
+&lt;div class=&quot;video-ph&quot; id=&quot;vph&quot; onclick=&quot;loadVideo()&quot; style=&quot;background-image:url(&#x27;img/visao-jpg-2.webp&#x27;);&quot;&gt;
+&lt;div class=&quot;play-btn&quot;&gt;
+&lt;svg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 22 22&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M8 5l11 6-11 6V5z&quot; fill=&quot;#01b8af&quot; stroke=&quot;#01b8af&quot; stroke-width=&quot;1&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- =================================================
+VISÃO + PILARES
+================================================= --&gt;
+&lt;section class=&quot;section visao&quot; id=&quot;visao&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;sec-head reveal&quot;&gt;
+&lt;div class=&quot;eyebrow&quot;&gt;01 &amp;middot; A vis&amp;atilde;o&lt;/div&gt;
+&lt;h2 class=&quot;sec-h2&quot;&gt;A Crucifica&amp;ccedil;&amp;atilde;o ser&amp;aacute; testemunhada&lt;br&gt;por &lt;span class=&quot;accent&quot;&gt;milhares ao redor do mundo.&lt;/span&gt;&lt;/h2&gt;
+&lt;p class=&quot;sec-lead&quot;&gt;Milh&amp;otilde;es est&amp;atilde;o sendo atra&amp;iacute;dos para a hist&amp;oacute;ria de Jesus atrav&amp;eacute;s de The Chosen. Com a Temporada 6, que retrata a Crucifica&amp;ccedil;&amp;atilde;o, a Cruz ser&amp;aacute; colocada no centro da cultura de forma ousada, ineg&amp;aacute;vel e inesquec&amp;iacute;vel, e a Igreja precisa estar preparada para o que esse momento ir&amp;aacute; despertar.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;pillars&quot;&gt;
+&lt;div class=&quot;pillar reveal&quot;&gt;
+&lt;span class=&quot;pillar-tag&quot;&gt;A Crucifica&amp;ccedil;&amp;atilde;o&lt;/span&gt;
+&lt;p&gt;Ao retratar o centro da f&amp;eacute; crist&amp;atilde;, esta temporada tem o potencial de despertar perguntas profundas, aproximar cora&amp;ccedil;&amp;otilde;es de Jesus e abrir caminhos para transforma&amp;ccedil;&amp;atilde;o real.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;pillar reveal&quot; data-delay=&quot;1&quot;&gt;
+&lt;span class=&quot;pillar-tag&quot;&gt;The Chosen como ponte&lt;/span&gt;
+&lt;p&gt;The Chosen n&amp;atilde;o &amp;eacute; o destino, mas uma ponte. Ao levar milh&amp;otilde;es ao encontro da hist&amp;oacute;ria de Jesus, torna-se uma oportunidade para que cora&amp;ccedil;&amp;otilde;es sejam despertados e vidas se abram &amp;agrave; mensagem da Cruz.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;pillar reveal&quot; data-delay=&quot;2&quot;&gt;
+&lt;span class=&quot;pillar-tag&quot;&gt;O bast&amp;atilde;o est&amp;aacute; com voc&amp;ecirc;&lt;/span&gt;
+&lt;p&gt;Produzimos a Temporada 6, mas The Chosen n&amp;atilde;o &amp;eacute; uma igreja. Quando esse momento alcan&amp;ccedil;ar vidas, ser&amp;aacute; a Igreja quem ir&amp;aacute; acolher, caminhar junto e conduzir pessoas em uma jornada pessoal com Jesus.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- =================================================
 O CAMINHO ATÉ A TEMPORADA 6 (countdown + timeline)
 ================================================= --&gt;
 &lt;style&gt;
-.t6-band { padding: 2.4rem 0 2.6rem; background: var(--bg-deep); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.t6-head { display:flex; align-items:center; justify-content:center; gap:1.1rem; margin-bottom:1.5rem; }
+.t6-band { padding: 1.5rem 0 1.7rem; background: var(--bg-deep); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.t6-head { display:flex; align-items:center; justify-content:center; gap:1.1rem; margin-bottom:1rem; }
 .t6-head::before, .t6-head::after { content:&quot;&quot;; height:1px; width:min(72px,14vw); background: var(--teal); opacity:.65; }
 .t6-title { font-family: var(--body); font-weight:600; font-size:.8rem; letter-spacing:.26em; text-transform:uppercase; color: var(--teal); margin:0; text-align:center; }
-.t6-count { display:flex; align-items:baseline; justify-content:center; gap:.55rem; margin-bottom:1.8rem; }
+.t6-count { display:flex; align-items:baseline; justify-content:center; gap:.55rem; margin-bottom:1.2rem; }
 .t6-unit { display:flex; flex-direction:column; align-items:center; min-width:3.2rem; }
 .t6-num { font-family: var(--display); font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height:1; color: var(--ink); letter-spacing:.02em; font-variant-numeric: tabular-nums; }
 .t6-lbl { font-family: var(--body); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color: var(--ink-mute); margin-top:.5rem; }
@@ -1854,58 +1903,6 @@ tick();
 }catch(err){}
 })();
 &lt;/script&gt;
-&lt;!-- =================================================
-VISÃO + PILARES
-================================================= --&gt;
-&lt;section class=&quot;section visao&quot; id=&quot;visao&quot;&gt;
-&lt;div class=&quot;container&quot;&gt;
-&lt;div class=&quot;sec-head reveal&quot;&gt;
-&lt;div class=&quot;eyebrow&quot;&gt;01 &amp;middot; A vis&amp;atilde;o&lt;/div&gt;
-&lt;h2 class=&quot;sec-h2&quot;&gt;A Crucifica&amp;ccedil;&amp;atilde;o ser&amp;aacute; testemunhada&lt;br&gt;por &lt;span class=&quot;accent&quot;&gt;milhares ao redor do mundo.&lt;/span&gt;&lt;/h2&gt;
-&lt;p class=&quot;sec-lead&quot;&gt;Milh&amp;otilde;es est&amp;atilde;o sendo atra&amp;iacute;dos para a hist&amp;oacute;ria de Jesus atrav&amp;eacute;s de The Chosen. Com a Temporada 6, que retrata a Crucifica&amp;ccedil;&amp;atilde;o, a Cruz ser&amp;aacute; colocada no centro da cultura de forma ousada, ineg&amp;aacute;vel e inesquec&amp;iacute;vel, e a Igreja precisa estar preparada para o que esse momento ir&amp;aacute; despertar.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;pillars&quot;&gt;
-&lt;div class=&quot;pillar reveal&quot;&gt;
-&lt;span class=&quot;pillar-num&quot;&gt;01&lt;/span&gt;
-&lt;span class=&quot;pillar-tag&quot;&gt;A Crucifica&amp;ccedil;&amp;atilde;o&lt;/span&gt;
-&lt;p&gt;Ao retratar o centro da f&amp;eacute; crist&amp;atilde;, esta temporada tem o potencial de despertar perguntas profundas, aproximar cora&amp;ccedil;&amp;otilde;es de Jesus e abrir caminhos para transforma&amp;ccedil;&amp;atilde;o real.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;pillar reveal&quot; data-delay=&quot;1&quot;&gt;
-&lt;span class=&quot;pillar-num&quot;&gt;02&lt;/span&gt;
-&lt;span class=&quot;pillar-tag&quot;&gt;The Chosen como ponte&lt;/span&gt;
-&lt;p&gt;The Chosen n&amp;atilde;o &amp;eacute; o destino, mas uma ponte. Ao levar milh&amp;otilde;es ao encontro da hist&amp;oacute;ria de Jesus, torna-se uma oportunidade para que cora&amp;ccedil;&amp;otilde;es sejam despertados e vidas se abram &amp;agrave; mensagem da Cruz.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;pillar reveal&quot; data-delay=&quot;2&quot;&gt;
-&lt;span class=&quot;pillar-num&quot;&gt;03&lt;/span&gt;
-&lt;span class=&quot;pillar-tag&quot;&gt;O bast&amp;atilde;o est&amp;aacute; com voc&amp;ecirc;&lt;/span&gt;
-&lt;p&gt;Produzimos a Temporada 6, mas The Chosen n&amp;atilde;o &amp;eacute; uma igreja. Quando esse momento alcan&amp;ccedil;ar vidas, ser&amp;aacute; a Igreja quem ir&amp;aacute; acolher, caminhar junto e conduzir pessoas em uma jornada pessoal com Jesus.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/section&gt;
-&lt;!-- =================================================
-VÍDEO — DALLAS JENKINS
-================================================= --&gt;
-&lt;section class=&quot;section video-fold&quot;&gt;
-&lt;div class=&quot;container&quot;&gt;
-&lt;div class=&quot;video-row&quot;&gt;
-&lt;div class=&quot;video-text reveal&quot;&gt;
-&lt;div class=&quot;eyebrow&quot;&gt;Dallas Jenkins &amp;middot; Criador de The Chosen&lt;/div&gt;
-&lt;h2&gt;Uma mensagem para as&lt;br&gt;&lt;span class=&quot;accent&quot;&gt;lideran&amp;ccedil;as do Brasil&lt;/span&gt;&lt;/h2&gt;
-&lt;p class=&quot;video-lead&quot;&gt;Dallas Jenkins, criador e diretor de The Chosen, compartilha diretamente com os l&amp;iacute;deres brasileiros por que esse momento &amp;eacute; &amp;uacute;nico, e por que a Igreja &amp;eacute; a pe&amp;ccedil;a central do que vem a seguir.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;reveal&quot; data-delay=&quot;2&quot;&gt;
-&lt;div class=&quot;video-wrapper&quot; id=&quot;vw&quot;&gt;
-&lt;div class=&quot;video-ph&quot; id=&quot;vph&quot; onclick=&quot;loadVideo()&quot; style=&quot;background-image:url(&#x27;img/visao-jpg-2.webp&#x27;);&quot;&gt;
-&lt;div class=&quot;play-btn&quot;&gt;
-&lt;svg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 22 22&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M8 5l11 6-11 6V5z&quot; fill=&quot;#01b8af&quot; stroke=&quot;#01b8af&quot; stroke-width=&quot;1&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/section&gt;
 &lt;!-- =================================================
 PARTICIPAR
 ================================================= --&gt;
