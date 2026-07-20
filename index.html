@@ -103,11 +103,11 @@ BILLBOARD (HERO ROTATIVO)
 .billboard{position:relative;height:42vh;min-height:380px;overflow:hidden;margin-top:68px}
 .bb-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end;padding:26px var(--pad) clamp(30px,5vh,48px)}
 .bb-slide.on{opacity:1;pointer-events:auto}
-.bb-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06);animation:bbZoom 14s ease-out forwards}
+.bb-bg{position:absolute;inset:0;background-size:cover;background-position:center 72%;transform:scale(1.06);animation:bbZoom 14s ease-out forwards}
 @keyframes bbZoom{to{transform:scale(1)}}
 .bb-bg{background-position:65% 0% !important}
 .bb-shade{position:absolute;inset:0;background:
-linear-gradient(180deg,rgba(10,10,10,.45) 0%,transparent 28%,transparent 52%,rgba(10,10,10,.92) 86%,var(--bg) 100%),
+linear-gradient(180deg,rgba(10,10,10,.45) 0%,transparent 28%),
 linear-gradient(90deg,rgba(10,10,10,.88) 0%,rgba(10,10,10,.42) 42%,transparent 68%)}
 .bb-body{position:relative;z-index:2;max-width:660px;width:100%}
 .bb-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
