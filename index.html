@@ -609,6 +609,7 @@ PORTÃO DE ACESSO (Biblioteca de Cenas / downloads)
 .aerr{font-size:12.5px;color:#e86a4a;margin-top:10px;display:none}
 .anote{font-size:14.5px;color:var(--grey-1);margin-top:18px;line-height:1.6}
 .row-sub{font-size:13.5px;color:var(--grey-2);line-height:1.65;max-width:78ch;margin:8px 0 0}
+#temporadas .row-sub{max-width:none}
 #temporadas .row-h{flex-direction:column;align-items:flex-start;gap:0}
 .row-sub::first-line{}
 /* reveal on scroll */
@@ -2196,15 +2197,15 @@ cta1:"Explorar temporadas", cta2:"Como funciona", img:"encounter", c:["#0b2622",
 ];
 const SEASONS = [
 { n:1, name:"Temporada 1",     status:"liberada",  meta:"Guias de Estudo em Grupo", img:"s1", c:["#0c2e28","#10433a","#081a16"], seed:21,
-desc:"A Temporada 1 apresenta Jesus e o chamado de Seus primeiros discípulos: um pescador carismático afundado em dívidas, uma mulher atormentada por demônios reais, um publicano talentoso rejeitado pela família e pelo seu povo, e um líder religioso em conflito com as próprias crenças. Veja Jesus pelos olhos de quem O conheceu." },
+desc:"Um pescador carismático se afogando em dívidas. Uma mulher problemática lutando com demônios. Um talentoso publicano condenado ao ostracismo por sua família e seu povo. Um líder religioso lutando contra suas crenças. Veja Jesus através dos olhos daqueles que O conheceram." },
 { n:2, name:"Temporada 2",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s2", c:["#251a08","#38280e","#120d04"], seed:22,
-desc:"A Temporada 2 marca o início do ministério público de Jesus. A tensão cresce entre os discípulos enquanto eles lidam com a fama cada vez maior de Jesus na Samaria." },
+desc:"Maria é confrontada por demônios antigos. A tensão entre Simão e Mateus explode. Tiago e João lutam contra seus preconceitos e temperamentos explosivos. Mesmo assim, eles continuam a buscar fervorosamente o homem que nem sempre entendem, mas sempre seguirão." },
 { n:3, name:"Temporada 3",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s3", c:["#0c2030","#123047","#061019"], seed:23,
-desc:"A Temporada 3 começa com Jesus proferindo o sermão mais famoso da história. O mundo muda por causa desse sermão, e tanto os que creem quanto os inimigos de Jesus se multiplicam, gerando confusão, caos e dúvida." },
+desc:"Após Jesus entregar o sermão mais impactante da história, Seus discípulos presumem que a vida vai melhorar, mas os problemas logo emergem. Pressão das autoridades, das multidões, e crises pessoais acumulam-se até atingir um desfecho impressionante: Jesus e os discípulos rodeados por mais de 5000 pessoas em uma região perigosa. Com as tensões elevadas, eles ficam sem comida… até que um garotinho com cinco pães e dois peixes apareça." },
 { n:4, name:"Temporada 4",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s4", c:["#240e0e","#3a1818","#120606"], seed:24,
-desc:"Reinos em choque, governantes rivais. Ameaçados pela influência crescente de Jesus, os líderes religiosos fazem o impensável: aliam-se aos opressores romanos." },
+desc:"Reinos em conflito. Governantes rivais. Os inimigos de Jesus se aproximam enquanto Seus seguidores lutam para acompanhá-Lo, deixando-O carregar o fardo sozinho. Ameaçados pela crescente influência de Jesus, os líderes religiosos fazem o impensável: aliam-se a Roma. Enquanto as sementes da traição são plantadas e a oposição à mensagem de Jesus se torna violenta, Ele não vê outra alternativa senão exigir que Seus seguidores SE LEVANTEM." },
 { n:5, name:"Temporada 5",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s5", c:["#1d1024","#2e1a38","#0e0612"], seed:25,
-desc:"A mesa está posta. O povo de Israel recebe Jesus como rei, e os discípulos aguardam Sua coroação. Mas, em vez de confrontar Roma, Ele vira as mesas da grande festa religiosa judaica." },
+desc:"A mesa está posta. O povo de Israel recebe Jesus como rei, enquanto Seus discípulos aguardam Sua coroação. Mas, em vez de confrontar Roma, Ele vira as mesas durante a festividade religiosa judaica. Com seu poder ameaçado, os líderes religiosos e políticos do país farão de tudo para garantir que esta refeição de Páscoa seja a última de Jesus." },
 { n:6, name:"Crucificação",  status:"bloqueada", meta:"Guias de Estudo em Grupo", img:"t6card", c:["#1a1a22","#26262e","#101014"], seed:26, desc:"" },
 ];
 const SEASON_DESC_I18N = {
@@ -2760,8 +2761,7 @@ renderSceneDetail(v, tr, _tail, playUrl);
 const s = SEASONS.find(x=>x.n===idx); obj=s;
 const _S=I18N[curLang]||I18N.pt;
 title=localSeasonName(s);
-const GUIA_INTRO = 'Criamos estes guias de estudo para ajudar você a conduzir conversas significativas após cada episódio de The\u00a0Chosen.<br><br>Ao assistirem, conversarem e orarem juntos, esperamos que estas perguntas ajudem o seu grupo a aprofundar-se no que viu e a mergulhar mais a fundo na Bíblia.';
-desc = GUIA_INTRO;
+desc = s.desc || '';
 tags=(_S.seasonTags||['Chamado','Fé','Comunidade']).slice();
 meta=`<span class="match">${_S.available}</span><span>8 ${_S.epsWord}</span>`;
 playUrl = watchSeason(s.n); playTxt = `${_S.watchSeasonTxt} ${s.n}`;
