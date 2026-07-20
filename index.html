@@ -477,6 +477,12 @@ kbd{background:var(--bg-raised);border:1px solid rgba(255,255,255,.12);padding:2
 .kit-dl.prod{background:rgba(255,255,255,.07);color:var(--grey-2);cursor:not-allowed;pointer-events:none;border:1px dashed rgba(255,255,255,.18)}
 .kit-dl.prod:hover{filter:none}
 .kit-dl.prod:active{transform:none}
+.kit-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.kit-btns .kit-dl{margin-top:0}
+.kit-dl.canva{background:transparent;color:var(--teal);border:1px solid rgba(1,184,175,.45)}
+.kit-dl.canva:hover{filter:none;border-color:var(--teal);background:rgba(1,184,175,.08)}
+.kit-senha{display:none}
+body.authed .kit-senha{display:inline}
 /* FAQ hero (página separada) */
 .faqhero{position:relative;height:38vh;min-height:300px;margin-top:68px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
 .faqhero-bg{position:absolute;inset:0;background-size:cover;background-position:62% 20%}
@@ -2979,7 +2985,7 @@ a.style.maxHeight = open ? (a.scrollHeight+'px') : null;
 });
 }
 /* ====== KIT DE DIVULGAÇÃO ====== */
-const KIT_DATA = {"pt": {"title": "Kit de Divulgação", "sub": "Materiais gratuitos e prontos para usar na divulgação do seu Encontro com The Chosen.", "intro": "Baixe vídeos, cartazes, artes para redes sociais e materiais de marca para convidar a sua comunidade. Tudo gratuito para usar ao realizar um Encontro com The Chosen.", "groups": [{"title": "Vídeos", "sub": "Clipes cinematográficos para despertar interesse e convidar.", "items": [{"name": "Vídeo de Divulgação", "desc": "Perfeito para compartilhar nas suas redes sociais e convidar pessoas para o seu Encontro com The Chosen.", "fmt": "MP4 · 1080p", "kind": "video"}, {"name": "Contagem Regressiva", "desc": "Contagem regressiva animada para criar expectativa antes do evento.", "fmt": "MP4 · 1080p", "kind": "video"}]}, {"title": "Cartazes e Impressos", "sub": "Arquivos prontos para impressão, com espaço para data e local.", "items": [{"name": "Cartaz do Evento", "desc": "Cartaz em alta resolução para exibir na sua igreja ou no local.", "fmt": "", "kind": "print"}, {"name": "Panfleto", "desc": "Panfleto frente e verso para distribuir e convidar.", "fmt": "", "kind": "print"}]}, {"title": "Redes e Digital", "sub": "No tamanho certo e prontos para cada feed e tela.", "items": [{"name": "Post para Instagram", "desc": "Arte vertical (4:5) para posts no feed e anúncios.", "fmt": "PNG · 1080×1350", "kind": "image"}, {"name": "Story para Instagram", "desc": "Modelo vertical de story com uma chamada clara para ação.", "fmt": "PNG · 1080×1920", "kind": "image"}, {"name": "Banner para Web", "desc": "Banner largo para sites, e-mails e newsletters.", "fmt": "PNG · 1920×600", "kind": "image"}]}, {"title": "Materiais de Marca", "sub": "Logos e orientações para manter tudo alinhado à identidade.", "items": [{"name": "Guia de Marca e Pacote de Logos", "desc": "Logos, cores, fontes e orientações simples do que fazer e evitar.", "fmt": "", "kind": "brand", "url": "https://thechosen.lingoapp.com/s/Logo-and-Guidance-oJ2Mym?v=9"}]}]}};
+const KIT_DATA = {"pt": {"title": "Kit de Divulgação", "sub": "Materiais gratuitos e prontos para usar na divulgação do seu Encontro com The Chosen.", "intro": "Baixe vídeos, cartazes, artes para redes sociais e materiais de marca para convidar a sua comunidade. Tudo gratuito para usar ao realizar um Encontro com The Chosen.", "groups": [{"title": "Vídeos", "sub": "<span class=\"kit-senha\">Senha de acesso: encontro</span>", "items": [{"name": "Vídeo de Divulgação", "desc": "Perfeito para compartilhar nas suas redes sociais e convidar pessoas para o seu Encontro com The Chosen.", "fmt": "MP4 · 1080p", "kind": "video"}, {"name": "Contagem Regressiva", "desc": "Contagem regressiva animada para criar expectativa antes do evento.", "fmt": "MP4 · 1080p", "kind": "video", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao"}]}, {"title": "Cartazes e Impressos", "sub": "Arquivos prontos para impressão, com espaço para data e local.<span class=\"kit-senha\"><br>Senha de acesso: encontro</span>", "items": [{"name": "Cartaz do Evento", "desc": "Cartaz em alta resolução para exibir na sua igreja ou no local.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Panfleto", "desc": "Para distribuir e convidar.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Redes e Digital", "sub": "No tamanho certo e prontos para cada feed e tela.<span class=\"kit-senha\"><br>Senha de acesso: encontro</span>", "items": [{"name": "Post para Instagram", "desc": "Arte vertical (4:5) para posts no feed e anúncios.", "fmt": "PNG · 1080×1350", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Story para Instagram", "desc": "Modelo vertical de story com uma chamada clara para ação.", "fmt": "PNG · 1080×1920", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Banner para Web", "desc": "Banner largo para sites, e-mails e newsletters.", "fmt": "PNG · 1920×600", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Materiais de Marca", "sub": "Logos e orientações para manter tudo alinhado à identidade.", "items": [{"name": "Guia de Marca e Pacote de Logos", "desc": "Logos, cores, fontes e orientações simples do que fazer e evitar.", "fmt": "", "kind": "brand", "url": "https://thechosen.lingoapp.com/k/Pm5zp8"}]}]}};
 const KIT_PROD_LABEL = {pt:"Em produção"};
 const KIT_PROD_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 const KIT_ICONS = {
@@ -3008,7 +3014,10 @@ ${g.items.map(it=>`
 <div class="kit-name">${it.name}</div>
 ${it.desc ? `<div class="kit-desc">${it.desc}</div>` : ''}
 ${it.fmt ? `<div class="kit-meta"><span class="kit-fmt">${it.fmt}</span></div>` : ''}
-<button class="kit-dl prod" disabled aria-disabled="true" aria-label="${dl} — ${it.name}">${KIT_PROD_SVG}<span>${dl}</span></button>
+<div class="kit-btns">
+${it.url ? `<a class="kit-dl" href="${it.url}" target="_blank" rel="noopener" data-res="Kit: ${it.name}" aria-label="Baixar — ${it.name}"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Baixar</span></a>` : `<button class="kit-dl prod" disabled aria-disabled="true" aria-label="${dl} — ${it.name}">${KIT_PROD_SVG}<span>${dl}</span></button>`}
+${it.canva ? `<a class="kit-dl canva" href="${it.canva}" target="_blank" rel="noopener" data-res="Kit (Canva): ${it.name}" aria-label="Abrir no Canva — ${it.name}"><span>Abrir no Canva</span></a>` : ``}
+</div>
 </div>`).join('')}
 </div>
 </div>`).join('');
@@ -3185,6 +3194,7 @@ function tryAuth(){
 const inp = document.getElementById('aPass');
 if(inp.value.trim() === CFG_AUTH.password){
 grantAuth();
+document.body.classList.add('authed');
 const run = authPending; authPending = null;
 amodal.classList.remove('open'); document.body.style.overflow='';
 if(run) run();
@@ -3222,7 +3232,7 @@ openAuth(()=>{ if(typeof filterByTema==='function') filterByTema(tema); });
 /* Cinto de segurança: qualquer botão de download também exige acesso */
 document.addEventListener('click', e=>{
 if(!e.target || !e.target.closest) return;
-const dl = e.target.closest('#scmDl, #modalDl');
+const dl = e.target.closest('#scmDl, #modalDl, a.kit-dl');
 if(dl && !isAuthed()){
 e.preventDefault(); e.stopPropagation();
 openAuth(()=>{ const href=dl.getAttribute('href'); if(href && href!=='#'){ window.open(href,'_blank','noopener'); if(typeof trackDownload==='function') trackDownload(dl); } });
@@ -3257,6 +3267,7 @@ initSceneDrop();
 applyLang(curLang);
 { const fb=document.getElementById('faqHeroBg'); if(fb && typeof IMG!=='undefined' && IMG.faqhero){ fb.style.backgroundImage = `url('${IMG.faqhero}')`; fb.style.backgroundPosition='center 38%'; } const kb=document.getElementById('kitHeroBg'); if(kb && typeof IMG!=='undefined' && IMG.kithero){ kb.style.backgroundImage = `url('${IMG.kithero}')`; kb.style.backgroundPosition='center 30%'; } }
 bootRoute();
+if(typeof isAuthed==='function' && isAuthed()) document.body.classList.add('authed');
 document.documentElement.removeAttribute('data-boot'); /* devolve o controle das views ao roteador JS */
 document.getElementById('navLogo').src = LOGO;
 document.getElementById('footLogo').src = LOGO;
