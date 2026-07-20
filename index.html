@@ -713,16 +713,6 @@ bindManage();
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
-<!-- Vercel Analytics -->
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
-<!-- Vercel Speed Insights -->
-<script>
-  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 <body>
 <!-- ============ NAVBAR ============ -->
@@ -790,7 +780,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <section class="row" id="temporadas" aria-labelledby="rt1">
 <div class="row-h">
 <h2 class="row-t" id="rt1">Jornada pelas Temporadas</h2>
-<p class="row-sub">Guias de Estudo em Grupo para conduzir conversas significativas após cada episódio de <span style="white-space:nowrap">The&nbsp;Chosen</span>.</p>
+<p class="row-sub">Encontre facilmente onde assistir cada episódio de <span style="white-space:nowrap">The&nbsp;Chosen</span> e prepare a exibição para o seu grupo.</p>
 </div>
 <div class="journey">
 <div class="journey-bar"><i></i></div>
@@ -2207,13 +2197,13 @@ cta1:"Explorar temporadas", cta2:"Como funciona", img:"encounter", c:["#0b2622",
 const SEASONS = [
 { n:1, name:"Temporada 1",     status:"liberada",  meta:"Guias de Estudo em Grupo", img:"s1", c:["#0c2e28","#10433a","#081a16"], seed:21,
 desc:"A Temporada 1 apresenta Jesus e o chamado de Seus primeiros discípulos: um pescador carismático afundado em dívidas, uma mulher atormentada por demônios reais, um publicano talentoso rejeitado pela família e pelo seu povo, e um líder religioso em conflito com as próprias crenças. Veja Jesus pelos olhos de quem O conheceu." },
-{ n:2, name:"Temporada 2",     status:"bloqueada", meta:"Guias de Estudo em Grupo", img:"s2", c:["#251a08","#38280e","#120d04"], seed:22,
+{ n:2, name:"Temporada 2",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s2", c:["#251a08","#38280e","#120d04"], seed:22,
 desc:"A Temporada 2 marca o início do ministério público de Jesus. A tensão cresce entre os discípulos enquanto eles lidam com a fama cada vez maior de Jesus na Samaria." },
-{ n:3, name:"Temporada 3",     status:"bloqueada", meta:"Guias de Estudo em Grupo", img:"s3", c:["#0c2030","#123047","#061019"], seed:23,
+{ n:3, name:"Temporada 3",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s3", c:["#0c2030","#123047","#061019"], seed:23,
 desc:"A Temporada 3 começa com Jesus proferindo o sermão mais famoso da história. O mundo muda por causa desse sermão, e tanto os que creem quanto os inimigos de Jesus se multiplicam, gerando confusão, caos e dúvida." },
-{ n:4, name:"Temporada 4",     status:"bloqueada", meta:"Guias de Estudo em Grupo", img:"s4", c:["#240e0e","#3a1818","#120606"], seed:24,
+{ n:4, name:"Temporada 4",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s4", c:["#240e0e","#3a1818","#120606"], seed:24,
 desc:"Reinos em choque, governantes rivais. Ameaçados pela influência crescente de Jesus, os líderes religiosos fazem o impensável: aliam-se aos opressores romanos." },
-{ n:5, name:"Temporada 5",     status:"bloqueada", meta:"Guias de Estudo em Grupo", img:"s5", c:["#1d1024","#2e1a38","#0e0612"], seed:25,
+{ n:5, name:"Temporada 5",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s5", c:["#1d1024","#2e1a38","#0e0612"], seed:25,
 desc:"A mesa está posta. O povo de Israel recebe Jesus como rei, e os discípulos aguardam Sua coroação. Mas, em vez de confrontar Roma, Ele vira as mesas da grande festa religiosa judaica." },
 { n:6, name:"Crucificação",  status:"bloqueada", meta:"Guias de Estudo em Grupo", img:"t6card", c:["#1a1a22","#26262e","#101014"], seed:26, desc:"" },
 ];
@@ -2445,7 +2435,7 @@ ${live?'':`<div class="sc-lockicon"><svg width="15" height="15" fill="none" stro
 <div class="sc-body">
 <span class="sc-status ${live?'ok':'soon'}">${live?'✓ '+t.available:t.statusSoon}</span>
 <div class="sc-name">${nm}</div>
-<div class="sc-meta">${t.studyGuides}</div>
+<div class="sc-meta">${s.n===6 ? '15 de Novembro no Prime Video' : '8 Episódios'}</div>
 ${live
 ? `<span class="sc-cta go">${t.explore}
 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>`
@@ -2773,7 +2763,7 @@ title=localSeasonName(s);
 const GUIA_INTRO = 'Criamos estes guias de estudo para ajudar você a conduzir conversas significativas após cada episódio de The\u00a0Chosen.<br><br>Ao assistirem, conversarem e orarem juntos, esperamos que estas perguntas ajudem o seu grupo a aprofundar-se no que viu e a mergulhar mais a fundo na Bíblia.';
 desc = GUIA_INTRO;
 tags=(_S.seasonTags||['Chamado','Fé','Comunidade']).slice();
-meta=`<span class="match">${_S.available}</span><span>8 ${_S.epsWord}</span><span>${_S.studyGuides}</span>`;
+meta=`<span class="match">${_S.available}</span><span>8 ${_S.epsWord}</span>`;
 playUrl = watchSeason(s.n); playTxt = `${_S.watchSeasonTxt} ${s.n}`;
 } else {
 const g = GUIDES_BY_SEASON[curSeason][idx]; obj={c:SEASON_PAL[g.s],seed:g.s*100+g.ep};
@@ -2831,9 +2821,6 @@ ${eps.map((g,i)=>`
 <button type="button" class="mep-btn" data-watch="${i}">
 <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
 ${t.epWatch}</button>
-<a class="mep-btn ghost" href="${g.url||'#'}"${g.url?' target="_blank" rel="noopener"':''} aria-label="Guia do episódio ${g.ep}">
-<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-${t.epGuide}</a>
 </div>
 </div>`).join('')}`;
 // assistir -> menu de plataformas (Prime / Netflix / The Chosen)
