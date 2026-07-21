@@ -52,6 +52,13 @@ tr:last-child td{border-bottom:none}
 </div>
 <h2>Ranking por recurso</h2>
 <div id="rankWrap"><p class="muted">Carregando…</p></div>
+<h2 style="margin-top:2rem">Popup "Já realizou seu Encontro?"</h2>
+<div class="cards" style="grid-template-columns:1fr 1fr 1fr">
+<div class="card"><div class="lbl">Exibições</div><div class="num" id="pExib">–</div></div>
+<div class="card"><div class="lbl">Sim, já realizei</div><div class="num" id="pSim">–</div></div>
+<div class="card"><div class="lbl">Ainda não</div><div class="num" id="pNao">–</div></div>
+</div>
+<div id="motWrap"><p class="muted">Sem respostas de motivo ainda.</p></div>
 </div>
 
 <script>
@@ -75,6 +82,17 @@ document.getElementById('nRel').textContent = j.relatos_total.toLocaleString('pt
 if(j.ultimo_relato){
 const d = new Date(j.ultimo_relato);
 document.getElementById('ultimoRel').textContent = 'último relato: ' + d.toLocaleString('pt-BR');
+}
+if(j.popup){
+document.getElementById('pExib').textContent = j.popup.exibido.toLocaleString('pt-BR');
+document.getElementById('pSim').textContent = j.popup.sim.toLocaleString('pt-BR');
+document.getElementById('pNao').textContent = j.popup.nao.toLocaleString('pt-BR');
+if(j.popup.motivos.length){
+let mh = '<table><tr><th>Motivo</th><th style="text-align:right">Respostas</th></tr>';
+j.popup.motivos.forEach(x => { mh += `<tr><td>${x.motivo.replace(/</g,'&lt;')}</td><td class="n">${x.respostas.toLocaleString('pt-BR')}</td></tr>`; });
+mh += '</table>';
+document.getElementById('motWrap').innerHTML = mh;
+}
 }
 if(j.ranking.length){
 let html = '<table><tr><th>Recurso</th><th style="text-align:right">Cliques</th></tr>';

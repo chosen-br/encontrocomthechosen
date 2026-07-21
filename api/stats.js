@@ -7,33 +7,45 @@ async function redis(path) {
   return r.json();
 }
 
+function hashToList(result, keyName, valName) {
+  const out = [];
+  const arr = result || [];
+  for (let i = 0; i < arr.length; i += 2) {
+    out.push({ [keyName]: decodeURIComponent(arr[i]), [valName]: parseInt(arr[i + 1], 10) || 0 });
+  }
+  out.sort((a, b) => b[valName] - a[valName]);
+  return out;
+}
+
 export default async function handler(req, res) {
   try {
     const key = req.headers['x-panel-key'] || (req.query && req.query.key) || '';
     if (key !== process.env.PANEL_TOKEN) return res.status(401).json({ ok: false, error: 'unauthorized' });
     if (!R_URL || !R_TOK) return res.status(200).json({ ok: false, error: 'storage-not-configured' });
 
-    const [total, relatos, ultimo, byres] = await Promise.all([
+    const [total, relatos, ultimo, byres, pExib, pSim, pNao, pMotivos] = await Promise.all([
       redis('get/dl:total'),
       redis('get/relato:total'),
       redis('get/relato:ultimo'),
       redis('hgetall/dl:byres'),
+      redis('get/popup:exibido'),
+      redis('get/popup:sim'),
+      redis('get/popup:nao'),
+      redis('hgetall/popup:motivos'),
     ]);
-
-    // hgetall retorna array alternado [campo, valor, campo, valor...]
-    const ranking = [];
-    const arr = byres.result || [];
-    for (let i = 0; i < arr.length; i += 2) {
-      ranking.push({ recurso: decodeURIComponent(arr[i]), cliques: parseInt(arr[i + 1], 10) || 0 });
-    }
-    ranking.sort((a, b) => b.cliques - a.cliques);
 
     return res.status(200).json({
       ok: true,
       downloads_total: parseInt(total.result, 10) || 0,
       relatos_total: parseInt(relatos.result, 10) || 0,
       ultimo_relato: ultimo.result ? decodeURIComponent(ultimo.result) : null,
-      ranking,
+      ranking: hashToList(byres.result, 'recurso', 'cliques'),
+      popup: {
+        exibido: parseInt(pExib.result, 10) || 0,
+        sim: parseInt(pSim.result, 10) || 0,
+        nao: parseInt(pNao.result, 10) || 0,
+        motivos: hashToList(pMotivos.result, 'motivo', 'respostas'),
+      },
     });
   } catch (e) {
     return res.status(200).json({ ok: false, error: 'internal' });

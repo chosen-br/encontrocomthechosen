@@ -107,7 +107,7 @@ BILLBOARD (HERO ROTATIVO)
 @keyframes bbZoom{to{transform:scale(1)}}
 .bb-bg{background-position:65% 0% !important}
 .bb-shade{position:absolute;inset:0;background:
-linear-gradient(180deg,rgba(10,10,10,.45) 0%,transparent 28%),
+linear-gradient(180deg,rgba(10,10,10,.45) 0%,transparent 28%,transparent 78%,rgba(10,10,10,.72) 100%),
 linear-gradient(90deg,rgba(10,10,10,.88) 0%,rgba(10,10,10,.42) 42%,transparent 68%)}
 .bb-body{position:relative;z-index:2;max-width:660px;width:100%}
 .bb-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
@@ -816,10 +816,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 </section>
 <!-- ============ TESTEMUNHOS ============ -->
 <style>
-.tst-band { padding: clamp(44px,7vh,72px) var(--pad) 3.6rem; background:#0d0d0d; }
-.tst-h { text-align:center; max-width:720px; margin:0 auto 2.4rem; }
-.tst-h h2 { font-size:clamp(14px,4.4vw,29px); font-weight:900; letter-spacing:-.015em; color:var(--ink); margin:0 0 8px; }
-.tst-h p { font-size:.95rem; line-height:1.6; color:var(--ink-soft); margin:0; }
+.tst-band { padding: clamp(40px,6vh,58px) var(--pad); background:#0d0d0d; }
 .tst-car { position:relative; max-width:760px; margin:0 auto; }
 .tst-viewport { overflow:hidden; }
 .tst-track { display:flex; transition:transform .45s cubic-bezier(.22,.61,.36,1); }
@@ -834,11 +831,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 .tst-dot.on { background:var(--teal); opacity:1; transform:scale(1.25); }
 @media (max-width:560px){ .tst-slide{padding:0 1.9rem} .tst-text{font-size:.94rem} }
 </style>
-<section class="tst-band rv" aria-labelledby="tstT">
-<div class="tst-h">
-<h2 id="tstT">Quem realizou, conta.</h2>
-<p>Histórias reais de líderes que já viveram um Encontro.<br>O próximo relato pode ser o seu.</p>
-</div>
+<section class="tst-band rv" aria-label="Testemunhos de líderes">
 <div class="tst-car">
 <div class="tst-viewport">
 <div class="tst-track" id="tstTrack">
@@ -3335,6 +3328,82 @@ if(typeof isAuthed==='function' && isAuthed()) document.body.classList.add('auth
 document.documentElement.removeAttribute('data-boot'); /* devolve o controle das views ao roteador JS */
 document.getElementById('navLogo').src = LOGO;
 document.getElementById('footLogo').src = LOGO;
+</script>
+<!-- ============ POPUP: JÁ REALIZOU SEU ENCONTRO? ============ -->
+<style>
+.npop{position:fixed;right:18px;bottom:18px;z-index:6000;max-width:330px;width:calc(100vw - 36px);background:var(--bg-raised);border:1px solid var(--line);border-radius:14px;padding:1.3rem 1.3rem 1.2rem;box-shadow:0 18px 48px rgba(0,0,0,.6);opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .35s ease,transform .35s ease}
+.npop.on{opacity:1;transform:none;pointer-events:auto}
+.npop-x{position:absolute;top:.55rem;right:.6rem;background:none;border:none;color:var(--ink-mute);cursor:pointer;padding:.3rem;line-height:0}
+.npop-x:hover{color:var(--ink)}
+.npop-t{font-size:.95rem;font-weight:800;color:var(--ink);margin:0 0 .9rem;padding-right:1.2rem;line-height:1.45}
+.npop-btns{display:flex;gap:.55rem}
+.npop-yes{flex:1;background:var(--teal);color:#04211f;border:none;border-radius:9px;padding:.6rem .4rem;font-weight:800;font-size:.78rem;letter-spacing:.04em;cursor:pointer;text-transform:uppercase}
+.npop-no{flex:1;background:transparent;color:var(--ink-soft);border:1px solid var(--line);border-radius:9px;padding:.6rem .4rem;font-weight:700;font-size:.78rem;cursor:pointer}
+.npop-no:hover{border-color:var(--ink-mute)}
+.npop-opts{display:none;flex-direction:column;gap:.45rem}
+.npop-opt{background:transparent;color:var(--ink-soft);border:1px solid var(--line);border-radius:9px;padding:.55rem .7rem;font-size:.8rem;text-align:left;cursor:pointer;transition:border-color .2s,color .2s}
+.npop-opt:hover{border-color:var(--teal);color:var(--ink)}
+.npop-thanks{display:none;font-size:.85rem;color:var(--ink-soft);text-align:center;padding:.4rem 0}
+</style>
+<div class="npop" id="npop" role="dialog" aria-label="Você já realizou o seu Encontro?">
+<button class="npop-x" id="npopX" aria-label="Fechar"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+<p class="npop-t" id="npopT">Você já realizou o seu Encontro com The&nbsp;Chosen?</p>
+<div class="npop-btns" id="npopBtns">
+<button class="npop-yes" id="npopYes">Sim, já realizei</button>
+<button class="npop-no" id="npopNo">Ainda não</button>
+</div>
+<div class="npop-opts" id="npopOpts">
+<button class="npop-opt" data-m="Falta de tempo">Falta de tempo</button>
+<button class="npop-opt" data-m="Ainda estamos organizando">Ainda estamos organizando</button>
+<button class="npop-opt" data-m="O material não se encaixou no momento">O material não se encaixou no momento</button>
+<button class="npop-opt" data-m="Faltou clareza sobre como usar os recursos">Faltou clareza sobre como usar os recursos</button>
+</div>
+<p class="npop-thanks" id="npopThanks">Obrigado! Isso nos ajuda a melhorar.</p>
+</div>
+<script>
+window.addEventListener('load', function(){
+try{
+const pop = document.getElementById('npop');
+if(!pop || typeof isAuthed !== 'function') return;
+const K = { visits:'tc_pop_visits', last:'tc_pop_lastvisit', snooze:'tc_pop_snooze', done:'tc_pop_done' };
+const now = Date.now();
+function beacon(k, r){ try{ if(navigator.sendBeacon) navigator.sendBeacon('/api/count', JSON.stringify({k:k, r:r||''})); }catch(e){} }
+// contagem de visitas (nova visita = intervalo de 4h+ desde a última)
+let visits = parseInt(localStorage.getItem(K.visits)||'0',10);
+const lastV = parseInt(localStorage.getItem(K.last)||'0',10);
+if(now - lastV > 4*3600*1000){ visits++; localStorage.setItem(K.visits, visits); }
+localStorage.setItem(K.last, now);
+// condições de exibição
+if(!isAuthed()) return;
+if(visits < 2) return;
+if(localStorage.getItem(K.done)) return;
+const snooze = parseInt(localStorage.getItem(K.snooze)||'0',10);
+if(now < snooze) return;
+function snoozeDays(d){ localStorage.setItem(K.snooze, now + d*86400000); }
+function hide(){ pop.classList.remove('on'); }
+setTimeout(()=>{ pop.classList.add('on'); beacon('popup_exibido'); }, 8000);
+document.getElementById('npopX').addEventListener('click', ()=>{ hide(); snoozeDays(3); });
+document.getElementById('npopYes').addEventListener('click', ()=>{
+beacon('popup_sim');
+localStorage.setItem(K.done, '1');
+hide();
+if(typeof openReport === 'function') openReport();
+});
+document.getElementById('npopNo').addEventListener('click', ()=>{
+document.getElementById('npopBtns').style.display='none';
+document.getElementById('npopT').textContent = 'Sem problema! O que tem impedido até agora?';
+document.getElementById('npopOpts').style.display='flex';
+});
+document.querySelectorAll('.npop-opt').forEach(b=>b.addEventListener('click', ()=>{
+beacon('popup_motivo', b.dataset.m);
+document.getElementById('npopOpts').style.display='none';
+document.getElementById('npopT').style.display='none';
+document.getElementById('npopThanks').style.display='block';
+snoozeDays(7);
+setTimeout(hide, 2200);
+}));
+}catch(err){}
+});
 </script>
 </body>
 </html>
