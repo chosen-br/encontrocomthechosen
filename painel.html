@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel · Encontro com The Chosen</title>
+<style>
+:root{--teal:#00C9B1;--bg:#141414;--raised:#1f1f1f;--line:rgba(240,240,240,.13);--ink:#f0f0f0;--soft:rgba(240,240,240,.7);--mute:rgba(240,240,240,.45)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;min-height:100vh;padding:2.2rem 1.2rem}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:1.25rem;font-weight:800;letter-spacing:.02em;margin-bottom:.3rem}
+.sub{color:var(--mute);font-size:.85rem;margin-bottom:2rem}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+.card{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.4rem 1.5rem}
+.card .lbl{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:.5rem}
+.card .num{font-size:2.6rem;font-weight:800;color:var(--teal);line-height:1;font-variant-numeric:tabular-nums}
+.card .extra{font-size:.75rem;color:var(--mute);margin-top:.6rem}
+h2{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0 0 .8rem}
+table{width:100%;border-collapse:collapse;background:var(--raised);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:.7rem 1rem;font-size:.87rem;border-bottom:1px solid var(--line)}
+th{color:var(--mute);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+td.n{text-align:right;font-variant-numeric:tabular-nums;color:var(--teal);font-weight:700;width:90px}
+tr:last-child td{border-bottom:none}
+.gate{max-width:380px;margin:14vh auto 0;text-align:center}
+.gate input{width:100%;padding:.85rem 1rem;background:var(--raised);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-size:.95rem;margin:.9rem 0}
+.gate button{width:100%;padding:.85rem;background:var(--teal);border:none;border-radius:9px;font-weight:800;letter-spacing:.06em;cursor:pointer;font-size:.85rem}
+.err{color:#ff7a7a;font-size:.8rem;margin-top:.6rem;display:none}
+.muted{color:var(--mute);font-size:.85rem;padding:2rem 0;text-align:center}
+.refresh{background:none;border:1px solid var(--line);color:var(--soft);border-radius:8px;padding:.45rem .9rem;font-size:.75rem;cursor:pointer;margin-bottom:1.4rem}
+.refresh:hover{border-color:var(--teal);color:var(--teal)}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="gate" class="gate">
+<h1>Painel privado</h1>
+<p class="sub">Encontro com The Chosen · métricas internas</p>
+<input id="key" type="password" placeholder="Chave de acesso" autocomplete="off">
+<button onclick="entrar()">Entrar</button>
+<p class="err" id="err">Chave incorreta.</p>
+</div>
+
+<div id="app" class="wrap" style="display:none">
+<h1>Encontro com The Chosen</h1>
+<p class="sub">Métricas internas · dados ao vivo</p>
+<button class="refresh" onclick="carregar()">↻ Atualizar</button>
+<div class="cards">
+<div class="card"><div class="lbl">Recursos baixados</div><div class="num" id="nDl">–</div><div class="extra">cliques em botões de download (cenas, guias e kit)</div></div>
+<div class="card"><div class="lbl">Encontros relatados</div><div class="num" id="nRel">–</div><div class="extra" id="ultimoRel">via formulário Relatar Encontro</div></div>
+</div>
+<h2>Ranking por recurso</h2>
+<div id="rankWrap"><p class="muted">Carregando…</p></div>
+</div>
+
+<script>
+const KEY_STORE = 'tc_painel_key';
+function entrar(){
+const k = document.getElementById('key').value.trim();
+if(!k) return;
+localStorage.setItem(KEY_STORE, k);
+carregar();
+}
+async function carregar(){
+const k = localStorage.getItem(KEY_STORE);
+if(!k) return;
+try{
+const r = await fetch('/api/stats', { headers: { 'x-panel-key': k } });
+if(r.status === 401){ localStorage.removeItem(KEY_STORE); document.getElementById('err').style.display='block'; mostrar(false); return; }
+const j = await r.json();
+if(!j.ok){ document.getElementById('rankWrap').innerHTML = '<p class="muted">Armazenamento ainda não configurado na Vercel.</p>'; mostrar(true); return; }
+document.getElementById('nDl').textContent = j.downloads_total.toLocaleString('pt-BR');
+document.getElementById('nRel').textContent = j.relatos_total.toLocaleString('pt-BR');
+if(j.ultimo_relato){
+const d = new Date(j.ultimo_relato);
+document.getElementById('ultimoRel').textContent = 'último relato: ' + d.toLocaleString('pt-BR');
+}
+if(j.ranking.length){
+let html = '<table><tr><th>Recurso</th><th style="text-align:right">Cliques</th></tr>';
+j.ranking.forEach(x => { html += `<tr><td>${x.recurso.replace(/</g,'&lt;')}</td><td class="n">${x.cliques.toLocaleString('pt-BR')}</td></tr>`; });
+html += '</table>';
+document.getElementById('rankWrap').innerHTML = html;
+} else {
+document.getElementById('rankWrap').innerHTML = '<p class="muted">Nenhum download registrado ainda.</p>';
+}
+mostrar(true);
+}catch(e){
+document.getElementById('rankWrap').innerHTML = '<p class="muted">Erro ao carregar. Tente atualizar.</p>';
+mostrar(true);
+}
+}
+function mostrar(ok){
+document.getElementById('gate').style.display = ok ? 'none' : '';
+document.getElementById('app').style.display = ok ? '' : 'none';
+}
+document.getElementById('key').addEventListener('keydown', e => { if(e.key==='Enter') entrar(); });
+if(localStorage.getItem(KEY_STORE)) carregar();
+</script>
+</body>
+</html>
