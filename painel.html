@@ -30,7 +30,30 @@ tr:last-child td{border-bottom:none}
 .muted{color:var(--mute);font-size:.85rem;padding:2rem 0;text-align:center}
 .refresh{background:none;border:1px solid var(--line);color:var(--soft);border-radius:8px;padding:.45rem .9rem;font-size:.75rem;cursor:pointer;margin-bottom:1.4rem}
 .refresh:hover{border-color:var(--teal);color:var(--teal)}
-@media(max-width:560px){.cards{grid-template-columns:1fr}}
+.chart{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.2rem 1.5rem;margin-bottom:2rem}
+.chart-bars{display:flex;align-items:flex-end;gap:3px;height:110px;margin-top:1rem}
+.cb{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;position:relative}
+.cb .b-dl{background:var(--teal);border-radius:2px 2px 0 0;min-height:2px;opacity:.9}
+.cb .b-rel{background:#e8b34b;border-radius:2px 2px 0 0;min-height:0}
+.cb:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);color:var(--ink);font-size:.68rem;padding:.3rem .5rem;border-radius:6px;white-space:nowrap;z-index:5}
+.legend{display:flex;gap:1.2rem;font-size:.72rem;color:var(--mute);margin-top:.7rem}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:.35rem;vertical-align:-1px}
+.rates{display:flex;flex-wrap:wrap;gap:1.4rem;background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1rem 0 1.4rem;font-size:.85rem;color:var(--soft)}
+.rates b{color:var(--teal)}
+.chart{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.3rem 1rem;margin-bottom:1.6rem}
+.chart h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 .9rem;font-weight:600}
+.bars{display:flex;align-items:flex-end;gap:3px;height:90px}
+.bar{flex:1;background:var(--teal);opacity:.85;border-radius:2px 2px 0 0;min-height:2px;position:relative}
+.bar.zero{background:var(--line);opacity:.6}
+.bar:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);color:var(--ink);font-size:.68rem;padding:.25rem .5rem;border-radius:6px;white-space:nowrap;z-index:5}
+.chart .axis{display:flex;justify-content:space-between;font-size:.65rem;color:var(--mute);margin-top:.5rem}
+.pcts{display:flex;gap:1.4rem;flex-wrap:wrap;margin:.2rem 0 1.4rem;font-size:.82rem;color:var(--soft)}
+.pcts b{color:var(--teal)}
+.cats{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.cat{background:var(--raised);border:1px solid var(--line);border-radius:999px;padding:.45rem .95rem;font-size:.8rem;color:var(--soft)}
+.cat b{color:var(--teal);margin-left:.35rem}
+@media(max-width:760px){.cards{grid-template-columns:1fr 1fr !important}}
+@media(max-width:460px){.cards{grid-template-columns:1fr !important}}
 </style>
 </head>
 <body>
@@ -46,10 +69,23 @@ tr:last-child td{border-bottom:none}
 <h1>Encontro com The Chosen</h1>
 <p class="sub">Métricas internas · dados ao vivo</p>
 <button class="refresh" onclick="carregar()">↻ Atualizar</button>
-<div class="cards">
+<div class="cards" style="grid-template-columns:1fr 1fr 1fr 1fr">
+<div class="card"><div class="lbl">Cadastros</div><div class="num" id="nCad">–</div><div class="extra">via formulário de cadastro (a partir de agora)</div></div>
+<div class="card"><div class="lbl">Acessos liberados</div><div class="num" id="nAcc">–</div><div class="extra" id="accExtra">navegadores que digitaram a senha (1x cada)</div></div>
 <div class="card"><div class="lbl">Recursos baixados</div><div class="num" id="nDl">–</div><div class="extra">cliques em botões de download (cenas, guias e kit)</div></div>
 <div class="card"><div class="lbl">Encontros relatados</div><div class="num" id="nRel">–</div><div class="extra" id="ultimoRel">via formulário Relatar Encontro</div></div>
 </div>
+<h2>Últimos 30 dias</h2>
+<div class="chart">
+<div class="chart-bars" id="chartBars"></div>
+<div class="legend"><span><i style="background:var(--teal)"></i>Downloads</span><span><i style="background:#e8b34b"></i>Relatos</span></div>
+</div>
+<h2>Por tipo de recurso</h2>
+<div id="catWrap" style="margin-bottom:2rem"><p class="muted">Sem dados ainda.</p></div>
+<div class="chart"><h3>Downloads · últimos 30 dias</h3><div class="bars" id="chDl"></div><div class="axis" id="axDl"></div></div>
+<div class="chart"><h3>Encontros relatados · últimos 30 dias</h3><div class="bars" id="chRel"></div><div class="axis" id="axRel"></div></div>
+<h2>Downloads por categoria</h2>
+<div class="cats" id="catsWrap"><span class="muted">Sem dados ainda.</span></div>
 <h2>Ranking por recurso</h2>
 <div id="rankWrap"><p class="muted">Carregando…</p></div>
 <h2 style="margin-top:2rem">Popup "Já realizou seu Encontro?"</h2>
@@ -58,6 +94,8 @@ tr:last-child td{border-bottom:none}
 <div class="card"><div class="lbl">Sim, já realizei</div><div class="num" id="pSim">–</div></div>
 <div class="card"><div class="lbl">Ainda não</div><div class="num" id="pNao">–</div></div>
 </div>
+<div class="rates" id="popRates" style="display:none"></div>
+<div class="pcts" id="popPcts"></div>
 <div id="motWrap"><p class="muted">Sem respostas de motivo ainda.</p></div>
 </div>
 
@@ -77,13 +115,99 @@ const r = await fetch('/api/stats', { headers: { 'x-panel-key': k } });
 if(r.status === 401){ localStorage.removeItem(KEY_STORE); document.getElementById('err').style.display='block'; mostrar(false); return; }
 const j = await r.json();
 if(!j.ok){ document.getElementById('rankWrap').innerHTML = '<p class="muted">Armazenamento ainda não configurado na Vercel.</p>'; mostrar(true); return; }
+document.getElementById('nCad').textContent = (j.cadastros_total||0).toLocaleString('pt-BR');
+document.getElementById('nAcc').textContent = (j.acessos_total||0).toLocaleString('pt-BR');
+if((j.cadastros_total||0) > 0 && (j.acessos_total||0) > 0){
+document.getElementById('accExtra').textContent = 'razão acessos/cadastros: ' + (j.acessos_total/j.cadastros_total).toFixed(1) + 'x';
+}
 document.getElementById('nDl').textContent = j.downloads_total.toLocaleString('pt-BR');
 document.getElementById('nRel').textContent = j.relatos_total.toLocaleString('pt-BR');
 if(j.ultimo_relato){
 const d = new Date(j.ultimo_relato);
 document.getElementById('ultimoRel').textContent = 'último relato: ' + d.toLocaleString('pt-BR');
 }
+// gráfico 30 dias
+if(j.serie30){
+const max = Math.max(1, ...j.serie30.map(x=>Math.max(x.dl, x.rel)));
+let bh = '';
+j.serie30.forEach(x=>{
+const hdl = Math.round(x.dl/max*100);
+const hrel = Math.round(x.rel/max*100);
+const [Y,M,D] = x.d.split('-');
+bh += `<div class="cb" data-tip="${D}/${M}: ${x.dl} download${x.dl===1?'':'s'}, ${x.rel} relato${x.rel===1?'':'s'}"><div class="b-rel" style="height:${hrel}%"></div><div class="b-dl" style="height:${hdl}%"></div></div>`;
+});
+document.getElementById('chartBars').innerHTML = bh;
+}
+// por tipo de recurso
+if(j.ranking && j.ranking.length){
+const cats = {};
+j.ranking.forEach(x=>{
+const m = x.recurso.match(/^([^:]+):/);
+const cat = m ? m[1].trim() : 'Outros';
+cats[cat] = (cats[cat]||0) + x.cliques;
+});
+const lista = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
+let ch = '<table><tr><th>Tipo</th><th style="text-align:right">Cliques</th></tr>';
+lista.forEach(([c,n])=>{ ch += `<tr><td>${c.replace(/</g,'&lt;')}</td><td class="n">${n.toLocaleString('pt-BR')}</td></tr>`; });
+ch += '</table>';
+document.getElementById('catWrap').innerHTML = ch;
+}
+if(j.dias){
+function desenhaBarras(dias, campo, elBars, elAx){
+const max = Math.max(1, ...dias.map(x=>x[campo]));
+const bars = document.getElementById(elBars); bars.innerHTML = '';
+dias.forEach(x=>{
+const b = document.createElement('div');
+const v = x[campo];
+b.className = 'bar' + (v===0?' zero':'');
+b.style.height = v===0 ? '2px' : Math.max(6, Math.round(v/max*100)) + '%';
+const [Y,M,D] = x.dia.split('-');
+b.setAttribute('data-tip', D+'/'+M+': '+v);
+bars.appendChild(b);
+});
+const fmt = s => { const [Y,M,D]=s.split('-'); return D+'/'+M; };
+document.getElementById(elAx).innerHTML = '<span>'+fmt(dias[0].dia)+'</span><span>'+fmt(dias[dias.length-1].dia)+'</span>';
+}
+desenhaBarras(j.dias, 'downloads', 'chDl', 'axDl');
+desenhaBarras(j.dias, 'relatos', 'chRel', 'axRel');
+}
+if(j.ranking){
+const cats = {};
+j.ranking.forEach(x=>{
+let c = 'Outros';
+if(x.recurso.startsWith('Cena:')) c = 'Biblioteca de Cenas';
+else if(x.recurso.startsWith('Guia:')) c = 'Guias';
+else if(x.recurso.startsWith('Kit (Canva):')) c = 'Kit · editável (Canva)';
+else if(x.recurso.startsWith('Kit:')) c = 'Kit · arquivos';
+cats[c] = (cats[c]||0) + x.cliques;
+});
+const entries = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
+if(entries.length){
+document.getElementById('catsWrap').innerHTML = entries.map(([c,n])=>`<span class="cat">${c}<b>${n.toLocaleString('pt-BR')}</b></span>`).join('');
+}
+}
 if(j.popup){
+const respostas = j.popup.sim + j.popup.nao;
+const pcts = [];
+if(j.popup.exibido > 0) pcts.push('Taxa de resposta: <b>'+Math.round(respostas/j.popup.exibido*100)+'%</b>');
+if(respostas > 0) pcts.push('Já realizaram: <b>'+Math.round(j.popup.sim/respostas*100)+'%</b>');
+if(j.popup.motivos.length) pcts.push('Motivo mais comum: <b>'+j.popup.motivos[0].motivo+'</b>');
+document.getElementById('popPcts').innerHTML = pcts.join(' · ') || '<span class="muted">Sem interações ainda.</span>';
+// taxas do funil
+const resp = j.popup.sim + j.popup.nao;
+if(j.popup.exibido > 0 && resp > 0){
+const txResp = Math.round(resp/j.popup.exibido*100);
+const txSim = Math.round(j.popup.sim/resp*100);
+let extra = '';
+if(j.popup.motivos.length){
+const top = j.popup.motivos[0];
+const txMot = Math.round(top.respostas/Math.max(1,j.popup.nao)*100);
+extra = `<span>Motivo mais citado: <b>${top.motivo.replace(/</g,'&lt;')}</b> (${txMot}% dos "ainda não")</span>`;
+}
+document.getElementById('popRates').innerHTML =
+`<span>Taxa de resposta: <b>${txResp}%</b></span><span>Já realizaram: <b>${txSim}%</b> das respostas</span>${extra}`;
+document.getElementById('popRates').style.display = 'flex';
+}
 document.getElementById('pExib').textContent = j.popup.exibido.toLocaleString('pt-BR');
 document.getElementById('pSim').textContent = j.popup.sim.toLocaleString('pt-BR');
 document.getElementById('pNao').textContent = j.popup.nao.toLocaleString('pt-BR');

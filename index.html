@@ -3252,6 +3252,7 @@ const inp = document.getElementById('aPass');
 if(inp.value.trim() === CFG_AUTH.password){
 grantAuth();
 document.body.classList.add('authed');
+try{ if(!localStorage.getItem('tc_acc_counted')){ localStorage.setItem('tc_acc_counted','1'); if(navigator.sendBeacon) navigator.sendBeacon('/api/count', JSON.stringify({k:'acesso'})); } }catch(e3){}
 const run = authPending; authPending = null;
 amodal.classList.remove('open'); document.body.style.overflow='';
 if(run) run();
