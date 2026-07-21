@@ -7,6 +7,10 @@ async function redis(path) {
   return r.json();
 }
 
+function hojeBR() {
+  return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' }); // YYYY-MM-DD
+}
+
 export default async function handler(req, res) {
   try {
     if (!R_URL || !R_TOK) return res.status(200).json({ ok: false, error: 'storage-not-configured' });
@@ -18,6 +22,10 @@ export default async function handler(req, res) {
     if (k === 'download') {
       await redis('incr/dl:total');
       await redis(`hincrby/dl:byres/${encodeURIComponent(r || 'sem-nome')}/1`);
+      await redis(`hincrby/dl:byday/${hojeBR()}/1`);
+    } else if (k === 'acesso') {
+      await redis('incr/acc:total');
+      await redis(`hincrby/acc:byday/${hojeBR()}/1`);
     } else if (k === 'popup_exibido') {
       await redis('incr/popup:exibido');
     } else if (k === 'popup_sim') {

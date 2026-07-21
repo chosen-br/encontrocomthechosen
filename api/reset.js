@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     if (key !== process.env.PANEL_TOKEN) return res.status(401).json({ ok: false, error: 'unauthorized' });
     if (!R_URL || !R_TOK) return res.status(200).json({ ok: false, error: 'storage-not-configured' });
 
-    const keys = ['dl:total', 'dl:byres', 'relato:total', 'relato:ultimo', 'popup:exibido', 'popup:sim', 'popup:nao', 'popup:motivos'];
+    const keys = ['cad:total', 'cad:byday', 'acc:total', 'acc:byday', 'dl:total', 'dl:byres', 'dl:byday', 'relato:total', 'relato:ultimo', 'rel:byday', 'popup:exibido', 'popup:sim', 'popup:nao', 'popup:motivos'];
     for (const k of keys) await redis(`del/${k}`);
 
     return res.status(200).json({ ok: true, zerado: true });

@@ -17,13 +17,20 @@ function hashToList(result, keyName, valName) {
   return out;
 }
 
+function hashToMap(result) {
+  const map = {};
+  const arr = result || [];
+  for (let i = 0; i < arr.length; i += 2) map[arr[i]] = parseInt(arr[i + 1], 10) || 0;
+  return map;
+}
+
 export default async function handler(req, res) {
   try {
     const key = req.headers['x-panel-key'] || (req.query && req.query.key) || '';
     if (key !== process.env.PANEL_TOKEN) return res.status(401).json({ ok: false, error: 'unauthorized' });
     if (!R_URL || !R_TOK) return res.status(200).json({ ok: false, error: 'storage-not-configured' });
 
-    const [total, relatos, ultimo, byres, pExib, pSim, pNao, pMotivos] = await Promise.all([
+    const [total, relatos, ultimo, byres, pExib, pSim, pNao, pMotivos, dlDias, relDias, acc, cad] = await Promise.all([
       redis('get/dl:total'),
       redis('get/relato:total'),
       redis('get/relato:ultimo'),
@@ -32,14 +39,30 @@ export default async function handler(req, res) {
       redis('get/popup:sim'),
       redis('get/popup:nao'),
       redis('hgetall/popup:motivos'),
+      redis('hgetall/dl:byday'),
+      redis('hgetall/rel:byday'),
+      redis('get/acc:total'),
+      redis('get/cad:total'),
     ]);
+
+    // últimos 30 dias (fuso de Brasília), preenchendo zeros
+    const dlMap = hashToMap(dlDias.result);
+    const relMap = hashToMap(relDias.result);
+    const dias = [];
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date(Date.now() - i * 86400000).toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
+      dias.push({ dia: d, downloads: dlMap[d] || 0, relatos: relMap[d] || 0 });
+    }
 
     return res.status(200).json({
       ok: true,
+      cadastros_total: parseInt(cad.result, 10) || 0,
+      acessos_total: parseInt(acc.result, 10) || 0,
       downloads_total: parseInt(total.result, 10) || 0,
       relatos_total: parseInt(relatos.result, 10) || 0,
       ultimo_relato: ultimo.result ? decodeURIComponent(ultimo.result) : null,
       ranking: hashToList(byres.result, 'recurso', 'cliques'),
+      dias,
       popup: {
         exibido: parseInt(pExib.result, 10) || 0,
         sim: parseInt(pSim.result, 10) || 0,
