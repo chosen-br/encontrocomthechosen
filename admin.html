@@ -8,6 +8,7 @@
 <meta property="og:description" content="Escolha a cena, baixe o guia e conduza seu grupo. Leia. Assista. Converse.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
+<meta name="robots" content="noindex, nofollow">
 <title>Encontro com The Chosen - Recursos Para Líderes</title>
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -725,8 +726,9 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <!-- ============ NAVBAR ============ -->
 <header class="nav" id="nav">
 <div class="nav-in">
-<a class="logo" href="/visao" aria-label="The Chosen — início"><img src="" id="navLogo" alt="The Chosen"></a>
+<a class="logo" href="/temporada6" data-nav="t6" aria-label="The Chosen — início"><img src="" id="navLogo" alt="The Chosen"></a>
 <nav class="nav-links" aria-label="Primary">
+<a href="/temporada6" data-nav="t6" id="navT6">Temporada 6</a>
 <a href="/visao" data-nav="visao" id="navVision">Visão Para Líderes</a>
 <a href="/encontro" data-nav="home" id="navEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="navKit">Kit de Divulgação</a>
@@ -740,6 +742,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 </header>
 <!-- ============ MENU MOBILE ============ -->
 <nav class="mnav" id="mnav" aria-label="Menu">
+<a href="/temporada6" data-nav="t6" id="mT6">Temporada 6</a>
 <a href="/visao" data-nav="visao" id="mVision">Visão Para Líderes</a>
 <a href="/encontro" data-nav="home" id="mEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="mKit">Kit de Divulgação</a>
@@ -1009,6 +1012,102 @@ Falar no WhatsApp
 <span id="footLang">Português (Brasil)</span>
 </div>
 </footer>
+<!-- ============ TEMPORADA 6 (PÁGINA SEPARADA) ============ -->
+<div id="t6View" style="display:none">
+<style>
+.t6p-hero { padding: clamp(96px,14vh,130px) var(--pad) 0; text-align:center; }
+.t6p-eyebrow { font-size:.75rem; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:var(--teal); margin:0 0 .8rem; }
+.t6p-title { font-size:clamp(1.8rem,5vw,2.9rem); font-weight:900; letter-spacing:-.015em; color:var(--ink); margin:0 0 .6rem; }
+.t6p-sub { font-size:1rem; color:var(--ink-soft); margin:0 auto 2.2rem; max-width:560px; line-height:1.6; }
+.t6p-player { position:relative; max-width:860px; margin:0 auto; border-radius:14px; overflow:hidden; border:1px solid var(--line); aspect-ratio:16/9; background:#000; cursor:pointer; }
+.t6p-player img { width:100%; height:100%; object-fit:cover; display:block; opacity:.92; }
+.t6p-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.t6p-play span { width:78px; height:78px; border-radius:50%; background:rgba(0,201,177,.92); display:flex; align-items:center; justify-content:center; transition:transform .2s; }
+.t6p-player:hover .t6p-play span { transform:scale(1.08); }
+.t6p-player iframe { width:100%; height:100%; border:0; }
+.t6p-acts { display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin:1.6rem 0 0; }
+.t6p-wa { display:inline-flex; align-items:center; gap:.55rem; background:var(--teal); color:#04211f; border:none; border-radius:10px; padding:.75rem 1.3rem; font-weight:800; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; }
+.t6p-wa:hover { filter:brightness(1.08); }
+.t6p-dl { display:inline-flex; align-items:center; gap:.55rem; background:transparent; color:var(--ink-mute); border:1px solid var(--line); border-radius:10px; padding:.75rem 1.3rem; font-weight:700; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; cursor:not-allowed; }
+.t6p-count { margin:3.4rem auto 0; padding:1.5rem var(--pad) 1.7rem; background:#0d0d0d; border-top:1px solid var(--line); border-bottom:1px solid var(--line); text-align:center; }
+.t6p-count .lbl { font-size:.72rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--teal); margin-bottom:1rem; }
+.t6p-nums { display:flex; align-items:baseline; justify-content:center; gap:.55rem; }
+.t6p-unit { display:flex; flex-direction:column; align-items:center; min-width:3rem; }
+.t6p-num { font-family:var(--display); font-size:clamp(1.7rem,4vw,2.4rem); line-height:1; color:var(--ink); font-variant-numeric:tabular-nums; }
+.t6p-ul { font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-mute); margin-top:.45rem; }
+.t6p-sep { font-family:var(--display); font-size:1.5rem; color:var(--teal); transform:translateY(-.3rem); }
+.t6p-when { font-size:.82rem; color:var(--ink-soft); margin-top:.9rem; }
+.t6p-prep { max-width:640px; margin:0 auto; padding:3.2rem var(--pad) 4.2rem; text-align:center; }
+.t6p-prep h2 { font-size:clamp(1.2rem,3vw,1.6rem); font-weight:900; color:var(--ink); margin:0 0 .7rem; }
+.t6p-prep p { font-size:.95rem; color:var(--ink-soft); line-height:1.65; margin:0 0 1.6rem; }
+.t6p-prep .row { display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
+</style>
+<section class="t6p-hero" aria-label="Temporada 6">
+<p class="t6p-eyebrow">Temporada 6 · A Crucificação</p>
+<h1 class="t6p-title">O trailer oficial chegou.</h1>
+<p class="t6p-sub">Assista ao primeiro vislumbre da temporada que levará a Crucificação ao mundo todo, e compartilhe com a sua comunidade.</p>
+<div class="t6p-player" id="t6Player" role="button" aria-label="Assistir ao trailer oficial da Temporada 6" tabindex="0">
+<img src="https://img.youtube.com/vi/V8rpD1xGYkI/maxresdefault.jpg" alt="Trailer oficial da Temporada 6 de The Chosen">
+<div class="t6p-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="#04211f"><path d="M8 5v14l11-7z"/></svg></span></div>
+</div>
+<div class="t6p-acts">
+<a class="t6p-wa" id="t6Share" target="_blank" rel="noopener" href="https://wa.me/?text=Assista%20ao%20trailer%20oficial%20da%20Temporada%206%20de%20The%20Chosen%2C%20que%20retratar%C3%A1%20A%20Crucifica%C3%A7%C3%A3o%3A%20https%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3DV8rpD1xGYkI">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+Compartilhar no WhatsApp</a>
+<button class="t6p-dl" id="t6Dl" disabled aria-disabled="true" title="Disponível em breve">
+<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+Baixar o trailer · Em breve</button>
+</div>
+</section>
+<section class="t6p-count" aria-label="Contagem regressiva">
+<div class="lbl">O caminho até a Temporada 6</div>
+<div class="t6p-nums" id="t6pCount">
+<div class="t6p-unit"><span class="t6p-num" id="t6pD">–</span><span class="t6p-ul">dias</span></div>
+<span class="t6p-sep">:</span>
+<div class="t6p-unit"><span class="t6p-num" id="t6pH">–</span><span class="t6p-ul">horas</span></div>
+<span class="t6p-sep">:</span>
+<div class="t6p-unit"><span class="t6p-num" id="t6pM">–</span><span class="t6p-ul">min</span></div>
+<span class="t6p-sep">:</span>
+<div class="t6p-unit"><span class="t6p-num" id="t6pS">–</span><span class="t6p-ul">seg</span></div>
+</div>
+<p class="t6p-when">Estreia em 15 de novembro de 2026, no Prime Video. No início de 2027, A Crucificação nos cinemas.</p>
+</section>
+<section class="t6p-prep">
+<h2>Prepare a sua comunidade</h2>
+<p>Enquanto o mundo aguarda a estreia, líderes em todo o Brasil estão reunindo seus grupos para Encontros com The Chosen. Comece agora e esteja pronto para o que vem.</p>
+<div class="row">
+<a class="btn" href="/encontro" data-nav="home">Realize um Encontro</a>
+<a class="btn btn-gold" href="/kit" data-nav="kit">Kit de Divulgação</a>
+</div>
+</section>
+<script>
+(function(){
+try{
+var pl = document.getElementById('t6Player');
+if(pl){
+var go = function(){
+pl.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/V8rpD1xGYkI?autoplay=1&rel=0" title="Trailer oficial Temporada 6" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+pl.style.cursor = 'default';
+};
+pl.addEventListener('click', go);
+pl.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); go(); } });
+}
+var target = new Date('2026-11-15T00:00:00-03:00').getTime();
+function p2(n){ return n<10 ? '0'+n : ''+n; }
+function tick(){
+var diff = target - Date.now();
+if(diff <= 0) { clearInterval(iv); return; }
+var s = Math.floor(diff/1000);
+document.getElementById('t6pD').textContent = Math.floor(s/86400);
+document.getElementById('t6pH').textContent = p2(Math.floor(s%86400/3600));
+document.getElementById('t6pM').textContent = p2(Math.floor(s%3600/60));
+document.getElementById('t6pS').textContent = p2(s%60);
+}
+var iv = setInterval(tick, 1000); tick();
+}catch(err){}
+})();
+</script>
+</div>
 <div id="visaoView" style="display:none">
 <iframe id="visaoFrame" title="Visão" srcdoc="&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;pt-BR&quot;&gt;
@@ -1945,6 +2044,7 @@ O CAMINHO ATÉ A TEMPORADA 6 (countdown + timeline)
 &lt;p class=&quot;t6-avail reveal&quot; id=&quot;t6Avail&quot; style=&quot;display:none&quot;&gt;A Temporada 6 já está disponível.&lt;span id=&quot;t6AvailCta&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;ol class=&quot;t6-line reveal&quot;&gt;
 &lt;li class=&quot;t6-step is-now&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;Agora&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;Realize Encontros com The Chosen e prepare sua comunidade.&lt;/span&gt;&lt;/li&gt;
+&lt;li class=&quot;t6-step minor&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;Julho 2026&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;Trailer oficial da Temporada 6.&lt;/span&gt;&lt;/li&gt;
 &lt;li class=&quot;t6-step&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;15 nov 2026&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;Estreia da Temporada 6 no Prime Video.&lt;/span&gt;&lt;/li&gt;
 &lt;li class=&quot;t6-step&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;Início de 2027&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;A Crucificação nos cinemas do mundo todo.&lt;/span&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -3120,7 +3220,7 @@ trackDownload(dl);
 });
 /* roteamento simples: home / faq (página separada) */
 function showPage(page){
-const subs = {faq:'faqView', kit:'kitView', visao:'visaoView'};
+const subs = {faq:'faqView', kit:'kitView', visao:'visaoView', t6:'t6View'};
 const isSub = !!subs[page];
 document.body.classList.toggle('v-visao', page==='visao');
 const home = document.getElementById('homeView');
@@ -3135,12 +3235,12 @@ window.scrollTo(0,0);
 function routeFromHash(){ const h=location.hash.replace('#',''); if(h==='relatar'){ showPage('home'); if(typeof openReport==='function') setTimeout(openReport, 120); return; } showPage(h==='faq'?'faq':(h==='kit'?'kit':(h==='home'?'home':'visao'))); }
 window.addEventListener('hashchange', routeFromHash);
 /* ── Roteamento por URL (paths reais: /visao /encontro /kit /perguntas) ── */
-const PATH_PAGE = { '/visao':'visao', '/encontro':'home', '/kit':'kit', '/perguntas':'faq' };
-const PAGE_PATH = { visao:'/visao', home:'/encontro', kit:'/kit', faq:'/perguntas' };
+const PATH_PAGE = { '/temporada6':'t6', '/visao':'visao', '/encontro':'home', '/kit':'kit', '/perguntas':'faq' };
+const PAGE_PATH = { t6:'/temporada6', visao:'/visao', home:'/encontro', kit:'/kit', faq:'/perguntas' };
 function pageFromPath(p){ p = (p||'/').replace(/\/$/, '') || '/'; return PATH_PAGE[p] || null; }
 window.goToPath = function(path, replace){
-const page = pageFromPath(path) || 'visao';
-const clean = PAGE_PATH[page] || '/visao';
+const page = pageFromPath(path) || 't6';
+const clean = PAGE_PATH[page] || '/temporada6';
 if(location.pathname !== clean){ history[replace ? 'replaceState' : 'pushState'](null, '', clean); }
 showPage(page);
 };
@@ -3163,9 +3263,9 @@ history.replaceState(null, '', PAGE_PATH[page] || '/visao');
 }
 return;
 }
-showPage('visao');
+showPage('t6');
 }
-document.querySelector('a.logo').addEventListener('click', function(){ if(location.hash===''||location.hash==='#visao'){ showPage('visao'); } });
+
 /* menu mobile (hamburger) */
 (function(){
 const burger=document.getElementById('burger'), mnav=document.getElementById('mnav');
@@ -3410,6 +3510,40 @@ setTimeout(hide, 2200);
 }));
 }catch(err){}
 });
+</script>
+<!-- ============ GATE DE PRÉVIA (/admin) ============ -->
+<style>
+#advGate{position:fixed;inset:0;z-index:99999;background:#0d0d0d;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+#advGate .box{max-width:360px;width:100%;text-align:center}
+#advGate h1{font-size:1.1rem;font-weight:800;color:#f0f0f0;margin:0 0 .4rem}
+#advGate p{font-size:.82rem;color:rgba(240,240,240,.5);margin:0 0 1.2rem}
+#advGate input{width:100%;padding:.85rem 1rem;background:#1f1f1f;border:1px solid rgba(240,240,240,.15);border-radius:9px;color:#f0f0f0;font-size:.95rem;margin-bottom:.8rem}
+#advGate button{width:100%;padding:.85rem;background:#00C9B1;border:none;border-radius:9px;font-weight:800;letter-spacing:.05em;cursor:pointer;font-size:.85rem}
+#advGate .e{color:#ff7a7a;font-size:.8rem;margin-top:.6rem;display:none}
+#advBadge{position:fixed;left:14px;bottom:14px;z-index:9000;background:#00C9B1;color:#04211f;font-size:.68rem;font-weight:800;letter-spacing:.12em;padding:.35rem .7rem;border-radius:999px;pointer-events:none}
+</style>
+<div id="advGate"><div class="box">
+<h1>Prévia interna</h1>
+<p>Ambiente de testes · Encontro com The Chosen</p>
+<input type="password" id="advKey" placeholder="Chave de acesso" autocomplete="off">
+<button id="advGo">Entrar</button>
+<p class="e" id="advErr">Chave incorreta.</p>
+</div></div>
+<div id="advBadge" style="display:none">PRÉVIA</div>
+<script>
+(function(){
+var SENHA = 'chosenpulpits_S6', KEY = 'tc_admin_key';
+var gate = document.getElementById('advGate');
+function libera(){ gate.style.display='none'; document.getElementById('advBadge').style.display=''; }
+try{ if(localStorage.getItem(KEY) === SENHA){ libera(); } }catch(e){}
+function tenta(){
+var v = document.getElementById('advKey').value;
+if(v === SENHA){ try{ localStorage.setItem(KEY, v); }catch(e){} libera(); }
+else { document.getElementById('advErr').style.display='block'; }
+}
+document.getElementById('advGo').addEventListener('click', tenta);
+document.getElementById('advKey').addEventListener('keydown', function(e){ if(e.key==='Enter') tenta(); });
+})();
 </script>
 </body>
 </html>

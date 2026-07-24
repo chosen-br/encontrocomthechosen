@@ -90,7 +90,7 @@ tr:last-child td{border-bottom:none}
 <div id="rankWrap"><p class="muted">Carregando…</p></div>
 <h2 style="margin-top:2rem">Popup "Já realizou seu Encontro?"</h2>
 <div class="cards" style="grid-template-columns:1fr 1fr 1fr">
-<div class="card"><div class="lbl">Exibições</div><div class="num" id="pExib">–</div></div>
+<div class="card"><div class="lbl">Pessoas alcançadas</div><div class="num" id="pAlc">–</div><div class="extra" id="pAlcExtra">navegadores únicos que viram o popup</div></div>
 <div class="card"><div class="lbl">Sim, já realizei</div><div class="num" id="pSim">–</div></div>
 <div class="card"><div class="lbl">Ainda não</div><div class="num" id="pNao">–</div></div>
 </div>
@@ -189,7 +189,8 @@ document.getElementById('catsWrap').innerHTML = entries.map(([c,n])=>`<span clas
 if(j.popup){
 const respostas = j.popup.sim + j.popup.nao;
 const pcts = [];
-if(j.popup.exibido > 0) pcts.push('Taxa de resposta: <b>'+Math.round(respostas/j.popup.exibido*100)+'%</b>');
+const base = j.popup.alcance || j.popup.exibido;
+if(base > 0) pcts.push('Taxa de resposta: <b>'+Math.round(respostas/base*100)+'%</b>');
 if(respostas > 0) pcts.push('Já realizaram: <b>'+Math.round(j.popup.sim/respostas*100)+'%</b>');
 if(j.popup.motivos.length) pcts.push('Motivo mais comum: <b>'+j.popup.motivos[0].motivo+'</b>');
 document.getElementById('popPcts').innerHTML = pcts.join(' · ') || '<span class="muted">Sem interações ainda.</span>';
@@ -208,7 +209,8 @@ document.getElementById('popRates').innerHTML =
 `<span>Taxa de resposta: <b>${txResp}%</b></span><span>Já realizaram: <b>${txSim}%</b> das respostas</span>${extra}`;
 document.getElementById('popRates').style.display = 'flex';
 }
-document.getElementById('pExib').textContent = j.popup.exibido.toLocaleString('pt-BR');
+document.getElementById('pAlc').textContent = (j.popup.alcance||0).toLocaleString('pt-BR');
+if(j.popup.exibido > 0) document.getElementById('pAlcExtra').textContent = 'exibições totais (com repetições): ' + j.popup.exibido.toLocaleString('pt-BR');
 document.getElementById('pSim').textContent = j.popup.sim.toLocaleString('pt-BR');
 document.getElementById('pNao').textContent = j.popup.nao.toLocaleString('pt-BR');
 if(j.popup.motivos.length){
