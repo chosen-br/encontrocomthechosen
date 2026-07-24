@@ -30,12 +30,13 @@ export default async function handler(req, res) {
     if (key !== process.env.PANEL_TOKEN) return res.status(401).json({ ok: false, error: 'unauthorized' });
     if (!R_URL || !R_TOK) return res.status(200).json({ ok: false, error: 'storage-not-configured' });
 
-    const [total, relatos, ultimo, byres, pExib, pSim, pNao, pMotivos, dlDias, relDias, acc, cad] = await Promise.all([
+    const [total, relatos, ultimo, byres, pExib, pAlc, pSim, pNao, pMotivos, dlDias, relDias, acc, cad] = await Promise.all([
       redis('get/dl:total'),
       redis('get/relato:total'),
       redis('get/relato:ultimo'),
       redis('hgetall/dl:byres'),
       redis('get/popup:exibido'),
+      redis('get/popup:alcance'),
       redis('get/popup:sim'),
       redis('get/popup:nao'),
       redis('hgetall/popup:motivos'),
@@ -65,6 +66,7 @@ export default async function handler(req, res) {
       dias,
       popup: {
         exibido: parseInt(pExib.result, 10) || 0,
+        alcance: parseInt(pAlc.result, 10) || 0,
         sim: parseInt(pSim.result, 10) || 0,
         nao: parseInt(pNao.result, 10) || 0,
         motivos: hashToList(pMotivos.result, 'motivo', 'respostas'),

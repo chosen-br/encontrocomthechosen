@@ -28,6 +28,8 @@ export default async function handler(req, res) {
       await redis(`hincrby/acc:byday/${hojeBR()}/1`);
     } else if (k === 'popup_exibido') {
       await redis('incr/popup:exibido');
+    } else if (k === 'popup_alcance') {
+      await redis('incr/popup:alcance');
     } else if (k === 'popup_sim') {
       await redis('incr/popup:sim');
     } else if (k === 'popup_motivo') {
