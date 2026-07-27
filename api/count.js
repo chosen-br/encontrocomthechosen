@@ -26,6 +26,12 @@ export default async function handler(req, res) {
     } else if (k === 'acesso') {
       await redis('incr/acc:total');
       await redis(`hincrby/acc:byday/${hojeBR()}/1`);
+    } else if (k === 't6_play') {
+      await redis('incr/t6:play');
+    } else if (k === 't6_share') {
+      await redis('incr/t6:share');
+    } else if (k === 't6_dl') {
+      await redis('incr/t6:dl');
     } else if (k === 'popup_exibido') {
       await redis('incr/popup:exibido');
     } else if (k === 'popup_alcance') {

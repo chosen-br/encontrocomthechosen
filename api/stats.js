@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     if (key !== process.env.PANEL_TOKEN) return res.status(401).json({ ok: false, error: 'unauthorized' });
     if (!R_URL || !R_TOK) return res.status(200).json({ ok: false, error: 'storage-not-configured' });
 
-    const [total, relatos, ultimo, byres, pExib, pAlc, pSim, pNao, pMotivos, dlDias, relDias, acc, cad] = await Promise.all([
+    const [total, relatos, ultimo, byres, pExib, pAlc, pSim, pNao, pMotivos, dlDias, relDias, acc, cad, tPlay, tShare, tDl] = await Promise.all([
       redis('get/dl:total'),
       redis('get/relato:total'),
       redis('get/relato:ultimo'),
@@ -44,6 +44,9 @@ export default async function handler(req, res) {
       redis('hgetall/rel:byday'),
       redis('get/acc:total'),
       redis('get/cad:total'),
+      redis('get/t6:play'),
+      redis('get/t6:share'),
+      redis('get/t6:dl'),
     ]);
 
     // últimos 30 dias (fuso de Brasília), preenchendo zeros
@@ -64,6 +67,11 @@ export default async function handler(req, res) {
       ultimo_relato: ultimo.result ? decodeURIComponent(ultimo.result) : null,
       ranking: hashToList(byres.result, 'recurso', 'cliques'),
       dias,
+      teaser: {
+        play: parseInt(tPlay.result, 10) || 0,
+        share: parseInt(tShare.result, 10) || 0,
+        download: parseInt(tDl.result, 10) || 0,
+      },
       popup: {
         exibido: parseInt(pExib.result, 10) || 0,
         alcance: parseInt(pAlc.result, 10) || 0,
