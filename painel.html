@@ -88,6 +88,12 @@ tr:last-child td{border-bottom:none}
 <div class="cats" id="catsWrap"><span class="muted">Sem dados ainda.</span></div>
 <h2>Ranking por recurso</h2>
 <div id="rankWrap"><p class="muted">Carregando…</p></div>
+<h2 style="margin-top:2rem">Teaser · Temporada 6</h2>
+<div class="cards" style="grid-template-columns:1fr 1fr 1fr">
+<div class="card"><div class="lbl">Reproduções</div><div class="num" id="tPlay">–</div></div>
+<div class="card"><div class="lbl">Compartilhamentos</div><div class="num" id="tShare">–</div></div>
+<div class="card"><div class="lbl">Downloads</div><div class="num" id="tDl">–</div></div>
+</div>
 <h2 style="margin-top:2rem">Popup "Já realizou seu Encontro?"</h2>
 <div class="cards" style="grid-template-columns:1fr 1fr 1fr">
 <div class="card"><div class="lbl">Pessoas alcançadas</div><div class="num" id="pAlc">–</div><div class="extra" id="pAlcExtra">navegadores únicos que viram o popup</div></div>
@@ -185,6 +191,11 @@ const entries = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
 if(entries.length){
 document.getElementById('catsWrap').innerHTML = entries.map(([c,n])=>`<span class="cat">${c}<b>${n.toLocaleString('pt-BR')}</b></span>`).join('');
 }
+}
+if(j.teaser){
+document.getElementById('tPlay').textContent = j.teaser.play.toLocaleString('pt-BR');
+document.getElementById('tShare').textContent = j.teaser.share.toLocaleString('pt-BR');
+document.getElementById('tDl').textContent = j.teaser.download.toLocaleString('pt-BR');
 }
 if(j.popup){
 const respostas = j.popup.sim + j.popup.nao;
