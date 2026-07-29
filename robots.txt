@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /painel
+Disallow: /api/
+
+Sitemap: https://encontrocomthechosen.com.br/sitemap.xml
