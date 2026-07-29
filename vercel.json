@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/temporada6",
+      "destination": "/"
+    },
+    {
       "source": "/visao",
       "destination": "/"
     },
