@@ -700,7 +700,16 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 }
 function getC(){ try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; } }
 function setC(v){ try{ localStorage.setItem(KEY, JSON.stringify({analytics:!!v, t:Date.now()})); }catch(e){} }
-function applyC(c){ if(c && c.analytics) loadClarity(); }
+function loadGA(){
+if(window.__ckGA) return; window.__ckGA=true;
+var s=document.createElement('script'); s.async=1; s.src='https://www.googletagmanager.com/gtag/js?id=G-1E77KCSKW6';
+document.head.appendChild(s);
+window.dataLayer=window.dataLayer||[];
+window.gtag=window.gtag||function(){dataLayer.push(arguments);};
+gtag('js', new Date());
+gtag('config', 'G-1E77KCSKW6', { anonymize_ip: true });
+}
+function applyC(c){ if(c && c.analytics){ loadClarity(); loadGA(); } }
 function build(){
 if(document.getElementById('ckWrap')) return;
 var w=document.createElement('div');
@@ -726,7 +735,7 @@ document.getElementById('ckPrefs').classList.toggle('on', prefsOpen);
 this.textContent = prefsOpen ? 'Salvar prefer\u00eancias' : 'Ver prefer\u00eancias';
 if(!prefsOpen){ var v=document.getElementById('ckAnalytics').checked; setC(v); applyC(getC()); hide(); }
 });
-document.getElementById('ckAccept').addEventListener('click', function(){ setC(true); loadClarity(); hide(); });
+document.getElementById('ckAccept').addEventListener('click', function(){ setC(true); applyC(getC()); hide(); });
 document.getElementById('ckDeny').addEventListener('click', function(){ setC(false); hide(); });
 function hide(){ w.classList.remove('on'); }
 }
