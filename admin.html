@@ -2518,7 +2518,8 @@ const PRIME_BY_SEASON = {
 const NETFLIX_URL = "https://www.netflix.com/br/title/81622757";
 const watchTC = n => `https://watch.thechosen.tv/seasons/season-${n}`;
 const WATCH_ON = {
-pt:{prime:"Assista no Prime Video", netflix:"Assista na Netflix", tc:"Assista no site The Chosen"}
+pt:{prime:"Assista no Prime Video", netflix:"Assista na Netflix", tc:"Assista no site The Chosen"},
+en:{prime:"Watch on Prime Video", netflix:"Watch on Netflix", tc:"Watch on The Chosen site"}
 };
 function watchLangKey(){ return (curLang==='esLA'||curLang==='esES')?'es':(curLang==='en'?'en':'pt'); }
 function trEpTitle(g){ return watchLangKey()==='pt' ? g.t : (g.en||g.t); }
@@ -2745,10 +2746,11 @@ renderGuides();
 }
 /* ============ i18n (idiomas) ============ */
 const I18N = {
-pt:{enter:"Entrar",signup:"Cadastrar",how:"Como funciona",heroDesc:'As histórias de Jesus ganham vida em uma experiência interativa que aproxima as pessoas das Escrituras e as ajuda a enxergar o Evangelho de uma forma nova. <b class="bb-steps">Leia. Assista. Converse.</b>',sLibrary:"Biblioteca de Cenas",sThemes:"Explore por Tema",sJourney:"Jornada pelas Temporadas",sSteps:"Do clique ao encontro em 3 passos",seeAll:"Ver todos",season:"Temporada",inProd:"Em produção",available:"Disponível",explore:"Explorar",watchScene:"Assistir cena",download:"Baixar",guide:"Guia",episodes:"Episódios",filterBy:"Filtrando por:",scenes:"cenas",studyGuides:"Guias de Estudo em Grupo"}
+pt:{enter:"Entrar",signup:"Cadastrar",how:"Como funciona",heroDesc:'As histórias de Jesus ganham vida em uma experiência interativa que aproxima as pessoas das Escrituras e as ajuda a enxergar o Evangelho de uma forma nova. <b class="bb-steps">Leia. Assista. Converse.</b>',sLibrary:"Biblioteca de Cenas",sThemes:"Explore por Tema",sJourney:"Jornada pelas Temporadas",sSteps:"Do clique ao encontro em 3 passos",seeAll:"Ver todos",season:"Temporada",inProd:"Em produção",available:"Disponível",explore:"Explorar",watchScene:"Assistir cena",download:"Baixar",guide:"Guia",episodes:"Episódios",filterBy:"Filtrando por:",scenes:"cenas",studyGuides:"Guias de Estudo em Grupo"},
+en:{enter:"Sign In",signup:"Sign Up",how:"How it works",heroDesc:'The stories of Jesus come to life in an interactive experience that draws people closer to Scripture and helps them see the Gospel in a new way. <b class="bb-steps">Read. Watch. Talk.</b>',sLibrary:"Scene Library",sThemes:"Explore by Theme",sJourney:"Journey Through the Seasons",sSteps:"From click to gathering in 3 steps",seeAll:"See all",season:"Season",inProd:"In production",available:"Available",explore:"Explore",watchScene:"Watch scene",download:"Download",guide:"Guide",episodes:"Episodes",filterBy:"Filtering by:",scenes:"scenes",studyGuides:"Group Study Guides"}
 };
 // rótulos extras (estáticos) por idioma
-(function(){ const X={"pt": {"heroTitle": "Encontro com The Chosen", "themesLbl": "Temas", "dlScene": "Baixar cena", "dlGuide": "Baixar guia", "stepsSub": "Feito para líderes: escolha, baixe e conduza, sem complicação.", "step1T": "Escolha o recurso", "step1D": "Navegue pelos recursos liberados e encontre a cena ou o tema que conversa com o momento do seu grupo.", "step2T": "Baixe os recursos disponíveis", "step2D": "Cada cena contém o seu contexto, versículo e perguntas para conduzir a conversa.", "step3T": "Conduza seu grupo", "step3D": "Leia o versículo, exiba o vídeo, abra a conversa e deixe a história fazer o trabalho. Você guia, o conteúdo apoia.", "footTag": "Recursos gratuitos do The Chosen para fortalecer igrejas e líderes em todo o Brasil.", "legal": "Legal", "terms": "Termos e Condições", "privacy": "Política de Privacidade", "license": "Licença", "rights": "© 2025 Come and See Foundation. Todos os direitos reservados.", "helpH": "Ajuda", "faqNav": "Perguntas Frequentes", "howP1": "O Encontro com The Chosen nasceu a partir de uma necessidade simples: líderes que amavam a série queriam uma forma prática de usá-la em suas programações.", "howP2": "A proposta é ajudar as pessoas a se aproximarem das Escrituras de uma maneira viva, acessível e profunda, enxergando as histórias do Evangelho com novos olhos.", "howP3": "Tudo acontece em três etapas simples: <b class=\"howp-steps\">Leia. Assista. Converse.</b>", "searchPh": "Buscar por tema, episódio ou personagem...", "searchHint": "Pressione <kbd>Esc</kbd> para fechar &nbsp;·&nbsp; <kbd>/</kbd> abre a busca em qualquer lugar", "searchChips": ["Fé", "Oração", "Páscoa", "Sofrimento", "Guia de discussão", "Mulher no poço"], "statusSoon": "Em breve", "epsWord": "episódios", "freeClip": "Clipe gratuito", "watchSeasonTxt": "Assistir Temporada", "crucifixion": "Crucificação", "epWatch": "Assistir", "epGuide": "Guia", "seasonTags": ["Chamado", "Fé", "Comunidade"]}}; for(const k in X){ if(I18N[k]) Object.assign(I18N[k], X[k]); } })();
+(function(){ const X={"pt": {"heroTitle": "Encontro com The Chosen", "themesLbl": "Temas", "dlScene": "Baixar cena", "dlGuide": "Baixar guia", "stepsSub": "Feito para líderes: escolha, baixe e conduza, sem complicação.", "step1T": "Escolha o recurso", "step1D": "Navegue pelos recursos liberados e encontre a cena ou o tema que conversa com o momento do seu grupo.", "step2T": "Baixe os recursos disponíveis", "step2D": "Cada cena contém o seu contexto, versículo e perguntas para conduzir a conversa.", "step3T": "Conduza seu grupo", "step3D": "Leia o versículo, exiba o vídeo, abra a conversa e deixe a história fazer o trabalho. Você guia, o conteúdo apoia.", "footTag": "Recursos gratuitos do The Chosen para fortalecer igrejas e líderes em todo o Brasil.", "legal": "Legal", "terms": "Termos e Condições", "privacy": "Política de Privacidade", "license": "Licença", "rights": "© 2025 Come and See Foundation. Todos os direitos reservados.", "helpH": "Ajuda", "faqNav": "Perguntas Frequentes", "howP1": "O Encontro com The Chosen nasceu a partir de uma necessidade simples: líderes que amavam a série queriam uma forma prática de usá-la em suas programações.", "howP2": "A proposta é ajudar as pessoas a se aproximarem das Escrituras de uma maneira viva, acessível e profunda, enxergando as histórias do Evangelho com novos olhos.", "howP3": "Tudo acontece em três etapas simples: <b class=\"howp-steps\">Leia. Assista. Converse.</b>", "searchPh": "Buscar por tema, episódio ou personagem...", "searchHint": "Pressione <kbd>Esc</kbd> para fechar &nbsp;·&nbsp; <kbd>/</kbd> abre a busca em qualquer lugar", "searchChips": ["Fé", "Oração", "Páscoa", "Sofrimento", "Guia de discussão", "Mulher no poço"], "statusSoon": "Em breve", "epsWord": "episódios", "freeClip": "Clipe gratuito", "watchSeasonTxt": "Assistir Temporada", "crucifixion": "Crucificação", "epWatch": "Assistir", "epGuide": "Guia", "seasonTags": ["Chamado", "Fé", "Comunidade"]}, "en": {"heroTitle": "Encounter with The Chosen", "themesLbl": "Themes", "dlScene": "Download scene", "dlGuide": "Download guide", "stepsSub": "Made for leaders: choose, download, and lead. No complications.", "step1T": "Choose the resource", "step1D": "Browse the available resources and find the scene or theme that speaks to your group's moment.", "step2T": "Download the available resources", "step2D": "Each scene includes its context, verse, and questions to guide the conversation.", "step3T": "Lead your group", "step3D": "Read the verse, play the video, open the conversation, and let the story do the work. You guide, the content supports.", "footTag": "Free resources from The Chosen to strengthen churches and leaders across Brazil.", "legal": "Legal", "terms": "Terms and Conditions", "privacy": "Privacy Policy", "license": "License", "rights": "© 2025 Come and See Foundation. All rights reserved.", "helpH": "Help", "faqNav": "Frequently Asked Questions", "howP1": "Encounter with The Chosen was born from a simple need: leaders who loved the series wanted a practical way to use it in their programs.", "howP2": "The goal is to help people draw closer to Scripture in a living, accessible, and profound way, seeing the Gospel stories with new eyes.", "howP3": "It all happens in three simple steps: <b class=\"howp-steps\">Read. Watch. Talk.</b>", "searchPh": "Search by theme, episode, or character...", "searchHint": "Press <kbd>Esc</kbd> to close &nbsp;\u00b7&nbsp; <kbd>/</kbd> opens search anywhere", "searchChips": ["Faith", "Prayer", "Easter", "Suffering", "Discussion guide", "Woman at the well"], "statusSoon": "Coming soon", "epsWord": "episodes", "freeClip": "Free clip", "watchSeasonTxt": "Watch Season", "crucifixion": "Crucifixion", "epWatch": "Watch", "epGuide": "Guide", "seasonTags": ["Calling", "Faith", "Community"]}}; for(const k in X){ if(I18N[k]) Object.assign(I18N[k], X[k]); } })();
 let curLang = "pt";
 // helpers de tradução de conteúdo
 function trScene(v){
@@ -3581,6 +3583,7 @@ setTimeout(hide, 2200);
 #advGate input{width:100%;padding:.85rem 1rem;background:#1f1f1f;border:1px solid rgba(240,240,240,.15);border-radius:9px;color:#f0f0f0;font-size:.95rem;margin-bottom:.8rem}
 #advGate button{width:100%;padding:.85rem;background:#00C9B1;border:none;border-radius:9px;font-weight:800;letter-spacing:.05em;cursor:pointer;font-size:.85rem}
 #advGate .e{color:#ff7a7a;font-size:.8rem;margin-top:.6rem;display:none}
+#advLang{position:fixed;left:96px;bottom:14px;z-index:9000;background:#1f1f1f;color:#f0f0f0;border:1px solid rgba(240,240,240,.25);border-radius:999px;padding:.32rem .7rem;font-size:.7rem;font-weight:700;cursor:pointer;display:none}
 #advBadge{position:fixed;left:14px;bottom:14px;z-index:9000;background:#00C9B1;color:#04211f;font-size:.68rem;font-weight:800;letter-spacing:.12em;padding:.35rem .7rem;border-radius:999px;pointer-events:none}
 </style>
 <div id="advGate"><div class="box">
@@ -3591,11 +3594,29 @@ setTimeout(hide, 2200);
 <p class="e" id="advErr">Chave incorreta.</p>
 </div></div>
 <div id="advBadge" style="display:none">PRÉVIA</div>
+<select id="advLang" aria-label="Idioma da prévia">
+<option value="pt">Português (Brasil)</option>
+<option value="en">English</option>
+</select>
 <script>
 (function(){
 var SENHA = 'chosenpulpits_S6', KEY = 'tc_admin_key';
 var gate = document.getElementById('advGate');
-function libera(){ gate.style.display='none'; document.getElementById('advBadge').style.display=''; }
+function libera(){
+gate.style.display='none';
+document.getElementById('advBadge').style.display='';
+var ls = document.getElementById('advLang');
+ls.style.display='block';
+try{
+var saved = localStorage.getItem('tc_admin_lang') || 'pt';
+ls.value = saved;
+if(saved !== 'pt' && typeof applyLang === 'function') applyLang(saved);
+}catch(e){}
+ls.addEventListener('change', function(){
+try{ localStorage.setItem('tc_admin_lang', ls.value); }catch(e){}
+if(typeof applyLang === 'function') applyLang(ls.value);
+});
+}
 try{ if(localStorage.getItem(KEY) === SENHA){ libera(); } }catch(e){}
 function tenta(){
 var v = document.getElementById('advKey').value;
