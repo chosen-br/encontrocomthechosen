@@ -28,7 +28,7 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Forum&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:wght@500;600;700&family=Forum&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* ================================================================
 TOKENS
@@ -1027,15 +1027,26 @@ Falar no WhatsApp
 <div id="t6View" style="display:none">
 <style>
 #t6View { background:#0A0A0A; }
-body.v-t6 a.logo { visibility:hidden; }
-body.v-t6 #navReport { display:none; }
-body.v-t6 .mnav-cta { display:none; }
+body.v-t6 header.nav { display:none; }
+/* ---------- barra própria da aba ---------- */
+.t6bar { position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:.75rem var(--pad); background:rgba(8,8,8,.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.06); }
+body:not(.v-t6) .t6bar { display:none; }
+.t6bar-logo img { height:26px; width:auto; display:block; }
+.t6bar-cta { display:inline-flex; align-items:center; background:#E9A83E; color:#161206; border-radius:999px; padding:.6rem 1.4rem; font-weight:800; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:filter .2s; }
+.t6bar-cta:hover { filter:brightness(1.09); }
+@media (max-width:560px){
+.t6bar { padding:.65rem 1rem; }
+.t6bar-logo img { height:19px; }
+.t6bar-cta { padding:.5rem .95rem; font-size:.64rem; letter-spacing:.09em; white-space:nowrap; }
+}
 /* ---------- HERO fixo com vídeo ---------- */
 .t6h { position:sticky; top:0; height:100vh; min-height:560px; display:flex; align-items:center; justify-content:center; overflow:hidden; z-index:1; }
 .t6h-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .t6h-shade { position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(5,5,5,.38) 0%, rgba(5,5,5,.72) 100%); }
-.t6h-content { position:relative; z-index:2; text-align:center; padding:0 var(--pad); max-width:900px; }
-.t6h-title { font-family:'Forum',serif; font-weight:400; font-size:clamp(1.7rem,4.6vw,3.1rem); line-height:1.22; letter-spacing:.06em; text-transform:uppercase; color:#FFFFFF; margin:0 0 1.1rem; text-shadow:0 2px 24px rgba(0,0,0,.6); }
+.t6h-content { position:relative; z-index:2; text-align:center; padding:0 var(--pad); max-width:1000px; }
+.t6h-title { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(1.9rem,4.6vw,3.7rem); line-height:1.18; letter-spacing:.05em; text-transform:uppercase; color:#FFFFFF; margin:0 0 1.2rem; text-shadow:0 2px 26px rgba(0,0,0,.65); }
+.t6h-title span { display:block; white-space:nowrap; }
+@media (max-width:560px){ .t6h-title span { display:inline; white-space:normal; } .t6h-title { line-height:1.24; } }
 .t6h-eyebrow { font-size:.85rem; font-weight:700; letter-spacing:.3em; text-transform:uppercase; color:#E9A83E; margin:0 0 1.7rem; }
 .t6h-row { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; }
 .t6h-ghost { display:inline-flex; align-items:center; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.55); border-radius:999px; padding:.85rem 1.7rem; font-weight:700; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:border-color .2s, background .2s; }
@@ -1052,7 +1063,7 @@ body.v-t6 .mnav-cta { display:none; }
 .t6-player iframe { width:100%; height:100%; border:0; display:block; }
 .t6-play { position:absolute; inset:0; margin:auto; width:74px; height:74px; border-radius:50%; background:#E9A83E; display:flex; align-items:center; justify-content:center; transition:transform .2s; pointer-events:none; }
 .t6-player:hover .t6-play { transform:scale(1.07); }
-.t6see-h2 { font-family:'Forum',serif; font-weight:400; font-size:clamp(1.7rem,3.6vw,2.7rem); line-height:1.18; letter-spacing:.06em; text-transform:uppercase; color:#fff; margin:0 0 1.2rem; }
+.t6see-h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(1.8rem,3.9vw,3rem); line-height:1.15; letter-spacing:.05em; text-transform:uppercase; color:#fff; margin:0 0 1.2rem; }
 .t6see-txt p { font-size:.98rem; line-height:1.75; color:rgba(255,255,255,.75); margin:0 0 1.1rem; }
 .t6pill { display:inline-block; border:1px solid rgba(255,255,255,.4); border-radius:999px; color:#fff; padding:.7rem 1.4rem; font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin:.5rem 0 1.3rem; }
 .t6see-cta-row { display:flex; }
@@ -1096,14 +1107,17 @@ body.v-t6 .mnav-cta { display:none; }
 }
 </style>
 
+<div class="t6bar">
+<a class="t6bar-logo" href="/temporada6" data-nav="t6" aria-label="The Chosen — Temporada 6"><img src="img/t6-logo.webp" alt="The Chosen"></a>
+<a class="t6bar-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Cadastrar igreja</a>
+</div>
 <section class="t6h" aria-label="Crucificação">
 <video class="t6h-video" src="img/hero.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
 <div class="t6h-shade"></div>
 <div class="t6h-content">
-<h1 class="t6h-title">Assista ao primeiro episódio da Temporada&nbsp;6 antes de todo mundo</h1>
+<h1 class="t6h-title"><span>Assista ao primeiro</span> <span>episódio da Temporada 6</span> <span>antes de todo mundo</span></h1>
 <p class="t6h-eyebrow">Exclusivo para igrejas</p>
 <div class="t6h-row">
-<a class="t6h-ghost" href="#t6como" id="t6ComoBtn">Como funciona</a>
 <a class="t6h-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Cadastrar igreja</a>
 </div>
 </div>
@@ -1203,12 +1217,6 @@ pl.style.cursor = 'default';
 pl.addEventListener('click', go);
 pl.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); go(); } });
 }
-var cb = document.getElementById('t6ComoBtn');
-if(cb){ cb.addEventListener('click', function(e){
-e.preventDefault();
-var alvo = document.getElementById('t6como');
-if(alvo) alvo.scrollIntoView({behavior:'smooth', block:'start'});
-}); }
 document.querySelectorAll('.t6j-btn').forEach(function(btn){
 btn.addEventListener('click', function(){
 var step = btn.closest('.t6j-step');
@@ -2171,44 +2179,108 @@ O CAMINHO ATÉ A TEMPORADA 6 (countdown + timeline)
 .t6-what { margin:0; }
 }
 &lt;/style&gt;
-&lt;section class=&quot;t6-band&quot; id=&quot;caminho&quot; aria-label=&quot;O caminho até a Crucificação&quot;&gt;
-&lt;div class=&quot;container&quot;&gt;
-&lt;div class=&quot;t6-head reveal&quot;&gt;&lt;h2 class=&quot;t6-title&quot;&gt;O caminho até a Crucificação&lt;/h2&gt;&lt;/div&gt;
-&lt;div class=&quot;t6-count reveal&quot; id=&quot;t6Count&quot; aria-live=&quot;polite&quot;&gt;
-&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6d&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;dias&lt;/span&gt;&lt;/div&gt;
-&lt;span class=&quot;t6-sep&quot;&gt;:&lt;/span&gt;
-&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6h&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;horas&lt;/span&gt;&lt;/div&gt;
-&lt;span class=&quot;t6-sep&quot;&gt;:&lt;/span&gt;
-&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6m&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;min&lt;/span&gt;&lt;/div&gt;
-&lt;span class=&quot;t6-sep&quot;&gt;:&lt;/span&gt;
-&lt;div class=&quot;t6-unit&quot;&gt;&lt;span class=&quot;t6-num&quot; id=&quot;t6s&quot;&gt;&amp;ndash;&lt;/span&gt;&lt;span class=&quot;t6-lbl&quot;&gt;seg&lt;/span&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;p class=&quot;t6-avail reveal&quot; id=&quot;t6Avail&quot; style=&quot;display:none&quot;&gt;A nova temporada já está disponível.&lt;span id=&quot;t6AvailCta&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;ol class=&quot;t6-line reveal&quot;&gt;
-&lt;li class=&quot;t6-step is-now&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;Agora&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;Realize Encontros com The Chosen e prepare sua comunidade.&lt;/span&gt;&lt;/li&gt;
-&lt;li class=&quot;t6-step&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;15 nov 2026&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;Estreia da nova temporada no Prime Video.&lt;/span&gt;&lt;/li&gt;
-&lt;li class=&quot;t6-step&quot;&gt;&lt;span class=&quot;t6-dot&quot;&gt;&lt;/span&gt;&lt;span class=&quot;t6-when&quot;&gt;Início de 2027&lt;/span&gt;&lt;span class=&quot;t6-what&quot;&gt;A Crucificação nos cinemas do mundo todo.&lt;/span&gt;&lt;/li&gt;
+&lt;style&gt;
+.t6j { position:relative; margin:0; padding:2.6rem clamp(16px,4vw,56px) 3.2rem; background:#070707; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); }
+.t6j-h { font-family:inherit; font-weight:600; font-size:.8rem; letter-spacing:.3em; text-transform:uppercase; color:#E9A83E; margin:0 0 2.2rem; text-align:center; }
+.t6j-line { list-style:none; margin:0 auto; padding:0; display:grid; grid-template-columns:repeat(7,1fr); gap:.9rem; max-width:1240px; position:relative; }
+.t6j-line::before { content:&quot;&quot;; position:absolute; top:5px; left:2%; right:2%; height:1px; background:rgba(233,168,62,.28); }
+.t6j-line::after { content:&quot;&quot;; position:absolute; top:5px; left:2%; width:9%; height:1px; background:#E9A83E; }
+.t6j-step { position:relative; text-align:center; padding-top:1.5rem; }
+.t6j-dot { position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; border:1.5px solid #E9A83E; background:#070707; }
+.t6j-step.is-now .t6j-dot { background:#E9A83E; box-shadow:0 0 0 5px rgba(233,168,62,.18), 0 0 18px rgba(233,168,62,.55); }
+.t6j-date { display:block; font-weight:700; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#E9A83E; margin-bottom:.55rem; }
+.t6j-title { display:block; font-size:.86rem; line-height:1.45; color:rgba(255,255,255,.78); margin:0 auto .8rem; max-width:170px; }
+.t6j-btn { display:inline-flex; align-items:center; gap:.4rem; background:transparent; color:#E9A83E; border:1px solid rgba(233,168,62,.55); border-radius:999px; padding:.42rem .95rem; font-weight:700; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; transition:background .2s, border-color .2s; }
+.t6j-btn:hover { background:rgba(233,168,62,.1); border-color:#E9A83E; }
+.t6j-btn svg { transition:transform .2s; }
+.t6j-step.open .t6j-btn svg { transform:rotate(180deg); }
+.t6j-detail { display:none; position:absolute; top:calc(100% + .7rem); left:50%; transform:translateX(-50%); width:min(250px,72vw); background:#111; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:.95rem 1.05rem; font-size:.83rem; line-height:1.6; color:rgba(255,255,255,.82); text-align:left; box-shadow:0 16px 40px rgba(0,0,0,.55); z-index:5; }
+.t6j-step.open .t6j-detail { display:block; }
+.t6j-step:first-child .t6j-detail { left:0; transform:none; }
+.t6j-step:last-child .t6j-detail { left:auto; right:0; transform:none; }
+@media (max-width:860px){
+.t6j-line { grid-template-columns:1fr; gap:1.7rem; max-width:340px; padding-left:1.4rem; }
+.t6j-line::before { left:5px; right:auto; top:6px; bottom:6px; width:1px; height:auto; }
+.t6j-line::after { left:5px; top:6px; width:1px; height:9%; }
+.t6j-step { text-align:left; padding-top:0; padding-left:1.2rem; }
+.t6j-dot { left:-1.4rem; top:3px; transform:none; }
+.t6j-title { margin:0 0 .8rem; max-width:none; }
+.t6j-detail { position:static; transform:none; width:auto; margin-top:.7rem; }
+}
+&lt;/style&gt;
+&lt;section class=&quot;t6j&quot; id=&quot;caminho&quot; aria-label=&quot;Nossa jornada até a Cruz&quot;&gt;
+&lt;h2 class=&quot;t6j-h&quot;&gt;Nossa jornada até a Cruz&lt;/h2&gt;
+&lt;ol class=&quot;t6j-line&quot;&gt;
+&lt;li class=&quot;t6j-step is-now&quot;&gt;
+&lt;span class=&quot;t6j-dot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;t6j-date&quot;&gt;AGO 2026&lt;/span&gt;
+&lt;span class=&quot;t6j-title&quot;&gt;Movimento global de oração&lt;/span&gt;
+&lt;button type=&quot;button&quot; class=&quot;t6j-btn&quot; aria-expanded=&quot;false&quot;&gt;Ver detalhes &lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;div class=&quot;t6j-detail&quot;&gt;Igrejas do mundo inteiro orando por cada pessoa que vai atravessar essa história e pelas conversas que a Cruz irá despertar.&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class=&quot;t6j-step&quot;&gt;
+&lt;span class=&quot;t6j-dot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;t6j-date&quot;&gt;SET 2026&lt;/span&gt;
+&lt;span class=&quot;t6j-title&quot;&gt;Episódio 1 nas Igrejas&lt;/span&gt;
+&lt;button type=&quot;button&quot; class=&quot;t6j-btn&quot; aria-expanded=&quot;false&quot;&gt;Ver detalhes &lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;div class=&quot;t6j-detail&quot;&gt;Igrejas de todo o mundo se reúnem para, juntas, assistirem à noite em que tudo muda.&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class=&quot;t6j-step&quot;&gt;
+&lt;span class=&quot;t6j-dot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;t6j-date&quot;&gt;NOV 2026&lt;/span&gt;
+&lt;span class=&quot;t6j-title&quot;&gt;Nova temporada no Prime Video&lt;/span&gt;
+&lt;button type=&quot;button&quot; class=&quot;t6j-btn&quot; aria-expanded=&quot;false&quot;&gt;Ver detalhes &lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;div class=&quot;t6j-detail&quot;&gt;A Sexta-feira Santa se desdobra episódio a episódio no Prime Video. A conversa sai da igreja e entra nas casas.&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class=&quot;t6j-step&quot;&gt;
+&lt;span class=&quot;t6j-dot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;t6j-date&quot;&gt;DEZ 2026&lt;/span&gt;
+&lt;span class=&quot;t6j-title&quot;&gt;Episódio Inédito de Natal: Os Três Reis&lt;/span&gt;
+&lt;button type=&quot;button&quot; class=&quot;t6j-btn&quot; aria-expanded=&quot;false&quot;&gt;Ver detalhes &lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;div class=&quot;t6j-detail&quot;&gt;Um especial de Natal inédito que será uma ponte entre o presépio e a Cruz.&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class=&quot;t6j-step&quot;&gt;
+&lt;span class=&quot;t6j-dot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;t6j-date&quot;&gt;JAN - FEV 2027&lt;/span&gt;
+&lt;span class=&quot;t6j-title&quot;&gt;Recursos para Igrejas&lt;/span&gt;
+&lt;button type=&quot;button&quot; class=&quot;t6j-btn&quot; aria-expanded=&quot;false&quot;&gt;Ver detalhes &lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;div class=&quot;t6j-detail&quot;&gt;Guias de Estudo e recursos sobre as últimas horas de Jesus, para sua igreja realizar um Encontro com The Chosen Crucificação.&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class=&quot;t6j-step&quot;&gt;
+&lt;span class=&quot;t6j-dot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;t6j-date&quot;&gt;INÍCIO DE 2027&lt;/span&gt;
+&lt;span class=&quot;t6j-title&quot;&gt;Crucificação nos cinemas&lt;/span&gt;
+&lt;button type=&quot;button&quot; class=&quot;t6j-btn&quot; aria-expanded=&quot;false&quot;&gt;Ver detalhes &lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;div class=&quot;t6j-detail&quot;&gt;O momento que irá colocar Jesus no centro da cultura e colocará os olhos do mundo na Cruz.&lt;/div&gt;
+&lt;/li&gt;
+&lt;li class=&quot;t6j-step&quot;&gt;
+&lt;span class=&quot;t6j-dot&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;t6j-date&quot;&gt;DEPOIS&lt;/span&gt;
+&lt;span class=&quot;t6j-title&quot;&gt;A jornada continua na Igreja&lt;/span&gt;
+&lt;button type=&quot;button&quot; class=&quot;t6j-btn&quot; aria-expanded=&quot;false&quot;&gt;Ver detalhes &lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot;&gt;&lt;path d=&quot;M3 6l5 5 5-5&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+&lt;div class=&quot;t6j-detail&quot;&gt;Quem assistiu The Chosen Crucificação volta com perguntas. A jornada termina onde começou: com a igreja pronta para receber e responder.&lt;/div&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;
 &lt;/section&gt;
 &lt;script&gt;
 (function(){
 try{
-var target = new Date(&#x27;2026-11-15T00:00:00-03:00&#x27;).getTime();
-var elD=document.getElementById(&#x27;t6d&#x27;), elH=document.getElementById(&#x27;t6h&#x27;), elM=document.getElementById(&#x27;t6m&#x27;), elS=document.getElementById(&#x27;t6s&#x27;);
-var wrap=document.getElementById(&#x27;t6Count&#x27;), avail=document.getElementById(&#x27;t6Avail&#x27;);
-function p2(n){ return n&lt;10 ? &#x27;0&#x27;+n : &#x27;&#x27;+n; }
-function tick(){
-var diff = target - Date.now();
-if(diff &lt;= 0){ wrap.style.display=&#x27;none&#x27;; avail.style.display=&#x27;&#x27;; clearInterval(iv); return; }
-var s = Math.floor(diff/1000);
-elD.textContent = Math.floor(s/86400);
-elH.textContent = p2(Math.floor(s%86400/3600));
-elM.textContent = p2(Math.floor(s%3600/60));
-elS.textContent = p2(s%60);
+var btns = document.querySelectorAll(&#x27;.t6j-btn&#x27;);
+for(var i=0;i&lt;btns.length;i++){ (function(btn){
+btn.addEventListener(&#x27;click&#x27;, function(){
+var step = btn.closest(&#x27;.t6j-step&#x27;);
+var aberto = step.classList.contains(&#x27;open&#x27;);
+var abertos = document.querySelectorAll(&#x27;.t6j-step.open&#x27;);
+for(var x=0;x&lt;abertos.length;x++){ abertos[x].classList.remove(&#x27;open&#x27;); abertos[x].querySelector(&#x27;.t6j-btn&#x27;).setAttribute(&#x27;aria-expanded&#x27;,&#x27;false&#x27;); }
+if(!aberto){ step.classList.add(&#x27;open&#x27;); btn.setAttribute(&#x27;aria-expanded&#x27;,&#x27;true&#x27;); }
+});
+})(btns[i]); }
+document.addEventListener(&#x27;click&#x27;, function(ev){
+if(!ev.target.closest(&#x27;.t6j-step&#x27;)){
+var abertos = document.querySelectorAll(&#x27;.t6j-step.open&#x27;);
+for(var x=0;x&lt;abertos.length;x++){ abertos[x].classList.remove(&#x27;open&#x27;); }
 }
-var iv = setInterval(tick, 1000);
-tick();
+});
 }catch(err){}
 })();
 &lt;/script&gt;
