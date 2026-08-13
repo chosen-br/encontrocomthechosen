@@ -755,6 +755,15 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <a href="/encontro" data-nav="home" id="navEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="navKit">Kit de Divulgação</a>
 <a href="/perguntas" data-nav="faq" id="navFaq">Perguntas Frequentes</a>
+<span class="lang-wrap">
+<button type="button" class="lang-globe" id="langGlobe" aria-label="Idioma / Language" aria-haspopup="true" aria-expanded="false">
+<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/></svg>
+</button>
+<div class="lang-drop" id="langDrop" role="menu">
+<button type="button" data-l="pt" role="menuitem"><strong>português (Brasil)</strong><small>Português</small></button>
+<button type="button" data-l="en" role="menuitem"><strong>inglês</strong><small>English</small></button>
+</div>
+</span>
 </nav>
 <div class="nav-acts">
 <button type="button" class="btn btn-gold" id="navReport">Relatar Encontro</button>
@@ -769,6 +778,10 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <a href="/encontro" data-nav="home" id="mEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="mKit">Kit de Divulgação</a>
 <a href="/perguntas" data-nav="faq" id="mFaq">Perguntas Frequentes</a>
+<div class="mnav-langs">
+<button type="button" data-l="pt">Português (Brasil)</button>
+<button type="button" data-l="en">English</button>
+</div>
 <div class="mnav-cta"><button type="button" class="btn btn-gold" id="mReport" style="width:100%">✦ Relatar Encontro</button></div>
 </nav>
 <!-- menu flutuante de plataformas (Assistir) -->
@@ -1013,91 +1026,169 @@ Falar no WhatsApp
 <!-- ============ TEMPORADA 6 (PÁGINA SEPARADA) ============ -->
 <div id="t6View" style="display:none">
 <style>
-#t6View { background:#151414; }
+#t6View { background:#0A0A0A; }
 body.v-t6 a.logo { visibility:hidden; }
 body.v-t6 #navReport { display:none; }
 body.v-t6 .mnav-cta { display:none; }
-.t6p-hero { padding: clamp(96px,14vh,130px) var(--pad) 0; text-align:center; }
-.t6p-logo { width:min(400px,74vw); height:auto; display:block; margin:0 auto 1.6rem; }
-.t6p-eyebrow { font-size:.75rem; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:var(--teal); margin:0 0 .8rem; }
-.t6p-title { font-family:'Forum',serif; font-weight:400; font-size:clamp(1.9rem,5vw,3rem); letter-spacing:.03em; color:rgba(240,240,240,.85); margin:0 0 .6rem; }
-.t6p-sub { font-size:1rem; color:var(--ink-soft); margin:0 auto 2.2rem; max-width:560px; line-height:1.6; }
-.t6p-player { position:relative; max-width:860px; margin:0 auto; border-radius:14px; overflow:hidden; border:1px solid var(--line); aspect-ratio:16/9; background:#000; cursor:pointer; }
-.t6p-player img { width:100%; height:100%; object-fit:cover; display:block; opacity:.92; }
-.t6p-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
-.t6p-play span { width:78px; height:78px; border-radius:50%; background:rgba(0,201,177,.92); display:flex; align-items:center; justify-content:center; transition:transform .2s; }
-.t6p-player:hover .t6p-play span { transform:scale(1.08); }
-.t6p-player iframe { width:100%; height:100%; border:0; }
-.t6p-acts { display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin:1.6rem 0 0; }
-.t6p-wa { display:inline-flex; align-items:center; gap:.55rem; background:var(--teal); color:#04211f; border:none; border-radius:10px; padding:.75rem 1.3rem; font-weight:800; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; }
-.t6p-wa:hover { filter:brightness(1.08); }
-.t6p-dl { display:inline-flex; align-items:center; gap:.55rem; background:transparent; color:var(--ink-soft); border:1px solid var(--line); border-radius:10px; padding:.75rem 1.3rem; font-weight:700; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; transition:border-color .2s,color .2s; }
-.t6p-dl:hover { border-color:var(--teal); color:var(--ink); }
-.t6p-count { margin:3.4rem 0 0; padding:1.5rem var(--pad) 1.7rem; background:var(--bg-deep); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-.t6p-head { display:flex; align-items:center; justify-content:center; gap:1.1rem; margin-bottom:1rem; }
-.t6p-head::before, .t6p-head::after { content:""; height:1px; width:min(72px,14vw); background:var(--teal); opacity:.65; }
-.t6p-htitle { font-weight:600; font-size:.8rem; letter-spacing:.26em; text-transform:uppercase; color:var(--teal); margin:0; text-align:center; }
-.t6p-nums { display:flex; align-items:baseline; justify-content:center; gap:.55rem; margin-bottom:1.2rem; }
-.t6p-unit { display:flex; flex-direction:column; align-items:center; min-width:3.2rem; }
-.t6p-num { font-family:var(--display); font-size:clamp(1.9rem,4.2vw,2.7rem); line-height:1; color:var(--ink); letter-spacing:.02em; font-variant-numeric:tabular-nums; }
-.t6p-ul { font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-mute); margin-top:.5rem; }
-.t6p-sep { font-family:var(--display); font-size:clamp(1.4rem,3vw,1.9rem); color:var(--teal); transform:translateY(-.35rem); }
-.t6p-line { list-style:none; margin:0 auto; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; max-width:880px; position:relative; }
-.t6p-line::before { content:""; position:absolute; top:5px; left:12%; right:12%; height:1px; background:var(--line); }
-.t6p-step { position:relative; text-align:center; padding-top:1.35rem; }
-.t6p-dot { position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; border:1.5px solid var(--teal); background:var(--bg-deep); }
-.t6p-step.is-now .t6p-dot { background:var(--teal); box-shadow:0 0 0 4px rgba(0,201,177,.14); }
-.t6p-when { display:block; font-weight:700; font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink); margin-bottom:.45rem; }
-.t6p-what { display:block; font-size:.86rem; line-height:1.55; color:var(--ink-soft); max-width:250px; margin:0 auto; }
-@media (max-width:700px){ .t6p-line { grid-template-columns:1fr; gap:1.6rem; max-width:330px; padding-left:1.4rem; } .t6p-line::before { left:5px; right:auto; top:6px; bottom:6px; width:1px; height:auto; } .t6p-step { text-align:left; padding-top:0; padding-left:1.2rem; } .t6p-dot { left:-1.4rem; top:3px; transform:none; } .t6p-what { margin:0; } }
-.t6p-prep { max-width:640px; margin:0 auto; padding:3.2rem var(--pad) 4.2rem; text-align:center; }
-.t6p-prep h2 { font-family:'Forum',serif; font-weight:400; font-size:clamp(1.3rem,3vw,1.8rem); letter-spacing:.03em; color:rgba(240,240,240,.85); margin:0 0 .7rem; }
-.t6p-prep p { font-size:.95rem; color:var(--ink-soft); line-height:1.65; margin:0 0 1.6rem; }
-.t6p-prep .row { display:flex; justify-content:center; }
-.t6p-go { display:inline-flex; align-items:center; gap:.55rem; background:var(--teal); color:#04211f; border-radius:10px; padding:.8rem 1.6rem; font-weight:800; font-size:.84rem; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; }
-.t6p-go:hover { filter:brightness(1.08); }
+/* ---------- HERO fixo com vídeo ---------- */
+.t6h { position:sticky; top:0; height:100vh; min-height:560px; display:flex; align-items:center; justify-content:center; overflow:hidden; z-index:1; }
+.t6h-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.t6h-shade { position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(5,5,5,.38) 0%, rgba(5,5,5,.72) 100%); }
+.t6h-content { position:relative; z-index:2; text-align:center; padding:0 var(--pad); max-width:900px; }
+.t6h-title { font-family:'Forum',serif; font-weight:400; font-size:clamp(1.7rem,4.6vw,3.1rem); line-height:1.22; letter-spacing:.06em; text-transform:uppercase; color:#FFFFFF; margin:0 0 1.1rem; text-shadow:0 2px 24px rgba(0,0,0,.6); }
+.t6h-eyebrow { font-size:.85rem; font-weight:700; letter-spacing:.3em; text-transform:uppercase; color:#E9A83E; margin:0 0 1.7rem; }
+.t6h-row { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; }
+.t6h-ghost { display:inline-flex; align-items:center; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.55); border-radius:999px; padding:.85rem 1.7rem; font-weight:700; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:border-color .2s, background .2s; }
+.t6h-ghost:hover { border-color:#fff; background:rgba(255,255,255,.08); }
+.t6h-cta { display:inline-flex; align-items:center; background:#E9A83E; color:#161206; border:1px solid #E9A83E; border-radius:999px; padding:.85rem 1.8rem; font-weight:800; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:filter .2s; }
+.t6h-cta:hover { filter:brightness(1.09); }
+/* ---------- camada que sobrepõe o hero ---------- */
+.t6-over { position:relative; z-index:2; background:#0A0A0A; box-shadow:0 -30px 60px rgba(0,0,0,.55); }
+/* ---------- seção: sua igreja pode ver primeiro ---------- */
+.t6see { padding: clamp(64px,10vh,110px) var(--pad); }
+.t6see-grid { display:grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem,5vw,4.5rem); align-items:center; max-width:1180px; margin:0 auto; }
+.t6-player { position:relative; aspect-ratio:16/9; background:#000; border-radius:14px; overflow:hidden; cursor:pointer; box-shadow:0 24px 70px rgba(0,0,0,.55); }
+.t6-player img { width:100%; height:100%; object-fit:cover; display:block; }
+.t6-player iframe { width:100%; height:100%; border:0; display:block; }
+.t6-play { position:absolute; inset:0; margin:auto; width:74px; height:74px; border-radius:50%; background:#E9A83E; display:flex; align-items:center; justify-content:center; transition:transform .2s; pointer-events:none; }
+.t6-player:hover .t6-play { transform:scale(1.07); }
+.t6see-h2 { font-family:'Forum',serif; font-weight:400; font-size:clamp(1.7rem,3.6vw,2.7rem); line-height:1.18; letter-spacing:.06em; text-transform:uppercase; color:#fff; margin:0 0 1.2rem; }
+.t6see-txt p { font-size:.98rem; line-height:1.75; color:rgba(255,255,255,.75); margin:0 0 1.1rem; }
+.t6pill { display:inline-block; border:1px solid rgba(255,255,255,.4); border-radius:999px; color:#fff; padding:.7rem 1.4rem; font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin:.5rem 0 1.3rem; }
+.t6see-cta-row { display:flex; }
+/* ---------- jornada até a Cruz ---------- */
+.t6j { position:relative; margin:0; padding:2.6rem var(--pad) 3.2rem; background:#070707; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); }
+.t6j-h { font-weight:600; font-size:.8rem; letter-spacing:.3em; text-transform:uppercase; color:#E9A83E; margin:0 0 2.2rem; text-align:center; }
+.t6j-line { list-style:none; margin:0 auto; padding:0; display:grid; grid-template-columns:repeat(7,1fr); gap:.9rem; max-width:1240px; position:relative; }
+.t6j-line::before { content:""; position:absolute; top:5px; left:2%; right:2%; height:1px; background:rgba(233,168,62,.28); }
+.t6j-line::after { content:""; position:absolute; top:5px; left:2%; width:9%; height:1px; background:#E9A83E; }
+.t6j-step { position:relative; text-align:center; padding-top:1.5rem; }
+.t6j-dot { position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; border:1.5px solid #E9A83E; background:#070707; }
+.t6j-step.is-now .t6j-dot { background:#E9A83E; box-shadow:0 0 0 5px rgba(233,168,62,.18), 0 0 18px rgba(233,168,62,.55); }
+.t6j-date { display:block; font-weight:700; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#E9A83E; margin-bottom:.55rem; }
+.t6j-title { display:block; font-size:.86rem; line-height:1.45; color:rgba(255,255,255,.78); margin:0 auto .8rem; max-width:170px; }
+.t6j-btn { display:inline-flex; align-items:center; gap:.4rem; background:transparent; color:#E9A83E; border:1px solid rgba(233,168,62,.55); border-radius:999px; padding:.42rem .95rem; font-weight:700; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; transition:background .2s, border-color .2s; }
+.t6j-btn:hover { background:rgba(233,168,62,.1); border-color:#E9A83E; }
+.t6j-btn svg { transition:transform .2s; }
+.t6j-step.open .t6j-btn svg { transform:rotate(180deg); }
+.t6j-detail { display:none; position:absolute; top:calc(100% + .7rem); left:50%; transform:translateX(-50%); width:min(250px,72vw); background:#111; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:.95rem 1.05rem; font-size:.83rem; line-height:1.6; color:rgba(255,255,255,.82); text-align:left; box-shadow:0 16px 40px rgba(0,0,0,.55); z-index:5; }
+.t6j-step.open .t6j-detail { display:block; }
+.t6j-step:first-child .t6j-detail { left:0; transform:none; }
+.t6j-step:last-child .t6j-detail { left:auto; right:0; transform:none; }
+/* ---------- rodapé de marca ---------- */
+.t6foot { padding:3.6rem var(--pad) 2.8rem; text-align:center; }
+.t6foot img { width:min(300px,58vw); height:auto; display:block; margin:0 auto; }
+.t6foot span { display:block; margin-top:1rem; font-size:.72rem; font-weight:700; letter-spacing:.4em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+@media (max-width:860px){
+.t6see-grid { grid-template-columns:1fr; }
+.t6j-line { grid-template-columns:1fr; gap:1.7rem; max-width:340px; padding-left:1.4rem; }
+.t6j-line::before { left:5px; right:auto; top:6px; bottom:6px; width:1px; height:auto; }
+.t6j-line::after { left:5px; top:6px; width:1px; height:9%; }
+.t6j-step { text-align:left; padding-top:0; padding-left:1.2rem; }
+.t6j-dot { left:-1.4rem; top:3px; transform:none; }
+.t6j-title { margin:0 0 .8rem; max-width:none; }
+.t6j-detail { position:static; transform:none; width:auto; margin-top:.7rem; }
+.t6p-line { grid-template-columns:1fr; gap:1.6rem; max-width:330px; padding-left:1.4rem; }
+.t6p-line::before { left:5px; right:auto; top:6px; bottom:6px; width:1px; height:auto; }
+.t6p-step { text-align:left; padding-top:0; padding-left:1.2rem; }
+.t6p-dot { left:-1.4rem; top:3px; transform:none; }
+.t6p-what { margin:0; }
+}
 </style>
-<section class="t6p-hero" aria-label="Crucificação">
-<img class="t6p-logo" src="img/t6-logo.webp" alt="The Chosen — Temporada 6" width="760" height="85">
-<h1 class="t6p-title">O teaser oficial chegou.</h1>
-<p class="t6p-sub">Assista ao primeiro vislumbre da temporada que levará a Crucificação ao mundo todo, e compartilhe com a sua comunidade.</p>
-<div class="t6p-player" id="t6Player" role="button" aria-label="Assistir ao teaser oficial da nova temporada" tabindex="0">
-<img src="https://img.youtube.com/vi/Yzs9vTdPeQM/maxresdefault.jpg" alt="Teaser oficial da nova temporada de The Chosen">
-<div class="t6p-play"><span><svg width="26" height="26" viewBox="0 0 24 24" fill="#04211f"><path d="M8 5v14l11-7z"/></svg></span></div>
+
+<section class="t6h" aria-label="Crucificação">
+<video class="t6h-video" src="img/hero.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+<div class="t6h-shade"></div>
+<div class="t6h-content">
+<h1 class="t6h-title">Assista ao primeiro episódio da Temporada&nbsp;6 antes de todo mundo</h1>
+<p class="t6h-eyebrow">Exclusivo para igrejas</p>
+<div class="t6h-row">
+<a class="t6h-ghost" href="#t6como" id="t6ComoBtn">Como funciona</a>
+<a class="t6h-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Cadastrar igreja</a>
 </div>
-<div class="t6p-acts">
-<a class="t6p-wa" id="t6Share" target="_blank" rel="noopener" href="https://wa.me/?text=Voc%C3%AA%20precisa%20assistir%20esse%20v%C3%ADdeo%21%0A%C3%89%20o%20primeiro%20vislumbre%20da%20nova%20temporada%20de%20The%20Chosen%2C%20que%20vai%20retratar%20a%20Crucifica%C3%A7%C3%A3o.%0AImagina%20o%20que%20isso%20vai%20despertar...%20muita%20gente%20vai%20querer%20falar%20sobre%20Jesus%2C%20e%20algu%C3%A9m%20vai%20precisar%20estar%20por%20perto.%20Quero%20ser%20um%20desses.%20Vem%20comigo%3F%0Ahttps%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3DYzs9vTdPeQM">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-Compartilhar no WhatsApp</a>
-<a class="t6p-dl" id="t6Dl" href="https://thechosen.mediavalet.com/galleries/e0314ae2-e18d-4f80-8825-be252e968a5d_889e41e7-925f-4f3f-a3dc-8e4e2b5f507d-ExternalUser" target="_blank" rel="noopener" data-res="Teaser: Temporada 6" data-t6="dl">
-<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-Baixar o teaser</a>
 </div>
 </section>
-<section class="t6p-count" aria-label="O caminho até a Crucificação">
-<div class="t6p-head"><h2 class="t6p-htitle">O caminho até a Crucificação</h2></div>
-<div class="t6p-nums" id="t6pCount">
-<div class="t6p-unit"><span class="t6p-num" id="t6pD">–</span><span class="t6p-ul">dias</span></div>
-<span class="t6p-sep">:</span>
-<div class="t6p-unit"><span class="t6p-num" id="t6pH">–</span><span class="t6p-ul">horas</span></div>
-<span class="t6p-sep">:</span>
-<div class="t6p-unit"><span class="t6p-num" id="t6pM">–</span><span class="t6p-ul">min</span></div>
-<span class="t6p-sep">:</span>
-<div class="t6p-unit"><span class="t6p-num" id="t6pS">–</span><span class="t6p-ul">seg</span></div>
+
+<div class="t6-over">
+<section class="t6see" id="t6como" aria-label="Sua igreja pode ver primeiro">
+<div class="t6see-grid">
+<div class="t6-player" id="t6Player" role="button" tabindex="0" aria-label="Assistir ao teaser oficial da nova temporada">
+<img src="https://i.ytimg.com/vi/Yzs9vTdPeQM/maxresdefault.jpg" alt="Teaser oficial da nova temporada de The Chosen" loading="lazy">
+<span class="t6-play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#161206"><path d="M8 5v14l11-7z"/></svg></span>
 </div>
-<ol class="t6p-line">
-<li class="t6p-step is-now"><span class="t6p-dot"></span><span class="t6p-when">Agora</span><span class="t6p-what">Realize Encontros com The Chosen e prepare sua comunidade.</span></li>
-<li class="t6p-step"><span class="t6p-dot"></span><span class="t6p-when">15 nov 2026</span><span class="t6p-what">Estreia da nova temporada no Prime Video.</span></li>
-<li class="t6p-step"><span class="t6p-dot"></span><span class="t6p-when">Início de 2027</span><span class="t6p-what">A Crucificação nos cinemas do mundo todo.</span></li>
+<div class="t6see-txt">
+<h2 class="t6see-h2">Sua igreja pode ver primeiro</h2>
+<p>A Temporada 6 é diferente de tudo o que The Chosen já fez: ela acompanha um único dia, as últimas horas da vida de Jesus. O primeiro episódio começa no momento em que tudo muda, a prisão de Jesus. A noite que ninguém estava pronto para viver e que a sua comunidade pode assistir junta, antes de todo mundo.</p>
+<p>Enquanto a temporada chega ao streaming em 15 de novembro, igrejas e paróquias já podem se cadastrar para exibir o Episódio 1 a partir de 15 de setembro.</p>
+<span class="t6pill">Sem nenhum custo para a sua igreja</span>
+<div class="t6see-cta-row">
+<a class="t6h-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Cadastrar igreja</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="t6j" aria-label="Nossa jornada até a Cruz">
+<h2 class="t6j-h">Nossa jornada até a Cruz</h2>
+<ol class="t6j-line">
+<li class="t6j-step is-now">
+<span class="t6j-dot"></span>
+<span class="t6j-date">AGO 2026</span>
+<span class="t6j-title">Movimento global de oração</span>
+<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="t6j-detail">Igrejas do mundo inteiro orando por cada pessoa que vai atravessar essa história e pelas conversas que a Cruz irá despertar.</div>
+</li>
+<li class="t6j-step">
+<span class="t6j-dot"></span>
+<span class="t6j-date">SET 2026</span>
+<span class="t6j-title">Episódio 1 nas Igrejas</span>
+<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="t6j-detail">Igrejas de todo o mundo se reúnem para, juntas, assistirem à noite em que tudo muda.</div>
+</li>
+<li class="t6j-step">
+<span class="t6j-dot"></span>
+<span class="t6j-date">NOV 2026</span>
+<span class="t6j-title">Nova temporada no Prime Video</span>
+<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="t6j-detail">A Sexta-feira Santa se desdobra episódio a episódio no Prime Video. A conversa sai da igreja e entra nas casas.</div>
+</li>
+<li class="t6j-step">
+<span class="t6j-dot"></span>
+<span class="t6j-date">DEZ 2026</span>
+<span class="t6j-title">Episódio Inédito de Natal: Os Três Reis</span>
+<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="t6j-detail">Um especial de Natal inédito que será uma ponte entre o presépio e a Cruz.</div>
+</li>
+<li class="t6j-step">
+<span class="t6j-dot"></span>
+<span class="t6j-date">JAN - FEV 2027</span>
+<span class="t6j-title">Recursos para Igrejas</span>
+<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="t6j-detail">Guias de Estudo e recursos sobre as últimas horas de Jesus, para sua igreja realizar um Encontro com The Chosen Crucificação.</div>
+</li>
+<li class="t6j-step">
+<span class="t6j-dot"></span>
+<span class="t6j-date">INÍCIO DE 2027</span>
+<span class="t6j-title">Crucificação nos cinemas</span>
+<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="t6j-detail">O momento que irá colocar Jesus no centro da cultura e colocará os olhos do mundo na Cruz.</div>
+</li>
+<li class="t6j-step">
+<span class="t6j-dot"></span>
+<span class="t6j-date">DEPOIS</span>
+<span class="t6j-title">A jornada continua na Igreja</span>
+<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<div class="t6j-detail">Quem assistiu The Chosen Crucificação volta com perguntas. A jornada termina onde começou: com a igreja pronta para receber e responder.</div>
+</li>
 </ol>
 </section>
-<section class="t6p-prep">
-<h2>Prepare a sua comunidade</h2>
-<p>Enquanto o mundo aguarda a estreia, líderes em todo o Brasil estão reunindo seus grupos para Encontros com The Chosen. Clique no botão abaixo e saiba mais.</p>
-<div class="row">
-<a class="t6p-go" href="/visao" data-nav="visao">Quero participar</a>
+
+<footer class="t6foot" aria-label="The Chosen Temporada 6">
+<img src="img/t6-logo.webp" alt="The Chosen" width="760" height="85">
+<span>Temporada 6</span>
+</footer>
 </div>
-</section>
+
 <script>
 (function(){
 try{
@@ -1109,23 +1200,28 @@ t6b('t6_play');
 pl.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/Yzs9vTdPeQM?autoplay=1&rel=0" title="Teaser oficial da nova temporada" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
 pl.style.cursor = 'default';
 };
-var _sh = document.getElementById('t6Share'); if(_sh) _sh.addEventListener('click', function(){ t6b('t6_share'); });
-
 pl.addEventListener('click', go);
 pl.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); go(); } });
 }
-var target = new Date('2026-11-15T00:00:00-03:00').getTime();
-function p2(n){ return n<10 ? '0'+n : ''+n; }
-function tick(){
-var diff = target - Date.now();
-if(diff <= 0) { clearInterval(iv); return; }
-var s = Math.floor(diff/1000);
-document.getElementById('t6pD').textContent = Math.floor(s/86400);
-document.getElementById('t6pH').textContent = p2(Math.floor(s%86400/3600));
-document.getElementById('t6pM').textContent = p2(Math.floor(s%3600/60));
-document.getElementById('t6pS').textContent = p2(s%60);
+var cb = document.getElementById('t6ComoBtn');
+if(cb){ cb.addEventListener('click', function(e){
+e.preventDefault();
+var alvo = document.getElementById('t6como');
+if(alvo) alvo.scrollIntoView({behavior:'smooth', block:'start'});
+}); }
+document.querySelectorAll('.t6j-btn').forEach(function(btn){
+btn.addEventListener('click', function(){
+var step = btn.closest('.t6j-step');
+var aberto = step.classList.contains('open');
+document.querySelectorAll('.t6j-step.open').forEach(function(s){ s.classList.remove('open'); s.querySelector('.t6j-btn').setAttribute('aria-expanded','false'); });
+if(!aberto){ step.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+});
+});
+document.addEventListener('click', function(ev){
+if(!ev.target.closest('.t6j-step')){
+document.querySelectorAll('.t6j-step.open').forEach(function(s){ s.classList.remove('open'); });
 }
-var iv = setInterval(tick, 1000); tick();
+});
 }catch(err){}
 })();
 </script>
@@ -2751,7 +2847,7 @@ en:{enter:"Sign In",signup:"Sign Up",how:"How it works",heroDesc:'The stories of
 };
 // rótulos extras (estáticos) por idioma
 (function(){ const X={"pt": {"heroTitle": "Encontro com The Chosen", "themesLbl": "Temas", "dlScene": "Baixar cena", "dlGuide": "Baixar guia", "stepsSub": "Feito para líderes: escolha, baixe e conduza, sem complicação.", "step1T": "Escolha o recurso", "step1D": "Navegue pelos recursos liberados e encontre a cena ou o tema que conversa com o momento do seu grupo.", "step2T": "Baixe os recursos disponíveis", "step2D": "Cada cena contém o seu contexto, versículo e perguntas para conduzir a conversa.", "step3T": "Conduza seu grupo", "step3D": "Leia o versículo, exiba o vídeo, abra a conversa e deixe a história fazer o trabalho. Você guia, o conteúdo apoia.", "footTag": "Recursos gratuitos do The Chosen para fortalecer igrejas e líderes em todo o Brasil.", "legal": "Legal", "terms": "Termos e Condições", "privacy": "Política de Privacidade", "license": "Licença", "rights": "© 2025 Come and See Foundation. Todos os direitos reservados.", "helpH": "Ajuda", "faqNav": "Perguntas Frequentes", "howP1": "O Encontro com The Chosen nasceu a partir de uma necessidade simples: líderes que amavam a série queriam uma forma prática de usá-la em suas programações.", "howP2": "A proposta é ajudar as pessoas a se aproximarem das Escrituras de uma maneira viva, acessível e profunda, enxergando as histórias do Evangelho com novos olhos.", "howP3": "Tudo acontece em três etapas simples: <b class=\"howp-steps\">Leia. Assista. Converse.</b>", "searchPh": "Buscar por tema, episódio ou personagem...", "searchHint": "Pressione <kbd>Esc</kbd> para fechar &nbsp;·&nbsp; <kbd>/</kbd> abre a busca em qualquer lugar", "searchChips": ["Fé", "Oração", "Páscoa", "Sofrimento", "Guia de discussão", "Mulher no poço"], "statusSoon": "Em breve", "epsWord": "episódios", "freeClip": "Clipe gratuito", "watchSeasonTxt": "Assistir Temporada", "crucifixion": "Crucificação", "epWatch": "Assistir", "epGuide": "Guia", "seasonTags": ["Chamado", "Fé", "Comunidade"]}, "en": {"heroTitle": "Encounter with The Chosen", "themesLbl": "Themes", "dlScene": "Download scene", "dlGuide": "Download guide", "stepsSub": "Made for leaders: choose, download, and lead. No complications.", "step1T": "Choose the resource", "step1D": "Browse the available resources and find the scene or theme that speaks to your group's moment.", "step2T": "Download the available resources", "step2D": "Each scene includes its context, verse, and questions to guide the conversation.", "step3T": "Lead your group", "step3D": "Read the verse, play the video, open the conversation, and let the story do the work. You guide, the content supports.", "footTag": "Free resources from The Chosen to strengthen churches and leaders across Brazil.", "legal": "Legal", "terms": "Terms and Conditions", "privacy": "Privacy Policy", "license": "License", "rights": "© 2025 Come and See Foundation. All rights reserved.", "helpH": "Help", "faqNav": "Frequently Asked Questions", "howP1": "Encounter with The Chosen was born from a simple need: leaders who loved the series wanted a practical way to use it in their programs.", "howP2": "The goal is to help people draw closer to Scripture in a living, accessible, and profound way, seeing the Gospel stories with new eyes.", "howP3": "It all happens in three simple steps: <b class=\"howp-steps\">Read. Watch. Talk.</b>", "searchPh": "Search by theme, episode, or character...", "searchHint": "Press <kbd>Esc</kbd> to close &nbsp;\u00b7&nbsp; <kbd>/</kbd> opens search anywhere", "searchChips": ["Faith", "Prayer", "Easter", "Suffering", "Discussion guide", "Woman at the well"], "statusSoon": "Coming soon", "epsWord": "episodes", "freeClip": "Free clip", "watchSeasonTxt": "Watch Season", "crucifixion": "Crucifixion", "epWatch": "Watch", "epGuide": "Guide", "seasonTags": ["Calling", "Faith", "Community"]}}; for(const k in X){ if(I18N[k]) Object.assign(I18N[k], X[k]); } })();
-let curLang = "pt";
+let curLang = "pt"; window.curLang = "pt";
 // helpers de tradução de conteúdo
 function trScene(v){
 if(curLang==='pt' || !SCENE_I18N[v.t]) return {t:v.t, tag:v.tag, d:v.d, refs:v.refs};
@@ -2769,7 +2865,7 @@ const key = (curLang==='esLA'||curLang==='esES')?'es':(curLang==='en'?'en':null)
 return (key && THEME_I18N[name]) ? THEME_I18N[name][key] : name;
 }
 function applyLang(code){
-curLang = code;
+curLang = code; window.curLang = code;
 const t = I18N[code] || I18N.pt;
 document.documentElement.lang = ({pt:"pt-BR",en:"en",esLA:"es",esES:"es",fr:"fr",de:"de",pl:"pl",nl:"nl",it:"it",hi:"hi",ta:"ta",tl:"tl",te:"te",ml:"ml",ko:"ko"})[code]||"pt-BR";
 // navbar (botões antigos de login/idioma removidos; barra fixa em PT)
@@ -2798,14 +2894,20 @@ setTxt('footTag', t.footTag);
 setTxt('footHelpH', t.helpH); setTxt('footFaq', t.faqNav);
 setTxt('footLegalH', t.legal); setTxt('footPrivacy', t.privacy); setTxt('footTerms', t.terms);
 setTxt('footRights', t.rights);
-setTxt('navVision', 'Visão Para Líderes');
-setTxt('navEncounter', 'Encontro com The Chosen');
-setTxt('navKit', 'Kit de Divulgação');
-setTxt('navFaq', 'Perguntas Frequentes');
-setTxt('mVision', 'Visão Para Líderes');
-setTxt('mEncounter', 'Encontro com The Chosen');
-setTxt('mKit', 'Kit de Divulgação');
-setTxt('mFaq', 'Perguntas Frequentes');
+const NAVTX = {
+pt:{t6:'Crucificação',vision:'Visão Para Líderes',enc:'Encontro com The Chosen',kit:'Kit de Divulgação',faq:'Perguntas Frequentes',report:'Relatar Encontro',lang:'Português (Brasil)'},
+en:{t6:'Crucifixion',vision:'Vision for Leaders',enc:'Encounter with The Chosen',kit:'Promo Kit',faq:'FAQ',report:'Report an Encounter',lang:'English (US)'}
+};
+const nv = NAVTX[code] || NAVTX.pt;
+setTxt('navT6', nv.t6); setTxt('mT6', nv.t6);
+setTxt('navVision', nv.vision); setTxt('mVision', nv.vision);
+setTxt('navEncounter', nv.enc); setTxt('mEncounter', nv.enc);
+setTxt('navKit', nv.kit); setTxt('mKit', nv.kit);
+setTxt('navFaq', nv.faq); setTxt('mFaq', nv.faq);
+setTxt('navReport', nv.report);
+{ const mc=document.querySelector('.mnav-cta'); if(mc) mc.textContent = nv.report; }
+setTxt('footLang', nv.lang);
+{ const ap=document.getElementById('aPass'); if(ap) ap.placeholder = (code==='en'?'Enter the password':'Digite a senha'); }
 { const me=document.getElementById('mEnter'); if(me) me.textContent=t.enter; }
 setTxt('footKit', ({pt:'Kit de Divulgação',en:'Promo Kit',esLA:'Kit de Difusión',esES:'Kit de Difusión'})[code] || 'Promo Kit');
 { const si=document.getElementById('sovIn'); if(si) si.placeholder=t.searchPh; }
@@ -2819,6 +2921,32 @@ renderTopics && renderTopics();
 (typeof renderFAQ==="function") && renderFAQ();
 (typeof renderKit==="function") && renderKit();
 (typeof renderThemeChip==="function") && renderThemeChip();
+applyTx(code);
+}
+const TXPAIRS = [["O momento que marcará", "The moment that will mark"], ["uma geração.", "a generation."], ["A nova temporada de The Chosen abordar&aacute; a Crucifica&ccedil;&atilde;o, e queremos compartilhar com voc&ecirc; como a Igreja pode exercer um papel essencial no acolhimento &agrave;s vidas impactadas pela mensagem da Cruz.", "The new season of The Chosen will portray the Crucifixion, and we want to share with you how the Church can play an essential role in welcoming the lives impacted by the message of the Cross."], ["Saiba mais", "Learn more"], ["Uma mensagem para", "A message for"], ["as lideranças do Brasil", "the leaders of Brazil"], ["Dallas Jenkins · Criador de The Chosen", "Dallas Jenkins · Creator of The Chosen"], ["Dallas Jenkins, criador e diretor de The Chosen, compartilha diretamente com os l&iacute;deres brasileiros por que esse momento &eacute; &uacute;nico, e por que a Igreja &eacute; a pe&ccedil;a central do que vem a seguir.", "Dallas Jenkins, creator and director of The Chosen, speaks directly to Brazilian leaders about why this moment is unique, and why the Church is the central piece in it."], ["01 · Como participar", "01 · How to take part"], ["Faça parte do movimento", "Join the movement"], ["na sua cidade", "in your city"], ["Veja como sua lideran&ccedil;a pode participar deste momento e se tornar um ponto de acolhimento para as pessoas impactadas por essa mensagem.", "See how your leadership can take part in this moment and become a place of welcome for the people impacted by this message."], ["Ore", "Pray"], ["A seara &eacute; grande, mas os trabalhadores... Ore para que mais l&iacute;deres, igrejas e comunidades respondam a esse momento com coragem e unidade, ampliando o alcance da mensagem da Cruz em todo o Brasil.", "The harvest is plentiful, but the workers... Pray that more leaders, churches, and communities respond to this moment with courage and unity, expanding the reach of the message of the Cross across Brazil."], ["Realize um Encontro", "Host an Encounter"], ["Promova uma experi&ecirc;ncia que une clipes da s&eacute;rie e a Escritura para gerar conversas genu&iacute;nas sobre Jesus. Simples, acess&iacute;vel e adapt&aacute;vel: Leia. Assista. Converse.", "Create an experience that brings together clips from the series and Scripture to spark genuine conversations about Jesus. Simple, accessible, and adaptable: Read. Watch. Talk."], ["02 · Encontro com The Chosen", "02 · Encounter with The Chosen"], ["Realize um", "Host an"], ["Encontro com The Chosen", "Encounter with The Chosen"], ["Re&uacute;na o seu grupo, escolha uma cena, leia a passagem b&iacute;blica e conduza a conversa. Tudo o que voc&ecirc; precisa est&aacute; pronto e &eacute; gratuito.", "Gather your group, choose a scene, read the Bible passage, and lead the conversation. Everything you need is ready and free."], ["ACESSAR OS RECURSOS", "ACCESS THE RESOURCES"], ["← Voltar", "← Back"], ["O caminho até a Crucificação", "The road to the Crucifixion"], ["dias", "days"], ["horas", "hours"], ["seg", "sec"], ["Agora", "Now"], ["15 nov 2026", "Nov 15, 2026"], ["Início de 2027", "Early 2027"], ["Realize Encontros com The Chosen e prepare sua comunidade.", "Host Encounters with The Chosen and prepare your community."], ["Estreia da nova temporada no Prime Video.", "The new season premieres on Prime Video."], ["A Crucificação nos cinemas do mundo todo.", "The Crucifixion in theaters worldwide."], ["A nova temporada já está disponível.", "The new season is now available."], ["The Chosen — Crucificação", "The Chosen — Crucifixion"], ["O teaser oficial chegou.", "The official teaser is here."], ["Assista ao primeiro vislumbre da temporada que levará a Crucificação ao mundo todo, e compartilhe com a sua comunidade.", "Watch the first glimpse of the season that will bring the Crucifixion to the whole world, and share it with your community."], ["Compartilhar no WhatsApp", "Share on WhatsApp"], ["Baixar o teaser", "Download the teaser"], ["Estreia em 15 de novembro de 2026, no Prime Video. No início de 2027, A Crucificação nos cinemas.", "Premieres November 15, 2026, on Prime Video. In early 2027, The Crucifixion in theaters."], ["Prepare a sua comunidade", "Prepare your community"], ["Enquanto o mundo aguarda a estreia, líderes em todo o Brasil estão reunindo seus grupos para Encontros com The Chosen. Clique no botão abaixo e saiba mais.", "While the world awaits the premiere, leaders all over Brazil are gathering their groups for Encounters with The Chosen. Click the button below to learn more."], ["Quero participar", "I want to take part"], ["Explorar temporadas", "Explore seasons"], ["15 de Novembro no Prime Video", "November 15 on Prime Video"], ["Em breve", "Coming soon"], ["Você já realizou o seu Encontro com The Chosen?", "Have you hosted your Encounter with The Chosen?"], ["Sim, já realizei", "Yes, I have"], ["Ainda não", "Not yet"], ["Falta de tempo", "Lack of time"], ["Ainda estamos organizando", "We're still organizing"], ["O material não se encaixou no momento", "The material didn't fit this moment"], ["Faltou clareza sobre como usar os recursos", "It wasn't clear how to use the resources"], ["Obrigado! Isso nos ajuda a melhorar.", "Thank you! This helps us improve."], ["Área para líderes", "Leaders' area"], ["Acesso aos recursos", "Access to the resources"], ["Senha incorreta. Tente novamente.", "Incorrect password. Please try again."], ["Ainda não recebeu a senha?", "Haven't received the password yet?"], ["Faça seu cadastro", "Sign up"], ["e receba a senha de acesso por e-mail.", "and receive the access password by e-mail."], ["Entrar", "Enter"], ["Gerenciar o consentimento", "Manage consent"], ["Para fornecer as melhores experiências, usamos tecnologias como cookies para armazenar e/ou acessar informações do dispositivo. Não consentir pode afetar certos recursos. Leia nossa", "To provide the best experiences, we use technologies like cookies to store and/or access device information. Not consenting may affect certain features. Read our"], ["Política de Privacidade", "Privacy Policy"], ["Essenciais", "Essential"], ["Necessários para o funcionamento do site (ex.: lembrar a senha de acesso e este consentimento).", "Required for the site to work (e.g., remembering the access password and this consent)."], ["Sempre ativos", "Always on"], ["Estatísticas", "Statistics"], ["Microsoft Clarity: mapas de calor e análise anônima de navegação para melhorarmos a página.", "Microsoft Clarity: heatmaps and anonymous browsing analysis to help us improve the site."], ["Negar todas", "Deny all"], ["Ver preferências", "View preferences"], ["Aceitar todas", "Accept all"], ["Salvar preferências", "Save preferences"], ["Gerenciar cookies", "Manage cookies"], ["Fale Conosco", "Contact Us"], ["Relatar meu Encontro", "Report my Encounter"], ["Relate seu Encontro", "Report your Encounter"], ["\"Fiz o Encontro na minha sala, com sete vizinhos do condomínio. Metade nunca tinha aberto uma Bíblia, e no final já me perguntaram quando seria o próximo. A semente foi plantada.\"", "“I hosted the Encounter in my living room with seven neighbors from my building. Half of them had never opened a Bible, and by the end they were already asking when the next one would be. The seed was planted.”"], ["\"Estou usando o material num grupo de discipulado com três novos convertidos. Já estamos no terceiro estudo e tem sido uma bênção: eles assistiram à primeira temporada de The Chosen, mas nunca tinham lido a Bíblia, e agora se interessaram em conhecer o que ela diz. O material está ajudando muito nisso.\"", "“I'm using the material in a discipleship group with three new believers. We're on our third study and it has been a blessing: they watched the first season of The Chosen but had never read the Bible, and now they want to know what it says. The material is helping so much with that.”"], ["\"O Encontro foi uma bênção, onde todos puderam aprender ainda mais. Foram cerca de 35 pessoas engajadas, mergulhando juntas na Bíblia Sagrada e nos conteúdos de The Chosen.\"", "“The Encounter was a blessing, where everyone was able to learn even more. Around 35 people engaged, diving together into the Holy Bible and the content of The Chosen.”"], ["\"Ainda somos poucos na comunidade, mas foi uma verdadeira bênção. O Encontro inspirou a leitura da Bíblia, e um dos membros, que nem gostava de igreja, hoje não perde um encontro. The Chosen foi fundamental nisso.\"", "“We're still a small community, but it was a true blessing. The Encounter inspired Bible reading, and one member who didn't even like church never misses a gathering now. The Chosen was essential in that.”"], ["\"Exibimos a cena da pesca milagrosa e a de Jesus e Pedro andando sobre as águas num sábado à noite, no salão da igreja. O que era para durar quarenta minutos virou duas horas de conversa. Teve gente que falou pela primeira vez sobre a própria fé.\"", "“We showed the miraculous catch of fish and Jesus and Peter walking on water on a Saturday night in the church hall. What was meant to last forty minutes became two hours of conversation. Some people talked about their own faith for the first time.”"], ["Juliano · Anfitrião de grupo pequeno · João Pessoa, PB", "Juliano · Small group host · João Pessoa, Brazil"], ["Thelma · Líder de Discipulado · Mogi das Cruzes, SP", "Thelma · Discipleship Leader · Mogi das Cruzes, Brazil"], ["Jefferson · Pároco · Sorocaba, SP", "Jefferson · Parish Priest · Sorocaba, Brazil"], ["Ricardo · Anfitrião de pequeno grupo · Goiânia, GO", "Ricardo · Small group host · Goiânia, Brazil"], ["Lucas · Líder de Jovens · Juazeiro, BA", "Lucas · Youth Leader · Juazeiro, Brazil"], ["Assista ao primeiro episódio da Temporada 6 antes de todo mundo", "Watch the first episode of Season 6 before everyone else"], ["Exclusivo para igrejas", "Exclusively for churches"], ["Como funciona", "How it works"], ["Cadastrar igreja", "Register your church"], ["Sua igreja pode ver primeiro", "Your church can watch it first"], ["A Temporada 6 é diferente de tudo o que The Chosen já fez: ela acompanha um único dia, as últimas horas da vida de Jesus. O primeiro episódio começa no momento em que tudo muda, a prisão de Jesus. A noite que ninguém estava pronto para viver e que a sua comunidade pode assistir junta, antes de todo mundo.", "Season 6 is unlike anything The Chosen has ever done: it follows a single day, the final hours of Jesus' life. The first episode begins at the moment everything changes, the arrest of Jesus. The night no one was ready to live through, and that your community can watch together, before everyone else."], ["Enquanto a temporada chega ao streaming em 15 de novembro, igrejas e paróquias já podem se cadastrar para exibir o Episódio 1 a partir de 15 de setembro.", "While the season arrives on streaming on November 15, churches and parishes can already register to screen Episode 1 starting September 15."], ["Sem nenhum custo para a sua igreja", "At no cost to your church"], ["Temporada 6", "Season 6"], ["Nossa jornada até a Cruz", "Our journey to the Cross"], ["Ver detalhes", "See details"], ["AGO 2026", "AUG 2026"], ["SET 2026", "SEP 2026"], ["DEZ 2026", "DEC 2026"], ["JAN - FEV 2027", "JAN - FEB 2027"], ["INÍCIO DE 2027", "EARLY 2027"], ["DEPOIS", "AFTERWARD"], ["Movimento global de oração", "Global prayer movement"], ["Igrejas do mundo inteiro orando por cada pessoa que vai atravessar essa história e pelas conversas que a Cruz irá despertar.", "Churches all over the world praying for every person who will walk through this story and for the conversations the Cross will awaken."], ["Episódio 1 nas Igrejas", "Episode 1 in Churches"], ["Igrejas de todo o mundo se reúnem para, juntas, assistirem à noite em que tudo muda.", "Churches around the world gather to watch, together, the night everything changes."], ["Nova temporada no Prime Video", "New season on Prime Video"], ["A Sexta-feira Santa se desdobra episódio a episódio no Prime Video. A conversa sai da igreja e entra nas casas.", "Good Friday unfolds episode by episode on Prime Video. The conversation leaves the church and enters people's homes."], ["Episódio Inédito de Natal: Os Três Reis", "Brand-new Christmas Episode: The Three Kings"], ["Um especial de Natal inédito que será uma ponte entre o presépio e a Cruz.", "A brand-new Christmas special that will bridge the manger and the Cross."], ["Recursos para Igrejas", "Resources for Churches"], ["Guias de Estudo e recursos sobre as últimas horas de Jesus, para sua igreja realizar um Encontro com The Chosen Crucificação.", "Study Guides and resources on the final hours of Jesus, for your church to host an Encounter with The Chosen Crucifixion."], ["Crucificação nos cinemas", "Crucifixion in theaters"], ["O momento que irá colocar Jesus no centro da cultura e colocará os olhos do mundo na Cruz.", "The moment that will place Jesus at the center of culture and turn the eyes of the world to the Cross."], ["A jornada continua na Igreja", "The journey continues in the Church"], ["Quem assistiu The Chosen Crucificação volta com perguntas. A jornada termina onde começou: com a igreja pronta para receber e responder.", "Those who watched The Chosen Crucifixion come back with questions. The journey ends where it began: with the church ready to welcome and respond."]];
+function applyTx(code){
+const map = {};
+TXPAIRS.forEach(p => { if(code==='en'){ map[p[0]] = p[1]; } else { map[p[1]] = p[0]; } });
+function walk(doc){
+try{
+const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+let n;
+while(n = w.nextNode()){
+const v = n.nodeValue; if(!v) continue;
+const key = v.replace(/\s+/g,' ').trim();
+if(key && map[key] !== undefined){
+const lead = (v.match(/^\s*/)||[''])[0], tail = (v.match(/\s*$/)||[''])[0];
+n.nodeValue = lead + map[key] + tail;
+}
+}
+}catch(e){}
+}
+walk(document);
+const fr = document.getElementById('visaoFrame');
+if(fr){
+if(fr.contentDocument && fr.contentDocument.body) walk(fr.contentDocument);
+if(!fr.__txHook){ fr.__txHook = true; fr.addEventListener('load', function(){ try{ applyTx(curLang); }catch(e){} }); }
+}
 }
 function renderTopics(){
 document.getElementById('trkTopics').innerHTML = TOPICS.map(t=>`
@@ -3200,7 +3328,7 @@ a.style.maxHeight = open ? (a.scrollHeight+'px') : null;
 });
 }
 /* ====== KIT DE DIVULGAÇÃO ====== */
-const KIT_DATA = {"pt": {"title": "Kit de Divulgação", "sub": "Materiais gratuitos e prontos para usar na divulgação do seu Encontro com The Chosen.", "intro": "Baixe vídeos, cartazes, artes para redes sociais e materiais de marca para convidar a sua comunidade. Tudo gratuito para usar ao realizar um Encontro com The Chosen.", "groups": [{"title": "Vídeos", "sub": "<span class=\"kit-senha\">Senha de acesso: encontro</span>", "items": [{"name": "Vídeo de Divulgação", "desc": "Perfeito para compartilhar nas suas redes sociais e convidar pessoas para o seu Encontro com The Chosen.", "fmt": "MP4 · 1080p", "kind": "video", "url": "https://thechosen.mediavalet.com/galleries/e0314ae2-e18d-4f80-8825-be252e968a5d_3e431e90-61b2-489d-83a0-dc77ed532025-ExternalUser", "label": "Vertical · 9:16", "url2": "https://thechosen.mediavalet.com/galleries/e0314ae2-e18d-4f80-8825-be252e968a5d_81aa9e91-442f-46ce-bddf-f38fc5fd5c60-ExternalUser", "label2": "Horizontal · 16:9"}, {"name": "Contagem Regressiva", "desc": "Contagem regressiva animada para criar expectativa antes do evento.", "fmt": "MP4 · 1080p", "kind": "video", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao"}]}, {"title": "Cartazes e Impressos", "sub": "Arquivos prontos para impressão, com espaço para data e local.<span class=\"kit-senha\"><br>Senha de acesso: encontro</span>", "items": [{"name": "Cartaz do Evento", "desc": "Cartaz em alta resolução para exibir na sua igreja ou no local.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Panfleto", "desc": "Para distribuir e convidar.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Redes e Digital", "sub": "No tamanho certo e prontos para cada feed e tela.<span class=\"kit-senha\"><br>Senha de acesso: encontro</span>", "items": [{"name": "Post para Instagram", "desc": "Arte vertical (4:5) para posts no feed e anúncios.", "fmt": "PNG · 1080×1350", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Story para Instagram", "desc": "Modelo vertical de story com uma chamada clara para ação.", "fmt": "PNG · 1080×1920", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Banner para Web", "desc": "Banner largo para sites, e-mails e newsletters.", "fmt": "PNG · 1920×600", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Materiais de Marca", "sub": "Logos e orientações para manter tudo alinhado à identidade.", "items": [{"name": "Guia de Marca e Pacote de Logos", "desc": "Logos, cores, fontes e orientações simples do que fazer e evitar.", "fmt": "", "kind": "brand", "url": "https://thechosen.lingoapp.com/k/Pm5zp8"}]}]}};
+const KIT_DATA = {"pt": {"title": "Kit de Divulgação", "sub": "Materiais gratuitos e prontos para usar na divulgação do seu Encontro com The Chosen.", "intro": "Baixe vídeos, cartazes, artes para redes sociais e materiais de marca para convidar a sua comunidade. Tudo gratuito para usar ao realizar um Encontro com The Chosen.", "groups": [{"title": "Vídeos", "sub": "<span class=\"kit-senha\">Senha de acesso: encontro</span>", "items": [{"name": "Vídeo de Divulgação", "desc": "Perfeito para compartilhar nas suas redes sociais e convidar pessoas para o seu Encontro com The Chosen.", "fmt": "MP4 · 1080p", "kind": "video", "url": "https://thechosen.mediavalet.com/galleries/e0314ae2-e18d-4f80-8825-be252e968a5d_3e431e90-61b2-489d-83a0-dc77ed532025-ExternalUser", "label": "Vertical · 9:16", "url2": "https://thechosen.mediavalet.com/galleries/e0314ae2-e18d-4f80-8825-be252e968a5d_81aa9e91-442f-46ce-bddf-f38fc5fd5c60-ExternalUser", "label2": "Horizontal · 16:9"}, {"name": "Contagem Regressiva", "desc": "Contagem regressiva animada para criar expectativa antes do evento.", "fmt": "MP4 · 1080p", "kind": "video", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao"}]}, {"title": "Cartazes e Impressos", "sub": "Arquivos prontos para impressão, com espaço para data e local.<span class=\"kit-senha\"><br>Senha de acesso: encontro</span>", "items": [{"name": "Cartaz do Evento", "desc": "Cartaz em alta resolução para exibir na sua igreja ou no local.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Panfleto", "desc": "Para distribuir e convidar.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Redes e Digital", "sub": "No tamanho certo e prontos para cada feed e tela.<span class=\"kit-senha\"><br>Senha de acesso: encontro</span>", "items": [{"name": "Post para Instagram", "desc": "Arte vertical (4:5) para posts no feed e anúncios.", "fmt": "PNG · 1080×1350", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Story para Instagram", "desc": "Modelo vertical de story com uma chamada clara para ação.", "fmt": "PNG · 1080×1920", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Banner para Web", "desc": "Banner largo para sites, e-mails e newsletters.", "fmt": "PNG · 1920×600", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Materiais de Marca", "sub": "Logos e orientações para manter tudo alinhado à identidade.", "items": [{"name": "Guia de Marca e Pacote de Logos", "desc": "Logos, cores, fontes e orientações simples do que fazer e evitar.", "fmt": "", "kind": "brand", "url": "https://thechosen.lingoapp.com/k/Pm5zp8"}]}]}, "en": {"title": "Promo Kit", "sub": "Free, ready-to-use materials to promote your Encounter with The Chosen.", "intro": "Download videos, posters, social media artwork, and brand materials to invite your community. All free to use when hosting an Encounter with The Chosen.", "groups": [{"title": "Videos", "sub": "<span class=\"kit-senha\">Access password: encontro</span>", "items": [{"name": "Promo Video", "desc": "Perfect for sharing on your social media and inviting people to your Encounter with The Chosen.", "fmt": "MP4 · 1080p", "kind": "video", "url": "https://thechosen.mediavalet.com/galleries/e0314ae2-e18d-4f80-8825-be252e968a5d_3e431e90-61b2-489d-83a0-dc77ed532025-ExternalUser", "label": "Vertical · 9:16", "url2": "https://thechosen.mediavalet.com/galleries/e0314ae2-e18d-4f80-8825-be252e968a5d_81aa9e91-442f-46ce-bddf-f38fc5fd5c60-ExternalUser", "label2": "Horizontal · 16:9"}, {"name": "Countdown", "desc": "Animated countdown to build anticipation before the event.", "fmt": "MP4 · 1080p", "kind": "video", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao"}]}, {"title": "Posters & Print", "sub": "Print-ready files, with space for date and venue.<span class=\"kit-senha\"><br>Access password: encontro</span>", "items": [{"name": "Event Poster", "desc": "High-resolution poster to display at your church or venue.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Flyer", "desc": "To hand out and invite.", "fmt": "", "kind": "print", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Social & Digital", "sub": "Perfectly sized and ready for every feed and screen.<span class=\"kit-senha\"><br>Access password: encontro</span>", "items": [{"name": "Instagram Post", "desc": "Vertical artwork (4:5) for feed posts and ads.", "fmt": "PNG · 1080×1350", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Instagram Story", "desc": "Vertical story template with a clear call to action.", "fmt": "PNG · 1080×1920", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}, {"name": "Web Banner", "desc": "Wide banner for websites, e-mails, and newsletters.", "fmt": "PNG · 1920×600", "kind": "image", "url": "https://thechosen.mediavalet.com/portals/kitdivulgacao", "canva": "https://thechosen.com.br/kitcanva"}]}, {"title": "Brand Materials", "sub": "Logos and guidelines to keep everything on brand.", "items": [{"name": "Brand Guide & Logo Pack", "desc": "Logos, colors, fonts, and simple do's and don'ts.", "fmt": "", "kind": "brand", "url": "https://thechosen.lingoapp.com/k/Pm5zp8"}]}]}};
 const KIT_PROD_LABEL = {pt:"Em produção"};
 const KIT_PROD_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 const KIT_ICONS = {
@@ -3230,9 +3358,9 @@ ${g.items.map(it=>`
 ${it.desc ? `<div class="kit-desc">${it.desc}</div>` : ''}
 ${it.fmt ? `<div class="kit-meta"><span class="kit-fmt">${it.fmt}</span></div>` : ''}
 <div class="kit-btns">
-${it.url ? `<a class="kit-dl" href="${it.url}" target="_blank" rel="noopener" data-res="Kit: ${it.name}${it.label ? ' (' + it.label + ')' : ''}" aria-label="Baixar — ${it.name}"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${it.label || 'Baixar'}</span></a>` : `<button class="kit-dl prod" disabled aria-disabled="true" aria-label="${dl} — ${it.name}">${KIT_PROD_SVG}<span>${dl}</span></button>`}
+${it.url ? `<a class="kit-dl" href="${it.url}" target="_blank" rel="noopener" data-res="Kit: ${it.name}${it.label ? ' (' + it.label + ')' : ''}" aria-label="Baixar — ${it.name}"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${it.label || (kitLangKey()==='en' ? 'Download' : 'Baixar')}</span></a>` : `<button class="kit-dl prod" disabled aria-disabled="true" aria-label="${dl} — ${it.name}">${KIT_PROD_SVG}<span>${dl}</span></button>`}
 ${it.url2 ? `<a class="kit-dl" href="${it.url2}" target="_blank" rel="noopener" data-res="Kit: ${it.name} (${it.label2})" aria-label="Baixar — ${it.name} ${it.label2}"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>${it.label2}</span></a>` : ``}
-${it.canva ? `<a class="kit-dl canva" href="${it.canva}" target="_blank" rel="noopener" data-res="Kit (Canva): ${it.name}" aria-label="Abrir no Canva — ${it.name}"><span>Abrir no Canva</span></a>` : ``}
+${it.canva ? `<a class="kit-dl canva" href="${it.canva}" target="_blank" rel="noopener" data-res="Kit (Canva): ${it.name}" aria-label="Abrir no Canva — ${it.name}"><span>${kitLangKey()==='en' ? 'Open in Canva' : 'Abrir no Canva'}</span></a>` : ``}
 </div>
 </div>`).join('')}
 </div>
@@ -3546,8 +3674,9 @@ function snoozeDays(d){ localStorage.setItem(K.snooze, now + d*86400000); }
 function hide(){ pop.classList.remove('on'); }
 setTimeout(()=>{
 try{ if(localStorage.getItem(K.vet)){
-document.getElementById('npopT').innerHTML = 'Realizou um novo Encontro com The Chosen?';
-var _yb = document.getElementById('npopYes'); if(_yb) _yb.textContent = 'Sim, realizei outro';
+var _en = (window.curLang === 'en');
+document.getElementById('npopT').innerHTML = _en ? 'Have you hosted a new Encounter with The Chosen?' : 'Realizou um novo Encontro com The Chosen?';
+var _yb = document.getElementById('npopYes'); if(_yb) _yb.textContent = _en ? 'Yes, another one' : 'Sim, realizei outro';
 } }catch(e5){}
 pop.classList.add('on'); beacon('popup_exibido'); snoozeDays(7); try{ if(!localStorage.getItem('tc_pop_reached')){ localStorage.setItem('tc_pop_reached','1'); beacon('popup_alcance'); } }catch(e4){} }, 8000);
 document.getElementById('npopX').addEventListener('click', ()=>{ hide(); });
@@ -3560,7 +3689,7 @@ if(typeof openReport === 'function') openReport();
 });
 document.getElementById('npopNo').addEventListener('click', ()=>{
 document.getElementById('npopBtns').style.display='none';
-document.getElementById('npopT').textContent = 'Sem problema! O que tem impedido até agora?';
+document.getElementById('npopT').textContent = (window.curLang==='en') ? 'No problem! What has been holding you back?' : 'Sem problema! O que tem impedido até agora?';
 document.getElementById('npopOpts').style.display='flex';
 });
 document.querySelectorAll('.npop-opt').forEach(b=>b.addEventListener('click', ()=>{
@@ -3583,7 +3712,20 @@ setTimeout(hide, 2200);
 #advGate input{width:100%;padding:.85rem 1rem;background:#1f1f1f;border:1px solid rgba(240,240,240,.15);border-radius:9px;color:#f0f0f0;font-size:.95rem;margin-bottom:.8rem}
 #advGate button{width:100%;padding:.85rem;background:#00C9B1;border:none;border-radius:9px;font-weight:800;letter-spacing:.05em;cursor:pointer;font-size:.85rem}
 #advGate .e{color:#ff7a7a;font-size:.8rem;margin-top:.6rem;display:none}
-#advLang{position:fixed;left:96px;bottom:14px;z-index:9000;background:#1f1f1f;color:#f0f0f0;border:1px solid rgba(240,240,240,.25);border-radius:999px;padding:.32rem .7rem;font-size:.7rem;font-weight:700;cursor:pointer;display:none}
+.lang-wrap{position:relative;display:inline-flex;align-items:center}
+.lang-globe{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;color:var(--grey-1);background:none;border:none;cursor:pointer;transition:color .15s}
+.lang-globe:hover{color:var(--teal)}
+.lang-drop{position:absolute;top:calc(100% + 10px);right:0;min-width:230px;background:#151515;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:.4rem;display:none;flex-direction:column;gap:2px;box-shadow:0 18px 40px rgba(0,0,0,.5);z-index:3000}
+.lang-drop.open{display:flex}
+.lang-drop button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:.6rem .8rem;border-radius:8px;background:none;border:none;cursor:pointer;color:var(--white)}
+.lang-drop button:hover{background:rgba(255,255,255,.07)}
+.lang-drop button.on{background:rgba(0,201,177,.12)}
+.lang-drop strong{font-size:.86rem;font-weight:700}
+.lang-drop small{font-size:.72rem;color:var(--grey-2)}
+@media (max-width:900px){ .lang-wrap{display:none} }
+.mnav-langs{display:flex;gap:.6rem;padding:.9rem 0 0;border-top:1px solid rgba(255,255,255,.1);margin-top:.9rem}
+.mnav-langs button{background:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;color:var(--grey-1);padding:.4rem .9rem;font-size:.78rem;cursor:pointer}
+.mnav-langs button.on{border-color:var(--teal);color:var(--teal)}
 #advBadge{position:fixed;left:14px;bottom:14px;z-index:9000;background:#00C9B1;color:#04211f;font-size:.68rem;font-weight:800;letter-spacing:.12em;padding:.35rem .7rem;border-radius:999px;pointer-events:none}
 </style>
 <div id="advGate"><div class="box">
@@ -3594,10 +3736,6 @@ setTimeout(hide, 2200);
 <p class="e" id="advErr">Chave incorreta.</p>
 </div></div>
 <div id="advBadge" style="display:none">PRÉVIA</div>
-<select id="advLang" aria-label="Idioma da prévia">
-<option value="pt">Português (Brasil)</option>
-<option value="en">English</option>
-</select>
 <script>
 (function(){
 var SENHA = 'chosenpulpits_S6', KEY = 'tc_admin_key';
@@ -3605,17 +3743,32 @@ var gate = document.getElementById('advGate');
 function libera(){
 gate.style.display='none';
 document.getElementById('advBadge').style.display='';
-var ls = document.getElementById('advLang');
-ls.style.display='block';
 try{
 var saved = localStorage.getItem('tc_admin_lang') || 'pt';
-ls.value = saved;
+if(typeof markLangUI === 'function') markLangUI(saved);
+}catch(e0){}
+try{
+window.markLangUI = function(code){
+document.querySelectorAll('.lang-drop button, .mnav-langs button').forEach(function(b){ b.classList.toggle('on', b.dataset.l === code); });
+};
+window.setAdminLang = function(code){
+try{ localStorage.setItem('tc_admin_lang', code); }catch(e){}
+if(typeof applyLang === 'function') applyLang(code);
+markLangUI(code);
+document.getElementById('langDrop').classList.remove('open');
+};
+var g = document.getElementById('langGlobe'), d = document.getElementById('langDrop');
+if(g && d){
+g.addEventListener('click', function(ev){ ev.stopPropagation(); d.classList.toggle('open'); g.setAttribute('aria-expanded', d.classList.contains('open')); });
+document.addEventListener('click', function(ev){ if(!d.contains(ev.target)) d.classList.remove('open'); });
+}
+document.querySelectorAll('.lang-drop button, .mnav-langs button').forEach(function(b){
+b.addEventListener('click', function(){ setAdminLang(b.dataset.l); });
+});
+markLangUI(localStorage.getItem('tc_admin_lang') || 'pt');
+
 if(saved !== 'pt' && typeof applyLang === 'function') applyLang(saved);
 }catch(e){}
-ls.addEventListener('change', function(){
-try{ localStorage.setItem('tc_admin_lang', ls.value); }catch(e){}
-if(typeof applyLang === 'function') applyLang(ls.value);
-});
 }
 try{ if(localStorage.getItem(KEY) === SENHA){ libera(); } }catch(e){}
 function tenta(){
