@@ -755,15 +755,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <a href="/encontro" data-nav="home" id="navEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="navKit">Kit de Divulgação</a>
 <a href="/perguntas" data-nav="faq" id="navFaq">Perguntas Frequentes</a>
-<span class="lang-wrap">
-<button type="button" class="lang-globe" id="langGlobe" aria-label="Idioma / Language" aria-haspopup="true" aria-expanded="false">
-<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/></svg>
-</button>
-<div class="lang-drop" id="langDrop" role="menu">
-<button type="button" data-l="pt" role="menuitem"><strong>português (Brasil)</strong><small>Português</small></button>
-<button type="button" data-l="en" role="menuitem"><strong>inglês</strong><small>English</small></button>
-</div>
-</span>
+
 </nav>
 <div class="nav-acts">
 <button type="button" class="btn btn-gold" id="navReport">Relatar Encontro</button>
@@ -778,10 +770,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <a href="/encontro" data-nav="home" id="mEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="mKit">Kit de Divulgação</a>
 <a href="/perguntas" data-nav="faq" id="mFaq">Perguntas Frequentes</a>
-<div class="mnav-langs">
-<button type="button" data-l="pt">Português (Brasil)</button>
-<button type="button" data-l="en">English</button>
-</div>
+
 <div class="mnav-cta"><button type="button" class="btn btn-gold" id="mReport" style="width:100%">✦ Relatar Encontro</button></div>
 </nav>
 <!-- menu flutuante de plataformas (Assistir) -->
@@ -1034,6 +1023,13 @@ body:not(.v-t6) .t6bar { display:none; }
 .t6bar-logo img { height:26px; width:auto; display:block; }
 .t6bar-cta { display:inline-flex; align-items:center; background:#E9A83E; color:#161206; border-radius:999px; padding:.6rem 1.4rem; font-weight:800; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:filter .2s; }
 .t6bar-cta:hover { filter:brightness(1.09); }
+.t6bar-right { display:flex; align-items:center; gap:.6rem; position:relative; }
+.t6bar-burger { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:none; border:1px solid rgba(255,255,255,.25); color:#fff; cursor:pointer; transition:border-color .2s, background .2s; }
+.t6bar-burger:hover { border-color:rgba(255,255,255,.6); background:rgba(255,255,255,.06); }
+.t6bar-menu { position:absolute; top:calc(100% + 12px); right:0; min-width:250px; background:#111; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:.5rem; display:none; flex-direction:column; box-shadow:0 18px 44px rgba(0,0,0,.6); }
+.t6bar-menu.open { display:flex; }
+.t6bar-menu a { padding:.7rem .9rem; border-radius:8px; color:rgba(255,255,255,.85); text-decoration:none; font-size:.88rem; }
+.t6bar-menu a:hover { background:rgba(255,255,255,.07); color:#fff; }
 @media (max-width:560px){
 .t6bar { padding:.65rem 1rem; }
 .t6bar-logo img { height:19px; }
@@ -1044,10 +1040,10 @@ body:not(.v-t6) .t6bar { display:none; }
 .t6h-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .t6h-shade { position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(5,5,5,.38) 0%, rgba(5,5,5,.72) 100%); }
 .t6h-content { position:relative; z-index:2; text-align:center; padding:0 var(--pad); max-width:1000px; }
-.t6h-title { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(1.9rem,4.6vw,3.7rem); line-height:1.18; letter-spacing:.05em; text-transform:uppercase; color:#FFFFFF; margin:0 0 1.2rem; text-shadow:0 2px 26px rgba(0,0,0,.65); }
+.t6h-title { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(26px,3vw,38px); line-height:1.3; letter-spacing:.05em; text-transform:uppercase; color:#FFFFFF; margin:0 0 .9rem; text-shadow:0 2px 26px rgba(0,0,0,.65); }
 .t6h-title span { display:block; white-space:nowrap; }
 @media (max-width:560px){ .t6h-title span { display:inline; white-space:normal; } .t6h-title { line-height:1.24; } }
-.t6h-eyebrow { font-size:.85rem; font-weight:700; letter-spacing:.3em; text-transform:uppercase; color:#E9A83E; margin:0 0 1.7rem; }
+.t6h-eyebrow { font-size:clamp(15px,1.6vw,20px); font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:#E9A83E; margin:0 0 1.6rem; }
 .t6h-row { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; }
 .t6h-ghost { display:inline-flex; align-items:center; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.55); border-radius:999px; padding:.85rem 1.7rem; font-weight:700; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:border-color .2s, background .2s; }
 .t6h-ghost:hover { border-color:#fff; background:rgba(255,255,255,.08); }
@@ -1109,7 +1105,18 @@ body:not(.v-t6) .t6bar { display:none; }
 
 <div class="t6bar">
 <a class="t6bar-logo" href="/temporada6" data-nav="t6" aria-label="The Chosen — Temporada 6"><img src="img/t6-logo.webp" alt="The Chosen"></a>
+<div class="t6bar-right">
 <a class="t6bar-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Cadastrar igreja</a>
+<button type="button" class="t6bar-burger" id="t6Burger" aria-label="Menu" aria-expanded="false">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+</button>
+<div class="t6bar-menu" id="t6Menu">
+<a href="/visao" data-nav="visao">Visão Para Líderes</a>
+<a href="/encontro" data-nav="home">Encontro com The Chosen</a>
+<a href="/kit" data-nav="kit">Kit de Divulgação</a>
+<a href="/perguntas" data-nav="faq">Perguntas Frequentes</a>
+</div>
+</div>
 </div>
 <section class="t6h" aria-label="Crucificação">
 <video class="t6h-video" src="img/hero.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
@@ -1215,6 +1222,14 @@ pl.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/Yzs9vTdPeQM?
 pl.style.cursor = 'default';
 };
 pl.addEventListener('click', go);
+}
+var bg = document.getElementById('t6Burger'), mn = document.getElementById('t6Menu');
+if(bg && mn){
+bg.addEventListener('click', function(ev){ ev.stopPropagation(); mn.classList.toggle('open'); bg.setAttribute('aria-expanded', mn.classList.contains('open')); });
+document.addEventListener('click', function(ev){ if(!mn.contains(ev.target) && ev.target !== bg) mn.classList.remove('open'); });
+mn.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ mn.classList.remove('open'); }); });
+}
+if(pl){
 pl.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' ') { e.preventDefault(); go(); } });
 }
 document.querySelectorAll('.t6j-btn').forEach(function(btn){
@@ -3784,20 +3799,6 @@ setTimeout(hide, 2200);
 #advGate input{width:100%;padding:.85rem 1rem;background:#1f1f1f;border:1px solid rgba(240,240,240,.15);border-radius:9px;color:#f0f0f0;font-size:.95rem;margin-bottom:.8rem}
 #advGate button{width:100%;padding:.85rem;background:#00C9B1;border:none;border-radius:9px;font-weight:800;letter-spacing:.05em;cursor:pointer;font-size:.85rem}
 #advGate .e{color:#ff7a7a;font-size:.8rem;margin-top:.6rem;display:none}
-.lang-wrap{position:relative;display:inline-flex;align-items:center}
-.lang-globe{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;color:var(--grey-1);background:none;border:none;cursor:pointer;transition:color .15s}
-.lang-globe:hover{color:var(--teal)}
-.lang-drop{position:absolute;top:calc(100% + 10px);right:0;min-width:230px;background:#151515;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:.4rem;display:none;flex-direction:column;gap:2px;box-shadow:0 18px 40px rgba(0,0,0,.5);z-index:3000}
-.lang-drop.open{display:flex}
-.lang-drop button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:.6rem .8rem;border-radius:8px;background:none;border:none;cursor:pointer;color:var(--white)}
-.lang-drop button:hover{background:rgba(255,255,255,.07)}
-.lang-drop button.on{background:rgba(0,201,177,.12)}
-.lang-drop strong{font-size:.86rem;font-weight:700}
-.lang-drop small{font-size:.72rem;color:var(--grey-2)}
-@media (max-width:900px){ .lang-wrap{display:none} }
-.mnav-langs{display:flex;gap:.6rem;padding:.9rem 0 0;border-top:1px solid rgba(255,255,255,.1);margin-top:.9rem}
-.mnav-langs button{background:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;color:var(--grey-1);padding:.4rem .9rem;font-size:.78rem;cursor:pointer}
-.mnav-langs button.on{border-color:var(--teal);color:var(--teal)}
 #advBadge{position:fixed;left:14px;bottom:14px;z-index:9000;background:#00C9B1;color:#04211f;font-size:.68rem;font-weight:800;letter-spacing:.12em;padding:.35rem .7rem;border-radius:999px;pointer-events:none}
 </style>
 <div id="advGate"><div class="box">
@@ -3815,32 +3816,6 @@ var gate = document.getElementById('advGate');
 function libera(){
 gate.style.display='none';
 document.getElementById('advBadge').style.display='';
-try{
-var saved = localStorage.getItem('tc_admin_lang') || 'pt';
-if(typeof markLangUI === 'function') markLangUI(saved);
-}catch(e0){}
-try{
-window.markLangUI = function(code){
-document.querySelectorAll('.lang-drop button, .mnav-langs button').forEach(function(b){ b.classList.toggle('on', b.dataset.l === code); });
-};
-window.setAdminLang = function(code){
-try{ localStorage.setItem('tc_admin_lang', code); }catch(e){}
-if(typeof applyLang === 'function') applyLang(code);
-markLangUI(code);
-document.getElementById('langDrop').classList.remove('open');
-};
-var g = document.getElementById('langGlobe'), d = document.getElementById('langDrop');
-if(g && d){
-g.addEventListener('click', function(ev){ ev.stopPropagation(); d.classList.toggle('open'); g.setAttribute('aria-expanded', d.classList.contains('open')); });
-document.addEventListener('click', function(ev){ if(!d.contains(ev.target)) d.classList.remove('open'); });
-}
-document.querySelectorAll('.lang-drop button, .mnav-langs button').forEach(function(b){
-b.addEventListener('click', function(){ setAdminLang(b.dataset.l); });
-});
-markLangUI(localStorage.getItem('tc_admin_lang') || 'pt');
-
-if(saved !== 'pt' && typeof applyLang === 'function') applyLang(saved);
-}catch(e){}
 }
 try{ if(localStorage.getItem(KEY) === SENHA){ libera(); } }catch(e){}
 function tenta(){
