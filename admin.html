@@ -750,7 +750,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <div class="nav-in">
 <a class="logo" href="/temporada6" data-nav="t6" aria-label="The Chosen — início"><img src="" id="navLogo" alt="The Chosen"></a>
 <nav class="nav-links" aria-label="Primary">
-<a href="/temporada6" data-nav="t6" id="navT6">Crucificação</a>
+<a href="/temporada6" data-nav="t6" id="navT6">Temporada 6</a>
 <a href="/visao" data-nav="visao" id="navVision">Visão Para Líderes</a>
 <a href="/encontro" data-nav="home" id="navEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="navKit">Kit de Divulgação</a>
@@ -765,7 +765,7 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 </header>
 <!-- ============ MENU MOBILE ============ -->
 <nav class="mnav" id="mnav" aria-label="Menu">
-<a href="/temporada6" data-nav="t6" id="mT6">Crucificação</a>
+<a href="/temporada6" data-nav="t6" id="mT6">Temporada 6</a>
 <a href="/visao" data-nav="visao" id="mVision">Visão Para Líderes</a>
 <a href="/encontro" data-nav="home" id="mEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="mKit">Kit de Divulgação</a>
@@ -2195,21 +2195,21 @@ O CAMINHO ATÉ A TEMPORADA 6 (countdown + timeline)
 }
 &lt;/style&gt;
 &lt;style&gt;
-.t6j { position:relative; margin:0; padding:2.6rem clamp(16px,4vw,56px) 3.2rem; background:#070707; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); }
-.t6j-h { font-family:inherit; font-weight:600; font-size:.8rem; letter-spacing:.3em; text-transform:uppercase; color:#E9A83E; margin:0 0 2.2rem; text-align:center; }
+.t6j { position:relative; margin:0; padding:2.6rem clamp(16px,4vw,56px) 3.2rem; background:#1d1d1d; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); }
+.t6j-h { font-family:inherit; font-weight:600; font-size:.8rem; letter-spacing:.3em; text-transform:uppercase; color:#01b8af; margin:0 0 2.2rem; text-align:center; }
 .t6j-line { list-style:none; margin:0 auto; padding:0; display:grid; grid-template-columns:repeat(7,1fr); gap:.9rem; max-width:1240px; position:relative; }
-.t6j-line::before { content:&quot;&quot;; position:absolute; top:5px; left:2%; right:2%; height:1px; background:rgba(233,168,62,.28); }
-.t6j-line::after { content:&quot;&quot;; position:absolute; top:5px; left:2%; width:9%; height:1px; background:#E9A83E; }
+.t6j-line::before { content:&quot;&quot;; position:absolute; top:5px; left:2%; right:2%; height:1px; background:rgba(1,184,175,.28); }
+.t6j-line::after { content:&quot;&quot;; position:absolute; top:5px; left:2%; width:9%; height:1px; background:#01b8af; }
 .t6j-step { position:relative; text-align:center; padding-top:1.5rem; }
-.t6j-dot { position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; border:1.5px solid #E9A83E; background:#070707; }
-.t6j-step.is-now .t6j-dot { background:#E9A83E; box-shadow:0 0 0 5px rgba(233,168,62,.18), 0 0 18px rgba(233,168,62,.55); }
-.t6j-date { display:block; font-weight:700; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#E9A83E; margin-bottom:.55rem; }
+.t6j-dot { position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; border:1.5px solid #01b8af; background:#1d1d1d; }
+.t6j-step.is-now .t6j-dot { background:#01b8af; box-shadow:0 0 0 5px rgba(1,184,175,.18), 0 0 18px rgba(1,184,175,.55); }
+.t6j-date { display:block; font-weight:700; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#01b8af; margin-bottom:.55rem; }
 .t6j-title { display:block; font-size:.86rem; line-height:1.45; color:rgba(255,255,255,.78); margin:0 auto .8rem; max-width:170px; }
-.t6j-btn { display:inline-flex; align-items:center; gap:.4rem; background:transparent; color:#E9A83E; border:1px solid rgba(233,168,62,.55); border-radius:999px; padding:.42rem .95rem; font-weight:700; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; transition:background .2s, border-color .2s; }
-.t6j-btn:hover { background:rgba(233,168,62,.1); border-color:#E9A83E; }
+.t6j-btn { display:inline-flex; align-items:center; gap:.4rem; background:transparent; color:#01b8af; border:1px solid rgba(1,184,175,.55); border-radius:999px; padding:.42rem .95rem; font-weight:700; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; transition:background .2s, border-color .2s; }
+.t6j-btn:hover { background:rgba(1,184,175,.12); border-color:#01b8af; }
 .t6j-btn svg { transition:transform .2s; }
 .t6j-step.open .t6j-btn svg { transform:rotate(180deg); }
-.t6j-detail { display:none; position:absolute; top:calc(100% + .7rem); left:50%; transform:translateX(-50%); width:min(250px,72vw); background:#111; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:.95rem 1.05rem; font-size:.83rem; line-height:1.6; color:rgba(255,255,255,.82); text-align:left; box-shadow:0 16px 40px rgba(0,0,0,.55); z-index:5; }
+.t6j-detail { display:none; position:absolute; top:calc(100% + .7rem); left:50%; transform:translateX(-50%); width:min(250px,72vw); background:#161616; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:.95rem 1.05rem; font-size:.83rem; line-height:1.6; color:rgba(255,255,255,.82); text-align:left; box-shadow:0 16px 40px rgba(0,0,0,.55); z-index:5; }
 .t6j-step.open .t6j-detail { display:block; }
 .t6j-step:first-child .t6j-detail { left:0; transform:none; }
 .t6j-step:last-child .t6j-detail { left:auto; right:0; transform:none; }
@@ -2982,7 +2982,7 @@ setTxt('footHelpH', t.helpH); setTxt('footFaq', t.faqNav);
 setTxt('footLegalH', t.legal); setTxt('footPrivacy', t.privacy); setTxt('footTerms', t.terms);
 setTxt('footRights', t.rights);
 const NAVTX = {
-pt:{t6:'Crucificação',vision:'Visão Para Líderes',enc:'Encontro com The Chosen',kit:'Kit de Divulgação',faq:'Perguntas Frequentes',report:'Relatar Encontro',lang:'Português (Brasil)'},
+pt:{t6:'Temporada 6',vision:'Visão Para Líderes',enc:'Encontro com The Chosen',kit:'Kit de Divulgação',faq:'Perguntas Frequentes',report:'Relatar Encontro',lang:'Português (Brasil)'},
 en:{t6:'Crucifixion',vision:'Vision for Leaders',enc:'Encounter with The Chosen',kit:'Promo Kit',faq:'FAQ',report:'Report an Encounter',lang:'English (US)'}
 };
 const nv = NAVTX[code] || NAVTX.pt;
