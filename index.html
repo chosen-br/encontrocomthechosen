@@ -126,6 +126,8 @@ BILLBOARD (HERO ROTATIVO)
 .bb-bg{position:absolute;inset:0;background-size:cover;background-position:center 72%;transform:scale(1.06);animation:bbZoom 14s ease-out forwards}
 @keyframes bbZoom{to{transform:scale(1)}}
 .bb-bg{background-position:65% 0% !important}
+.btn.bb-gold{background:#E9A83E;border-color:#E9A83E;color:#161206;font-weight:800;display:inline-flex;align-items:center;gap:.5rem}
+.btn.bb-gold:hover{filter:brightness(1.09)}
 .bb-shade{position:absolute;inset:0;background:
 linear-gradient(180deg,rgba(10,10,10,.45) 0%,transparent 28%,transparent 78%,rgba(10,10,10,.72) 100%),
 linear-gradient(90deg,rgba(10,10,10,.88) 0%,rgba(10,10,10,.42) 42%,transparent 68%)}
@@ -238,6 +240,8 @@ transition:transform var(--t-card),box-shadow var(--t-card)}
 .sc-body{position:relative;z-index:2;padding:16px}
 .sc-status{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:9px}
 .sc-status.ok{background:var(--teal);color:#000}
+.sc-status.gold{color:#E9A83E}
+article.sc .sc-cta.go.gold, article.sc:hover .sc-cta.go.gold{background:#E9A83E;color:#161206}
 .sc-status.soon{background:rgba(0,0,0,.55);color:var(--gold);border:1px solid rgba(201,168,76,.4);backdrop-filter:blur(4px)}
 .sc-name{font-size:17px;font-weight:800;line-height:1.2;margin-bottom:4px}
 .sc.lock .sc-name{color:var(--grey-2)}
@@ -648,12 +652,12 @@ PORTÃO DE ACESSO (Biblioteca de Cenas / downloads)
 </style>
 <!-- Decisão de rota pré-render: evita o flash da home antes do roteador JS rodar -->
 <script>
-(function(){var h=location.hash.replace('#','');var v=(h==='faq'||h==='kit'||h==='home'||h==='relatar')?(h==='relatar'?'home':h):'visao';document.documentElement.setAttribute('data-boot',v);})();
+(function(){var p=location.pathname.replace(/\/$/,'')||'/';var m={'/kit':'kit','/perguntas':'faq','/visao':'visao','/encontro':'home','/temporada6':'home'};var v=m[p]||'home';document.documentElement.setAttribute('data-boot',v);})();
 </script>
 <style>
 html[data-boot]:not([data-boot="home"]) #homeView{display:none}
 html[data-boot="visao"] footer.foot{display:none}
-html[data-boot="visao"] #navReport,html[data-boot="visao"] .mnav-cta,body.v-visao #navReport,body.v-visao .mnav-cta,.v-t6 #navReport,body.v-t6 .mnav-cta{display:none}
+html[data-boot="visao"] #navReport,html[data-boot="visao"] .mnav-cta,body.v-visao #navReport,body.v-visao .mnav-cta{display:none}
 html[data-boot="visao"] #visaoView{display:block!important}
 html[data-boot="faq"] #faqView{display:block!important}
 html[data-boot="kit"] #kitView{display:block!important}
@@ -755,9 +759,8 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 <!-- ============ NAVBAR ============ -->
 <header class="nav" id="nav">
 <div class="nav-in">
-<a class="logo" href="/temporada6" data-nav="t6" aria-label="The Chosen — início"><img src="" id="navLogo" alt="The Chosen"></a>
+<a class="logo" href="/encontro" data-nav="home" aria-label="The Chosen — início"><img src="" id="navLogo" alt="The Chosen"></a>
 <nav class="nav-links" aria-label="Primary">
-<a href="/temporada6" data-nav="t6" id="navT6">Temporada 6</a>
 <a href="/visao" data-nav="visao" id="navVision">Visão Para Líderes</a>
 <a href="/encontro" data-nav="home" id="navEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="navKit">Kit de Divulgação</a>
@@ -772,7 +775,6 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 </header>
 <!-- ============ MENU MOBILE ============ -->
 <nav class="mnav" id="mnav" aria-label="Menu">
-<a href="/temporada6" data-nav="t6" id="mT6">Temporada 6</a>
 <a href="/visao" data-nav="visao" id="mVision">Visão Para Líderes</a>
 <a href="/encontro" data-nav="home" id="mEncounter">Encontro com The Chosen</a>
 <a href="/kit" data-nav="kit" id="mKit">Kit de Divulgação</a>
@@ -1019,198 +1021,6 @@ Falar no WhatsApp
 </div>
 
 <!-- ============ FOOTER ============ -->
-<!-- ============ TEMPORADA 6 (PÁGINA SEPARADA) ============ -->
-<div id="t6View" style="display:none">
-<style>
-#t6View { background:#0A0A0A; }
-body.v-t6 header.nav { display:none; }
-/* ---------- barra própria da aba ---------- */
-.t6bar { position:fixed; top:0; left:0; right:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:.75rem var(--pad); background:rgba(8,8,8,.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.06); }
-body:not(.v-t6) .t6bar { display:none; }
-.t6bar-logo img { height:26px; width:auto; display:block; }
-.t6bar-cta { display:inline-flex; align-items:center; background:#E9A83E; color:#161206; border-radius:999px; padding:.6rem 1.4rem; font-weight:800; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:filter .2s; }
-.t6bar-cta:hover { filter:brightness(1.09); }
-.t6bar-right { display:flex; align-items:center; gap:.6rem; position:relative; }
-.t6bar-burger { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:none; border:1px solid rgba(255,255,255,.25); color:#fff; cursor:pointer; transition:border-color .2s, background .2s; }
-.t6bar-burger:hover { border-color:rgba(255,255,255,.6); background:rgba(255,255,255,.06); }
-.t6bar-menu { position:absolute; top:calc(100% + 12px); right:0; min-width:250px; background:#111; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:.5rem; display:none; flex-direction:column; box-shadow:0 18px 44px rgba(0,0,0,.6); }
-.t6bar-menu.open { display:flex; }
-.t6bar-menu a { padding:.7rem .9rem; border-radius:8px; color:rgba(255,255,255,.85); text-decoration:none; font-size:.88rem; }
-.t6bar-menu a:hover { background:rgba(255,255,255,.07); color:#fff; }
-@media (max-width:560px){
-.t6bar { padding:.65rem 1rem; }
-.t6bar-logo img { height:19px; }
-.t6bar-cta { padding:.5rem .95rem; font-size:.64rem; letter-spacing:.09em; white-space:nowrap; }
-}
-/* ---------- HERO fixo com vídeo ---------- */
-.t6h { position:sticky; top:0; height:100vh; min-height:560px; display:flex; align-items:center; justify-content:center; overflow:hidden; z-index:1; }
-.t6h-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.t6h-shade { position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(5,5,5,.38) 0%, rgba(5,5,5,.72) 100%); }
-.t6h-content { position:relative; z-index:2; text-align:center; padding:0 var(--pad); max-width:1000px; }
-.t6h-title { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(26px,3vw,38px); line-height:1.3; letter-spacing:.05em; text-transform:uppercase; color:#FFFFFF; margin:0 0 .9rem; text-shadow:0 2px 26px rgba(0,0,0,.65); }
-.t6h-title span { display:block; white-space:nowrap; }
-@media (max-width:560px){ .t6h-title span { display:inline; white-space:normal; } .t6h-title { line-height:1.24; } }
-.t6h-eyebrow { font-size:clamp(15px,1.6vw,20px); font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:#E9A83E; margin:0 0 1.6rem; }
-.t6h-row { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; }
-.t6h-ghost { display:inline-flex; align-items:center; background:transparent; color:#fff; border:1px solid rgba(255,255,255,.55); border-radius:999px; padding:.85rem 1.7rem; font-weight:700; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:border-color .2s, background .2s; }
-.t6h-ghost:hover { border-color:#fff; background:rgba(255,255,255,.08); }
-.t6h-cta { display:inline-flex; align-items:center; background:#E9A83E; color:#161206; border:1px solid #E9A83E; border-radius:999px; padding:.85rem 1.8rem; font-weight:800; font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; transition:filter .2s; }
-.t6h-cta:hover { filter:brightness(1.09); }
-/* ---------- camada que sobrepõe o hero ---------- */
-.t6-over { position:relative; z-index:2; background:#0A0A0A; box-shadow:0 -30px 60px rgba(0,0,0,.55); }
-/* ---------- seção: sua igreja pode ver primeiro ---------- */
-.t6see { padding: clamp(64px,10vh,110px) var(--pad); }
-.t6see-grid { display:grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem,5vw,4.5rem); align-items:center; max-width:1180px; margin:0 auto; }
-.t6-player { position:relative; aspect-ratio:16/9; background:#000; border-radius:14px; overflow:hidden; cursor:pointer; box-shadow:0 24px 70px rgba(0,0,0,.55); }
-.t6-player img { width:100%; height:100%; object-fit:cover; display:block; }
-.t6-player iframe { width:100%; height:100%; border:0; display:block; }
-.t6-play { position:absolute; inset:0; margin:auto; width:74px; height:74px; border-radius:50%; background:#E9A83E; display:flex; align-items:center; justify-content:center; transition:transform .2s; pointer-events:none; }
-.t6-player:hover .t6-play { transform:scale(1.07); }
-.t6see-h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(1.8rem,3.9vw,3rem); line-height:1.15; letter-spacing:.05em; text-transform:uppercase; color:#fff; margin:0 0 1.2rem; }
-.t6see-txt p { font-size:.98rem; line-height:1.75; color:rgba(255,255,255,.75); margin:0 0 1.1rem; }
-.t6pill { display:inline-block; border:1px solid rgba(255,255,255,.4); border-radius:999px; color:#fff; padding:.7rem 1.4rem; font-size:.74rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin:.5rem 0 1.3rem; }
-.t6see-cta-row { display:flex; }
-/* ---------- jornada até a Cruz ---------- */
-.t6j { position:relative; margin:0; padding:2.6rem var(--pad) 3.2rem; background:#070707; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); }
-.t6j-h { font-weight:600; font-size:.8rem; letter-spacing:.3em; text-transform:uppercase; color:#E9A83E; margin:0 0 2.2rem; text-align:center; }
-.t6j-line { list-style:none; margin:0 auto; padding:0; display:grid; grid-template-columns:repeat(7,1fr); gap:.9rem; max-width:1240px; position:relative; }
-.t6j-line::before { content:""; position:absolute; top:5px; left:2%; right:2%; height:1px; background:rgba(233,168,62,.28); }
-.t6j-line::after { content:""; position:absolute; top:5px; left:2%; width:9%; height:1px; background:#E9A83E; }
-.t6j-step { position:relative; text-align:center; padding-top:1.5rem; }
-.t6j-dot { position:absolute; top:0; left:50%; transform:translateX(-50%); width:11px; height:11px; border-radius:50%; border:1.5px solid #E9A83E; background:#070707; }
-.t6j-step.is-now .t6j-dot { background:#E9A83E; box-shadow:0 0 0 5px rgba(233,168,62,.18), 0 0 18px rgba(233,168,62,.55); }
-.t6j-date { display:block; font-weight:700; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#E9A83E; margin-bottom:.55rem; }
-.t6j-title { display:block; font-size:.86rem; line-height:1.45; color:rgba(255,255,255,.78); margin:0 auto .8rem; max-width:170px; }
-.t6j-btn { display:inline-flex; align-items:center; gap:.4rem; background:transparent; color:#E9A83E; border:1px solid rgba(233,168,62,.55); border-radius:999px; padding:.42rem .95rem; font-weight:700; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; transition:background .2s, border-color .2s; }
-.t6j-btn:hover { background:rgba(233,168,62,.1); border-color:#E9A83E; }
-.t6j-btn svg { transition:transform .2s; }
-.t6j-step.open .t6j-btn svg { transform:rotate(180deg); }
-.t6j-detail { display:none; position:absolute; top:calc(100% + .7rem); left:50%; transform:translateX(-50%); width:min(250px,72vw); background:#111; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:.95rem 1.05rem; font-size:.83rem; line-height:1.6; color:rgba(255,255,255,.82); text-align:left; box-shadow:0 16px 40px rgba(0,0,0,.55); z-index:5; }
-.t6j-step.open .t6j-detail { display:block; }
-.t6j-step:first-child .t6j-detail { left:0; transform:none; }
-.t6j-step:last-child .t6j-detail { left:auto; right:0; transform:none; }
-/* ---------- rodapé de marca ---------- */
-.t6foot { padding:3.6rem var(--pad) 2.8rem; text-align:center; }
-.t6foot img { width:min(300px,58vw); height:auto; display:block; margin:0 auto; }
-.t6foot span { display:block; margin-top:1rem; font-size:.72rem; font-weight:700; letter-spacing:.4em; text-transform:uppercase; color:rgba(255,255,255,.55); }
-@media (max-width:860px){
-.t6see-grid { grid-template-columns:1fr; }
-.t6j-line { grid-template-columns:1fr; gap:1.7rem; max-width:340px; padding-left:1.4rem; }
-.t6j-line::before { left:5px; right:auto; top:6px; bottom:6px; width:1px; height:auto; }
-.t6j-line::after { left:5px; top:6px; width:1px; height:9%; }
-.t6j-step { text-align:left; padding-top:0; padding-left:1.2rem; }
-.t6j-dot { left:-1.4rem; top:3px; transform:none; }
-.t6j-title { margin:0 0 .8rem; max-width:none; }
-.t6j-detail { position:static; transform:none; width:auto; margin-top:.7rem; }
-.t6p-line { grid-template-columns:1fr; gap:1.6rem; max-width:330px; padding-left:1.4rem; }
-.t6p-line::before { left:5px; right:auto; top:6px; bottom:6px; width:1px; height:auto; }
-.t6p-step { text-align:left; padding-top:0; padding-left:1.2rem; }
-.t6p-dot { left:-1.4rem; top:3px; transform:none; }
-.t6p-what { margin:0; }
-}
-</style>
-
-<div class="t6bar">
-<a class="t6bar-logo" href="/temporada6" data-nav="t6" aria-label="The Chosen — Temporada 6"><img src="img/t6-logo.webp" alt="The Chosen"></a>
-<div class="t6bar-right">
-<a class="t6bar-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Quero saber mais</a>
-<button type="button" class="t6bar-burger" id="t6Burger" aria-label="Menu" aria-expanded="false">
-<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-</button>
-<div class="t6bar-menu" id="t6Menu">
-<a href="/visao" data-nav="visao">Visão Para Líderes</a>
-<a href="/encontro" data-nav="home">Encontro com The Chosen</a>
-<a href="/kit" data-nav="kit">Kit de Divulgação</a>
-<a href="/perguntas" data-nav="faq">Perguntas Frequentes</a>
-</div>
-</div>
-</div>
-<section class="t6h" aria-label="Crucificação">
-<img class="t6h-video" src="img/t6hero.webp" alt="" aria-hidden="true" fetchpriority="high">
-<div class="t6h-shade"></div>
-<div class="t6h-content">
-<h1 class="t6h-title"><span>Assista ao primeiro</span> <span>episódio da Temporada 6</span> <span>antes de todo mundo</span></h1>
-<p class="t6h-eyebrow">Exclusivo para igrejas</p>
-<div class="t6h-row">
-<a class="t6h-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Quero saber mais</a>
-</div>
-</div>
-</section>
-
-<div class="t6-over">
-<section class="t6see" id="t6como" aria-label="Sua igreja pode ver primeiro">
-<div class="t6see-grid">
-<div class="t6-player" id="t6Player" role="button" tabindex="0" aria-label="Assistir ao teaser oficial da nova temporada">
-<img src="https://i.ytimg.com/vi/Yzs9vTdPeQM/maxresdefault.jpg" alt="Teaser oficial da nova temporada de The Chosen" loading="lazy">
-<span class="t6-play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#161206"><path d="M8 5v14l11-7z"/></svg></span>
-</div>
-<div class="t6see-txt">
-<h2 class="t6see-h2">Sua igreja pode ver primeiro</h2>
-<p>A Temporada 6 é diferente de tudo o que The Chosen já fez: ela acompanha um único dia, as últimas horas da vida de Jesus. O primeiro episódio começa no momento em que tudo muda, a prisão de Jesus. A noite que ninguém estava pronto para viver e que a sua comunidade pode assistir junta, antes de todo mundo.</p>
-<p>Enquanto a temporada chega ao streaming em 15 de novembro, igrejas e paróquias já podem se cadastrar para exibir o Episódio 1 a partir de 15 de setembro.</p>
-<span class="t6pill">Sem nenhum custo para a sua igreja</span>
-<div class="t6see-cta-row">
-<a class="t6h-cta" href="https://thechosen.com.br/601-encontro" target="_blank" rel="noopener">Quero saber mais</a>
-</div>
-</div>
-</div>
-</section>
-
-<section class="t6j" aria-label="Nossa jornada até a Cruz">
-<h2 class="t6j-h">Nossa jornada até a Cruz</h2>
-<ol class="t6j-line">
-<li class="t6j-step is-now">
-<span class="t6j-dot"></span>
-<span class="t6j-date">AGO 2026</span>
-<span class="t6j-title">Movimento global de oração</span>
-<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="t6j-detail">Igrejas do mundo inteiro orando por cada pessoa que vai atravessar essa história e pelas conversas que a Cruz irá despertar.</div>
-</li>
-<li class="t6j-step">
-<span class="t6j-dot"></span>
-<span class="t6j-date">SET 2026</span>
-<span class="t6j-title">Episódio 1 nas Igrejas</span>
-<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="t6j-detail">Igrejas de todo o mundo se reúnem para, juntas, assistirem à noite em que tudo muda.</div>
-</li>
-<li class="t6j-step">
-<span class="t6j-dot"></span>
-<span class="t6j-date">NOV 2026</span>
-<span class="t6j-title">Nova temporada no Prime Video</span>
-<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="t6j-detail">A Sexta-feira Santa se desdobra episódio a episódio no Prime Video. A conversa sai da igreja e entra nas casas.</div>
-</li>
-<li class="t6j-step">
-<span class="t6j-dot"></span>
-<span class="t6j-date">DEZ 2026</span>
-<span class="t6j-title">Episódio Inédito de Natal: Os Três Reis</span>
-<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="t6j-detail">Um especial de Natal inédito que será uma ponte entre o presépio e a Cruz.</div>
-</li>
-<li class="t6j-step">
-<span class="t6j-dot"></span>
-<span class="t6j-date">JAN - FEV 2027</span>
-<span class="t6j-title">Recursos para Igrejas</span>
-<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="t6j-detail">Guias de Estudo e recursos sobre as últimas horas de Jesus, para sua igreja realizar um Encontro com The Chosen Crucificação.</div>
-</li>
-<li class="t6j-step">
-<span class="t6j-dot"></span>
-<span class="t6j-date">INÍCIO DE 2027</span>
-<span class="t6j-title">Crucificação nos cinemas</span>
-<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="t6j-detail">O momento que irá colocar Jesus no centro da cultura e colocará os olhos do mundo na Cruz.</div>
-</li>
-<li class="t6j-step">
-<span class="t6j-dot"></span>
-<span class="t6j-date">DEPOIS</span>
-<span class="t6j-title">A jornada continua na Igreja</span>
-<button type="button" class="t6j-btn" aria-expanded="false">Ver detalhes <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div class="t6j-detail">Quem assistiu The Chosen Crucificação volta com perguntas. A jornada termina onde começou: com a igreja pronta para receber e responder.</div>
-</li>
-</ol>
-</section>
-
 <footer class="t6foot" aria-label="The Chosen Temporada 6">
 <img src="img/t6-logo.webp" alt="The Chosen" width="760" height="85">
 <span>Temporada 6</span>
@@ -2600,6 +2410,9 @@ DATA
 >>> Para liberar uma temporada: troque status para "liberada" <<<
 ================================================================ */
 const BILLBOARD = [
+{ title:"Assista a Temporada 6\nna Igreja", meta:[],
+desc:"Enquanto a temporada chega ao streaming em 15 de novembro, igrejas e paróquias já podem se cadastrar para exibir o Episódio 1 a partir de 15 de setembro.",
+cta2:"Saber mais", link:"https://thechosen.com.br/601-encontro", img:"t6banner", c:["#1c1408","#2b2010","#0e0a04"], seed:6 },
 { title:"Encontro com The Chosen", meta:[],
 desc:"As histórias de Jesus ganham vida em uma experiência interativa que aproxima as pessoas das Escrituras e as ajuda a enxergar o Evangelho de uma forma nova. <b class='bb-steps'>Leia. Assista. Converse.</b>",
 cta1:"Explorar temporadas", cta2:"Como funciona", img:"encounter", c:["#0b2622","#0e3a33","#071512"], seed:3 },
@@ -2615,7 +2428,7 @@ desc:"Após Jesus entregar o sermão mais impactante da história, Seus discípu
 desc:"Reinos em conflito. Governantes rivais. Os inimigos de Jesus se aproximam enquanto Seus seguidores lutam para acompanhá-Lo, deixando-O carregar o fardo sozinho. Ameaçados pela crescente influência de Jesus, os líderes religiosos fazem o impensável: aliam-se a Roma. Enquanto as sementes da traição são plantadas e a oposição à mensagem de Jesus se torna violenta, Ele não vê outra alternativa senão exigir que Seus seguidores SE LEVANTEM." },
 { n:5, name:"Temporada 5",     status:"liberada", meta:"Guias de Estudo em Grupo", img:"s5", c:["#1d1024","#2e1a38","#0e0612"], seed:25,
 desc:"A mesa está posta. O povo de Israel recebe Jesus como rei, enquanto Seus discípulos aguardam Sua coroação. Mas, em vez de confrontar Roma, Ele vira as mesas durante a festividade religiosa judaica. Com seu poder ameaçado, os líderes religiosos e políticos do país farão de tudo para garantir que esta refeição de Páscoa seja a última de Jesus." },
-{ n:6, name:"Crucificação",  status:"bloqueada", meta:"Guias de Estudo em Grupo", img:"t6card", c:["#1a1a22","#26262e","#101014"], seed:26, desc:"" },
+{ n:6, name:"Temporada 6",  status:"bloqueada", link:"https://thechosen.com.br/601-encontro", meta:"Guias de Estudo em Grupo", img:"t6card", c:["#1c1408","#2b2010","#0e0a04"], seed:26, desc:"" },
 ];
 const SEASON_DESC_I18N = {
 1:{en:"Season 1 introduces Jesus and the calling of His first disciples: a charismatic fisherman drowning in debt, a woman tormented by real demons, a gifted tax collector rejected by his family and his people, and a religious leader wrestling with his own beliefs. See Jesus through the eyes of those who knew Him.",
@@ -2803,9 +2616,12 @@ el.innerHTML = BILLBOARD.map((b,i)=>`
 ${b.meta.length?`<div class="bb-meta">${b.meta.map(m=>`<span>${m}</span>`).join(`<span class="dot"></span>`)}</div>`:''}
 <p class="bb-desc">${b.desc}</p>
 <div class="bb-ctas">
-<button type="button" class="btn btn-w" id="howBtn">
+${b.link
+? `<a class="btn bb-gold" href="${b.link}" target="_blank" rel="noopener">${b.cta2}
+<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`
+: `<button type="button" class="btn btn-w" id="howBtn">
 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-${b.cta2}</button>
+${b.cta2}</button>`}
 </div>
 </div>
 </div>`).join('')
@@ -2825,7 +2641,7 @@ bg.style.animation='none'; bg.offsetHeight; bg.style.animation='';
 }
 function resetBBTimer(){
 clearInterval(bbTimer);
-if(BILLBOARD.length>1) bbTimer = setInterval(()=>goBB((bbIdx+1)%BILLBOARD.length), 8000);
+if(BILLBOARD.length>1) bbTimer = setInterval(()=>goBB((bbIdx+1)%BILLBOARD.length), 10000);
 }
 /* ================================================================
 ROWS
@@ -2836,19 +2652,22 @@ document.getElementById('trkSeasons').innerHTML = SEASONS.map(s=>{
 const live = s.status==='liberada';
 const nm = localSeasonName(s);
 return `
-<article class="sc ${live?'live':'lock'}" ${live?`data-modal="season-${s.n}" tabindex="0"`:`aria-disabled="true"`}
-aria-label="${nm} — ${live?t.available:t.statusSoon}">
-${live?'':`<div class="sc-lockicon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>`}
+<article class="sc ${live||s.link?'live':'lock'}" ${live?`data-modal="season-${s.n}" tabindex="0"`:s.link?`tabindex="0" onclick="window.open('${s.link}','_blank')" onkeydown="if(event.key==='Enter')window.open('${s.link}','_blank')" style="cursor:pointer"`:`aria-disabled="true"`}
+aria-label="${nm} — ${live||s.link?t.available:t.statusSoon}">
+${live||s.link?'':`<div class="sc-lockicon"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>`}
 <div class="sc-th">
 <div class="sc-art" style="${artOf(s)}"></div>
 <div class="sc-shade"></div>
 <div class="sc-num">${s.n}</div>
 <div class="sc-body">
-<span class="sc-status ${live?'ok':'soon'}">${live?'✓ '+t.available:t.statusSoon}</span>
+${s.link?'':`<span class="sc-status ${live?'ok':'soon'}">${live?'✓ '+t.available:t.statusSoon}</span>`}
 <div class="sc-name">${nm}</div>
-<div class="sc-meta">${s.n===6 ? '15 de Novembro no Prime Video' : '8 Episódios'}</div>
+<div class="sc-meta">${s.n===6 ? 'Assista o primeiro episódio da Temporada 6 na Igreja' : '8 Episódios'}</div>
 ${live
 ? `<span class="sc-cta go">${t.explore}
+<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>`
+: s.link
+? `<span class="sc-cta go gold">Saber mais
 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>`
 : `<span class="sc-cta nah">
 <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -2951,7 +2770,7 @@ return x ? {t:x.t, tag:x.tag, d:x.d, refs:x.refs} : {t:v.t, tag:v.tag, d:v.d, re
 }
 function localSeasonName(s){
 const t=I18N[curLang]||I18N.pt;
-return s.n===6 ? (t.crucifixion||s.name) : `${t.season} ${s.n}`;
+return `${t.season} ${s.n}`;
 }
 function trTheme(name){
 if(curLang==='pt' || !THEME_I18N[name]) return name;
@@ -2965,9 +2784,8 @@ document.documentElement.lang = ({pt:"pt-BR",en:"en",esLA:"es",esES:"es",fr:"fr"
 // navbar (botões antigos de login/idioma removidos; barra fixa em PT)
 { const bo=document.querySelector('.btn-o'); if(bo) bo.textContent = t.enter; }
 // hero
-if(BILLBOARD[0]){ BILLBOARD[0].desc = t.heroDesc; BILLBOARD[0].cta2 = t.how; BILLBOARD[0].title = t.heroTitle; }
-const hd = document.querySelector('.bb-desc'); if(hd) hd.innerHTML = t.heroDesc;
-const ht2 = document.querySelector('.bb-title'); if(ht2) ht2.innerHTML = t.heroTitle;
+{ const encSlide = BILLBOARD.find(b => !b.link); if(encSlide){ encSlide.desc = t.heroDesc; encSlide.cta2 = t.how; encSlide.title = t.heroTitle; } }
+{ const encEl = [...document.querySelectorAll('.bb-slide')].find(s => !s.querySelector('.bb-gold')); if(encEl){ const d=encEl.querySelector('.bb-desc'); if(d) d.innerHTML = t.heroDesc; const tt=encEl.querySelector('.bb-title'); if(tt) tt.innerHTML = t.heroTitle; } }
 const hb = document.getElementById('howBtn'); if(hb) hb.querySelector('span')? null : null;
 if(hb){ const txt = hb.childNodes; hb.lastChild.textContent = ' '+t.how; }
 // section titles
@@ -2993,7 +2811,6 @@ pt:{t6:'Temporada 6',vision:'Visão Para Líderes',enc:'Encontro com The Chosen'
 en:{t6:'Crucifixion',vision:'Vision for Leaders',enc:'Encounter with The Chosen',kit:'Promo Kit',faq:'FAQ',report:'Report an Encounter',lang:'English (US)'}
 };
 const nv = NAVTX[code] || NAVTX.pt;
-setTxt('navT6', nv.t6); setTxt('mT6', nv.t6);
 setTxt('navVision', nv.vision); setTxt('mVision', nv.vision);
 setTxt('navEncounter', nv.enc); setTxt('mEncounter', nv.enc);
 setTxt('navKit', nv.kit); setTxt('mKit', nv.kit);
@@ -3503,15 +3320,13 @@ trackDownload(dl);
 });
 /* roteamento simples: home / faq (página separada) */
 function showPage(page){
-const subs = {faq:'faqView', kit:'kitView', visao:'visaoView', t6:'t6View'};
+const subs = {faq:'faqView', kit:'kitView', visao:'visaoView'};
 const isSub = !!subs[page];
 document.body.classList.toggle('v-visao', page==='visao');
-document.body.classList.toggle('v-t6', page==='t6');
-document.body.classList.toggle('v-t6', page==='t6');
 const home = document.getElementById('homeView');
 if(home) home.style.display = isSub ? 'none' : '';
 Object.entries(subs).forEach(([p,id])=>{ const el=document.getElementById(id); if(el) el.style.display = (p===page) ? 'block' : 'none'; });
-{ const foot=document.querySelector('footer.foot'); if(foot) foot.style.display = (page==='visao'||page==='t6') ? 'none' : ''; }
+{ const foot=document.querySelector('footer.foot'); if(foot) foot.style.display = (page==='visao') ? 'none' : ''; }
 document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('on', a.dataset.nav===(isSub?page:'home')));
 if(page==='faq' && typeof renderFAQ==='function') renderFAQ();
 if(page==='kit' && typeof renderKit==='function') renderKit();
@@ -3520,12 +3335,12 @@ window.scrollTo(0,0);
 function routeFromHash(){ const h=location.hash.replace('#',''); if(h==='relatar'){ showPage('home'); if(typeof openReport==='function') setTimeout(openReport, 120); return; } showPage(h==='faq'?'faq':(h==='kit'?'kit':(h==='home'?'home':'visao'))); }
 window.addEventListener('hashchange', routeFromHash);
 /* ── Roteamento por URL (paths reais: /visao /encontro /kit /perguntas) ── */
-const PATH_PAGE = { '/temporada6':'t6', '/visao':'visao', '/encontro':'home', '/kit':'kit', '/perguntas':'faq' };
-const PAGE_PATH = { t6:'/temporada6', visao:'/visao', home:'/encontro', kit:'/kit', faq:'/perguntas' };
+const PATH_PAGE = { '/temporada6':'home', '/visao':'visao', '/encontro':'home', '/kit':'kit', '/perguntas':'faq' };
+const PAGE_PATH = { visao:'/visao', home:'/encontro', kit:'/kit', faq:'/perguntas' };
 function pageFromPath(p){ p = (p||'/').replace(/\/$/, '') || '/'; return PATH_PAGE[p] || null; }
 window.goToPath = function(path, replace){
-const page = pageFromPath(path) || 't6';
-const clean = PAGE_PATH[page] || '/temporada6';
+const page = pageFromPath(path) || 'home';
+const clean = PAGE_PATH[page] || '/encontro';
 if(location.pathname !== clean){ history[replace ? 'replaceState' : 'pushState'](null, '', clean); }
 showPage(page);
 };
@@ -3548,7 +3363,7 @@ history.replaceState(null, '', PAGE_PATH[page] || '/visao');
 }
 return;
 }
-showPage('t6');
+showPage('home');
 }
 
 /* menu mobile (hamburger) */
