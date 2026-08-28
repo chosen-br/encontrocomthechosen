@@ -3591,6 +3591,56 @@ else { document.getElementById('advErr').style.display='block'; }
 document.getElementById('advGo').addEventListener('click', tenta);
 document.getElementById('advKey').addEventListener('keydown', function(e){ if(e.key==='Enter') tenta(); });
 })();
+
+/* ===== PRÉVIA: Saber mais abre formulário HubSpot em modal ===== */
+(function(){
+var HS_LOADED = false;
+var st = document.createElement('style');
+st.textContent = '#t6FormModal{position:fixed;inset:0;z-index:9500;display:none}#t6FormModal.on{display:block}'
++ '.t6fm-back{position:absolute;inset:0;background:rgba(0,0,0,.74);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}'
++ '.t6fm-panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(680px,94vw);max-height:88vh;overflow:auto;background:#fff;border-radius:14px;padding:2.4rem 1.6rem 1.6rem;box-shadow:0 30px 80px rgba(0,0,0,.6)}'
++ '.t6fm-x{position:absolute;top:10px;right:12px;width:34px;height:34px;border-radius:50%;background:#eee;border:none;font-size:20px;line-height:1;cursor:pointer;color:#333}'
++ '.t6fm-x:hover{background:#ddd}';
+document.head.appendChild(st);
+function closeT6Form(){
+var m = document.getElementById('t6FormModal');
+if(m){ m.classList.remove('on'); document.body.style.overflow=''; }
+}
+function openT6Form(){
+var m = document.getElementById('t6FormModal');
+if(!m){
+m = document.createElement('div'); m.id = 't6FormModal';
+m.innerHTML = '<div class="t6fm-back"></div>'
++ '<div class="t6fm-panel" role="dialog" aria-modal="true" aria-label="Cadastro Temporada 6">'
++ '<button type="button" class="t6fm-x" aria-label="Fechar">\u00d7</button>'
++ '<div class="hs-form-frame" data-region="na1" data-form-id="b0ae5355-0b8c-40b4-b070-72c86ccbc01c" data-portal-id="24173517"></div>'
++ '</div>';
+document.body.appendChild(m);
+m.querySelector('.t6fm-back').addEventListener('click', closeT6Form);
+m.querySelector('.t6fm-x').addEventListener('click', closeT6Form);
+}
+if(!HS_LOADED){
+HS_LOADED = true;
+var s = document.createElement('script');
+s.src = 'https://js.hsforms.net/forms/embed/24173517.js';
+s.defer = true;
+document.body.appendChild(s);
+}
+m.classList.add('on');
+document.body.style.overflow = 'hidden';
+}
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeT6Form(); });
+document.addEventListener('click', function(e){
+var g = e.target.closest('a.bb-gold');
+var card = e.target.closest('article.sc');
+var isT6card = card && (card.getAttribute('onclick')||'').indexOf('601-encontro') !== -1;
+if(g || isT6card){
+e.preventDefault();
+e.stopPropagation();
+openT6Form();
+}
+}, true);
+})();
 </script>
 </body>
 </html>
