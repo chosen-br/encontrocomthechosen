@@ -1,49 +1,9 @@
 {
-  "rewrites": [
+  "redirects": [
     {
-      "source": "/temporada6",
-      "destination": "/"
-    },
-    {
-      "source": "/visao",
-      "destination": "/"
-    },
-    {
-      "source": "/encontro",
-      "destination": "/"
-    },
-    {
-      "source": "/kit",
-      "destination": "/"
-    },
-    {
-      "source": "/perguntas",
-      "destination": "/"
+      "source": "/:path*",
+      "destination": "https://resources.comeandseefoundation.org/",
+      "permanent": false
     }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)\\.html",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        }
-      ]
-    }
-  ],
-  "cleanUrls": true
+  ]
 }
