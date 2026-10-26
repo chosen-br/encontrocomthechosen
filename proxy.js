@@ -1,4 +1,4 @@
-// Edge Middleware (Vercel). O domínio virou um redirecionamento: toda visita é
+// Routing Middleware (Vercel, runtime Node). O domínio virou um redirecionamento: toda visita é
 // registrada (sem cookie, sem script, sem IP) e enviada para o destino.
 // Exceções: /painel (dashboard privado) e /api/* (stats/reset do painel).
 const DESTINO = 'https://resources.comeandseefoundation.org/';

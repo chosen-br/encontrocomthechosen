@@ -1,4 +1,9 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "proxy": {
+    "entrypoint": "proxy.js",
+    "matcher": ["/((?!painel|api/).*)"]
+  },
   "redirects": [
     {
       "source": "/((?!painel|api/).*)",
