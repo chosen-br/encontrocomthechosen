@@ -1,9 +1,19 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/((?!painel|api/).*)",
       "destination": "https://resources.comeandseefoundation.org/",
       "permanent": false
     }
-  ]
+  ],
+  "headers": [
+    {
+      "source": "/painel",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ],
+  "cleanUrls": true
 }
