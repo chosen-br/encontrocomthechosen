@@ -12,6 +12,7 @@ body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'
 .wrap{max-width:860px;margin:0 auto}
 h1{font-size:1.25rem;font-weight:800;letter-spacing:.02em;margin-bottom:.3rem}
 .sub{color:var(--mute);font-size:.85rem;margin-bottom:2rem}
+.sub a{color:var(--soft)}
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
 .card{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.4rem 1.5rem}
 .card .lbl{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:.5rem}
@@ -22,6 +23,7 @@ table{width:100%;border-collapse:collapse;background:var(--raised);border:1px so
 th,td{text-align:left;padding:.7rem 1rem;font-size:.87rem;border-bottom:1px solid var(--line)}
 th{color:var(--mute);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
 td.n{text-align:right;font-variant-numeric:tabular-nums;color:var(--teal);font-weight:700;width:90px}
+td.p{width:46px;text-align:right;color:var(--mute);font-size:.75rem;font-variant-numeric:tabular-nums}
 tr:last-child td{border-bottom:none}
 .gate{max-width:380px;margin:14vh auto 0;text-align:center}
 .gate input{width:100%;padding:.85rem 1rem;background:var(--raised);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-size:.95rem;margin:.9rem 0}
@@ -30,7 +32,6 @@ tr:last-child td{border-bottom:none}
 .muted{color:var(--mute);font-size:.85rem;padding:2rem 0;text-align:center}
 .refresh{background:none;border:1px solid var(--line);color:var(--soft);border-radius:8px;padding:.45rem .9rem;font-size:.75rem;cursor:pointer;margin-bottom:1.4rem}
 .refresh:hover{border-color:var(--teal);color:var(--teal)}
-.chart{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.2rem 1.5rem;margin-bottom:2rem}
 .chart-bars{display:flex;align-items:flex-end;gap:3px;height:110px;margin-top:1rem}
 .cb{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;position:relative}
 .cb .b-dl{background:var(--teal);border-radius:2px 2px 0 0;min-height:2px;opacity:.9}
@@ -43,8 +44,10 @@ tr:last-child td{border-bottom:none}
 .chart{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.3rem 1rem;margin-bottom:1.6rem}
 .chart h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 .9rem;font-weight:600}
 .bars{display:flex;align-items:flex-end;gap:3px;height:90px}
-.bar{flex:1;background:var(--teal);opacity:.85;border-radius:2px 2px 0 0;min-height:2px;position:relative}
+.bar{flex:1;background:var(--teal);opacity:.85;border-radius:3px 3px 0 0;min-height:2px;position:relative}
 .bar.zero{background:var(--line);opacity:.6}
+.bar.hi{opacity:1}
+.bar:hover{opacity:1;filter:brightness(1.15)}
 .bar:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);color:var(--ink);font-size:.68rem;padding:.25rem .5rem;border-radius:6px;white-space:nowrap;z-index:5}
 .chart .axis{display:flex;justify-content:space-between;font-size:.65rem;color:var(--mute);margin-top:.5rem}
 .pcts{display:flex;gap:1.4rem;flex-wrap:wrap;margin:.2rem 0 1.4rem;font-size:.82rem;color:var(--soft)}
@@ -52,7 +55,27 @@ tr:last-child td{border-bottom:none}
 .cats{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.6rem}
 .cat{background:var(--raised);border:1px solid var(--line);border-radius:999px;padding:.45rem .95rem;font-size:.8rem;color:var(--soft)}
 .cat b{color:var(--teal);margin-left:.35rem}
-@media(max-width:760px){.cards{grid-template-columns:1fr 1fr !important}}
+/* acessos (redirecionamento) */
+.toolbar{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-bottom:1.4rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{background:none;border:none;color:var(--soft);padding:.45rem .9rem;font-size:.75rem;cursor:pointer;font-weight:600}
+.seg button.on{background:var(--teal);color:#04211f}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.6rem}
+.grid2 .chart{margin:0}
+.dim{background:var(--raised);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.dim h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding:1rem 1.2rem .6rem;font-weight:600}
+.dim table{border:none;border-radius:0}
+.dim td{padding:.55rem 1.2rem}
+.dim .pb{position:relative;z-index:0}
+.dim .pb::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:var(--w);background:var(--teal);opacity:.14;border-radius:0 4px 4px 0;z-index:-1}
+.dim .vazio{color:var(--mute);font-size:.8rem;padding:.4rem 1.2rem 1.1rem}
+.note{font-size:.75rem;color:var(--mute);margin:-.6rem 0 1.6rem;line-height:1.5}
+details.arq{margin-top:3rem;border-top:1px solid var(--line);padding-top:1.4rem}
+details.arq summary{cursor:pointer;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);list-style:none;display:flex;align-items:center;gap:.6rem}
+details.arq summary::before{content:'▸';color:var(--teal);transition:transform .15s}
+details.arq[open] summary::before{transform:rotate(90deg)}
+details.arq .inner{margin-top:1.4rem}
+@media(max-width:760px){.cards{grid-template-columns:1fr 1fr !important}.grid2{grid-template-columns:1fr}}
 @media(max-width:460px){.cards{grid-template-columns:1fr !important}}
 </style>
 </head>
@@ -66,26 +89,50 @@ tr:last-child td{border-bottom:none}
 </div>
 
 <div id="app" class="wrap" style="display:none">
-<h1>Encontro com The Chosen</h1>
-<p class="sub">Métricas internas · dados ao vivo</p>
-<button class="refresh" onclick="carregar()">↻ Atualizar</button>
+<h1>encontrocomthechosen.com.br</h1>
+<p class="sub">Acessos ao domínio · redirecionando para <a href="https://resources.comeandseefoundation.org/" target="_blank" rel="noopener">resources.comeandseefoundation.org</a> · <span id="rdUltimo">sem dados ainda</span></p>
+<div class="toolbar">
+<button class="refresh" style="margin:0" onclick="carregar()">↻ Atualizar</button>
+<div class="seg" id="seg"><button class="on" data-p="mes">Este mês</button><button data-p="tudo">Desde o início</button></div>
+</div>
+
 <div class="cards" style="grid-template-columns:1fr 1fr 1fr 1fr">
-<div class="card"><div class="lbl">Cadastros</div><div class="num" id="nCad">–</div><div class="extra">via formulário de cadastro (a partir de agora)</div></div>
+<div class="card"><div class="lbl">Hoje</div><div class="num" id="rdHoje">–</div><div class="extra" id="rdOntem">ontem: –</div></div>
+<div class="card"><div class="lbl">Últimos 7 dias</div><div class="num" id="rd7">–</div><div class="extra" id="rdMedia7">média/dia: –</div></div>
+<div class="card"><div class="lbl">Últimos 30 dias</div><div class="num" id="rd30">–</div><div class="extra" id="rdMedia30">média/dia: –</div></div>
+<div class="card"><div class="lbl">Total</div><div class="num" id="rdTotal">–</div><div class="extra" id="rdBots">desde o início</div></div>
+</div>
+
+<div class="chart"><h3>Acessos por dia · últimos 30 dias</h3><div class="bars" id="chDia"></div><div class="axis" id="axDia"></div></div>
+<div class="chart"><h3 id="hHora">Acessos por hora do dia</h3><div class="bars" id="chHora"></div><div class="axis"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span></div></div>
+
+<div class="grid2">
+<div class="dim"><h3>De onde vieram</h3><div id="dSrc"></div></div>
+<div class="dim"><h3>Dispositivo</h3><div id="dDevice"></div></div>
+<div class="dim"><h3>Campanhas (utm_campaign)</h3><div id="dCamp"></div></div>
+<div class="dim"><h3>Link usado</h3><div id="dPath"></div></div>
+<div class="dim"><h3>Estado</h3><div id="dRegion"></div></div>
+<div class="dim"><h3>Cidade</h3><div id="dCity"></div></div>
+<div class="dim"><h3>País</h3><div id="dCountry"></div></div>
+<div class="dim"><h3>Site de origem (detalhe)</h3><div id="dRef"></div></div>
+</div>
+<p class="note">Contagem feita no redirecionamento, sem cookies nem scripts: cada acesso conta 1 (a mesma pessoa voltando conta de novo). "Direto" inclui links abertos dentro de apps como WhatsApp e Instagram, que não informam a origem. Robôs (Google, prévias de link) são contados à parte e não entram nos gráficos.</p>
+
+<details class="arq">
+<summary>Arquivo · site antigo (até outubro de 2026)</summary>
+<div class="inner">
+<div class="cards" style="grid-template-columns:1fr 1fr 1fr 1fr">
+<div class="card"><div class="lbl">Cadastros</div><div class="num" id="nCad">–</div><div class="extra">via formulário de cadastro</div></div>
 <div class="card"><div class="lbl">Acessos liberados</div><div class="num" id="nAcc">–</div><div class="extra" id="accExtra">navegadores que digitaram a senha (1x cada)</div></div>
 <div class="card"><div class="lbl">Recursos baixados</div><div class="num" id="nDl">–</div><div class="extra">cliques em botões de download (cenas, guias e kit)</div></div>
 <div class="card"><div class="lbl">Encontros relatados</div><div class="num" id="nRel">–</div><div class="extra" id="ultimoRel">via formulário Relatar Encontro</div></div>
 </div>
-<h2>Últimos 30 dias</h2>
-<div class="chart">
-<div class="chart-bars" id="chartBars"></div>
-<div class="legend"><span><i style="background:var(--teal)"></i>Downloads</span><span><i style="background:#e8b34b"></i>Relatos</span></div>
-</div>
 <h2>Por tipo de recurso</h2>
-<div id="catWrap" style="margin-bottom:2rem"><p class="muted">Sem dados ainda.</p></div>
+<div id="catWrap" style="margin-bottom:2rem"><p class="muted">Sem dados.</p></div>
 <div class="chart"><h3>Downloads · últimos 30 dias</h3><div class="bars" id="chDl"></div><div class="axis" id="axDl"></div></div>
 <div class="chart"><h3>Encontros relatados · últimos 30 dias</h3><div class="bars" id="chRel"></div><div class="axis" id="axRel"></div></div>
 <h2>Downloads por categoria</h2>
-<div class="cats" id="catsWrap"><span class="muted">Sem dados ainda.</span></div>
+<div class="cats" id="catsWrap"><span class="muted">Sem dados.</span></div>
 <h2>Ranking por recurso</h2>
 <div id="rankWrap"><p class="muted">Carregando…</p></div>
 <h2 style="margin-top:2rem">Teaser · Temporada 6</h2>
@@ -102,16 +149,86 @@ tr:last-child td{border-bottom:none}
 </div>
 <div class="rates" id="popRates" style="display:none"></div>
 <div class="pcts" id="popPcts"></div>
-<div id="motWrap"><p class="muted">Sem respostas de motivo ainda.</p></div>
+<div id="motWrap"><p class="muted">Sem respostas de motivo.</p></div>
+</div>
+</details>
 </div>
 
 <script>
 const KEY_STORE = 'tc_painel_key';
+let periodo = 'mes';
+let ultimoJson = null;
+const fmtN = n => (n||0).toLocaleString('pt-BR');
+const esc = s => String(s).replace(/</g,'&lt;');
+const UF = {AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
+const SRC = {direto:'Direto / apps',instagram:'Instagram',facebook:'Facebook',whatsapp:'WhatsApp',youtube:'YouTube',google:'Google',bing:'Bing',x:'X (Twitter)',linkedin:'LinkedIn',tiktok:'TikTok',telegram:'Telegram',thechosen:'Site The Chosen',outros:'Outros sites'};
+const DEV = {celular:'Celular',desktop:'Computador',tablet:'Tablet'};
+const PAIS = {BR:'Brasil',US:'Estados Unidos',PT:'Portugal',AR:'Argentina',PY:'Paraguai',UY:'Uruguai',CL:'Chile',MX:'México',ES:'Espanha',IT:'Itália',DE:'Alemanha',FR:'França',GB:'Reino Unido',CA:'Canadá',JP:'Japão',AO:'Angola',MZ:'Moçambique'};
+
 function entrar(){
 const k = document.getElementById('key').value.trim();
 if(!k) return;
 localStorage.setItem(KEY_STORE, k);
 carregar();
+}
+document.getElementById('seg').addEventListener('click', e => {
+const b = e.target.closest('button'); if(!b) return;
+periodo = b.dataset.p;
+document.querySelectorAll('#seg button').forEach(x => x.classList.toggle('on', x===b));
+if(ultimoJson && ultimoJson.redirect) desenhaRedirect(ultimoJson.redirect);
+});
+
+function barras(el, serie, campoV, tip, destaque){
+const box = document.getElementById(el); box.innerHTML = '';
+const max = Math.max(1, ...serie.map(x => x[campoV]));
+serie.forEach((x, i) => {
+const b = document.createElement('div');
+const v = x[campoV];
+b.className = 'bar' + (v===0 ? ' zero' : '') + (destaque && destaque(x, i) ? ' hi' : '');
+b.style.height = v===0 ? '2px' : Math.max(6, Math.round(v/max*100)) + '%';
+b.setAttribute('data-tip', tip(x));
+box.appendChild(b);
+});
+}
+function tabelaDim(el, lista, rotulo, limite){
+const box = document.getElementById(el);
+if(!lista || !lista.length){ box.innerHTML = '<p class="vazio">Sem dados no período.</p>'; return; }
+const total = lista.reduce((s,x) => s + x.n, 0);
+let h = '<table>';
+lista.slice(0, limite || 8).forEach(x => {
+const pct = total ? Math.round(x.n/total*100) : 0;
+h += `<tr><td class="pb" style="--w:${pct}%">${esc(rotulo ? rotulo(x.valor) : x.valor)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`;
+});
+if(lista.length > (limite||8)) h += `<tr><td class="vazio" colspan="3">+ ${lista.length-(limite||8)} outros</td></tr>`;
+box.innerHTML = h + '</table>';
+}
+function desenhaRedirect(r){
+document.getElementById('rdHoje').textContent = fmtN(r.hoje);
+document.getElementById('rdOntem').textContent = 'ontem: ' + fmtN(r.ontem);
+document.getElementById('rd7').textContent = fmtN(r.ult7);
+document.getElementById('rdMedia7').textContent = 'média/dia: ' + fmtN(Math.round(r.ult7/7));
+document.getElementById('rd30').textContent = fmtN(r.ult30);
+document.getElementById('rdMedia30').textContent = 'média/dia: ' + fmtN(Math.round(r.ult30/30));
+document.getElementById('rdTotal').textContent = fmtN(r.humanos);
+document.getElementById('rdBots').textContent = r.bots ? 'pessoas · + ' + fmtN(r.bots) + ' robôs/prévias ignorados' : 'desde o início';
+if(r.ultimo){ document.getElementById('rdUltimo').textContent = 'último acesso: ' + new Date(r.ultimo).toLocaleString('pt-BR'); }
+const hojeStr = r.dias[r.dias.length-1].dia;
+barras('chDia', r.dias, 'n', x => { const [Y,M,D] = x.dia.split('-'); return D+'/'+M+': '+fmtN(x.n)+' acesso'+(x.n===1?'':'s'); }, x => x.dia===hojeStr);
+const f = s => { const [Y,M,D] = s.split('-'); return D+'/'+M; };
+document.getElementById('axDia').innerHTML = '<span>'+f(r.dias[0].dia)+'</span><span>'+f(hojeStr)+'</span>';
+const horas = periodo==='mes' ? r.horas.mes : r.horas.tudo;
+const pico = horas.reduce((a,b) => b.n > a.n ? b : a, horas[0]);
+document.getElementById('hHora').textContent = 'Acessos por hora do dia' + (periodo==='mes' ? ' · este mês' : ' · desde o início') + (pico.n ? ' · pico às ' + parseInt(pico.hora,10) + 'h' : '');
+barras('chHora', horas, 'n', x => parseInt(x.hora,10)+'h: '+fmtN(x.n), x => x.n>0 && x.hora===pico.hora);
+const d = periodo==='mes' ? r.dims.mes : r.dims.tudo;
+tabelaDim('dSrc', d.src, v => SRC[v] || v);
+tabelaDim('dDevice', d.device, v => DEV[v] || v, 3);
+tabelaDim('dCamp', d.utm_campaign);
+tabelaDim('dPath', d.path);
+tabelaDim('dRegion', d.region, v => UF[v] || (v.includes('-') ? (PAIS[v.split('-')[0]] || v.split('-')[0]) + ' · ' + v.split('-')[1] : v));
+tabelaDim('dCity', d.city);
+tabelaDim('dCountry', d.country, v => PAIS[v] || v, 5);
+tabelaDim('dRef', d.ref, null, 8);
 }
 async function carregar(){
 const k = localStorage.getItem(KEY_STORE);
@@ -121,61 +238,31 @@ const r = await fetch('/api/stats', { headers: { 'x-panel-key': k } });
 if(r.status === 401){ localStorage.removeItem(KEY_STORE); document.getElementById('err').style.display='block'; mostrar(false); return; }
 const j = await r.json();
 if(!j.ok){ document.getElementById('rankWrap').innerHTML = '<p class="muted">Armazenamento ainda não configurado na Vercel.</p>'; mostrar(true); return; }
-document.getElementById('nCad').textContent = (j.cadastros_total||0).toLocaleString('pt-BR');
-document.getElementById('nAcc').textContent = (j.acessos_total||0).toLocaleString('pt-BR');
+ultimoJson = j;
+if(j.redirect) desenhaRedirect(j.redirect);
+document.getElementById('nCad').textContent = fmtN(j.cadastros_total);
+document.getElementById('nAcc').textContent = fmtN(j.acessos_total);
 if((j.cadastros_total||0) > 0 && (j.acessos_total||0) > 0){
 document.getElementById('accExtra').textContent = 'razão acessos/cadastros: ' + (j.acessos_total/j.cadastros_total).toFixed(1) + 'x';
 }
-document.getElementById('nDl').textContent = j.downloads_total.toLocaleString('pt-BR');
-document.getElementById('nRel').textContent = j.relatos_total.toLocaleString('pt-BR');
+document.getElementById('nDl').textContent = fmtN(j.downloads_total);
+document.getElementById('nRel').textContent = fmtN(j.relatos_total);
 if(j.ultimo_relato){
-const d = new Date(j.ultimo_relato);
-document.getElementById('ultimoRel').textContent = 'último relato: ' + d.toLocaleString('pt-BR');
+document.getElementById('ultimoRel').textContent = 'último relato: ' + new Date(j.ultimo_relato).toLocaleString('pt-BR');
 }
-// gráfico 30 dias
-if(j.serie30){
-const max = Math.max(1, ...j.serie30.map(x=>Math.max(x.dl, x.rel)));
-let bh = '';
-j.serie30.forEach(x=>{
-const hdl = Math.round(x.dl/max*100);
-const hrel = Math.round(x.rel/max*100);
-const [Y,M,D] = x.d.split('-');
-bh += `<div class="cb" data-tip="${D}/${M}: ${x.dl} download${x.dl===1?'':'s'}, ${x.rel} relato${x.rel===1?'':'s'}"><div class="b-rel" style="height:${hrel}%"></div><div class="b-dl" style="height:${hdl}%"></div></div>`;
-});
-document.getElementById('chartBars').innerHTML = bh;
-}
-// por tipo de recurso
 if(j.ranking && j.ranking.length){
 const cats = {};
-j.ranking.forEach(x=>{
-const m = x.recurso.match(/^([^:]+):/);
-const cat = m ? m[1].trim() : 'Outros';
-cats[cat] = (cats[cat]||0) + x.cliques;
-});
+j.ranking.forEach(x=>{ const m = x.recurso.match(/^([^:]+):/); const cat = m ? m[1].trim() : 'Outros'; cats[cat] = (cats[cat]||0) + x.cliques; });
 const lista = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
 let ch = '<table><tr><th>Tipo</th><th style="text-align:right">Cliques</th></tr>';
-lista.forEach(([c,n])=>{ ch += `<tr><td>${c.replace(/</g,'&lt;')}</td><td class="n">${n.toLocaleString('pt-BR')}</td></tr>`; });
-ch += '</table>';
-document.getElementById('catWrap').innerHTML = ch;
+lista.forEach(([c,n])=>{ ch += `<tr><td>${esc(c)}</td><td class="n">${fmtN(n)}</td></tr>`; });
+document.getElementById('catWrap').innerHTML = ch + '</table>';
 }
 if(j.dias){
-function desenhaBarras(dias, campo, elBars, elAx){
-const max = Math.max(1, ...dias.map(x=>x[campo]));
-const bars = document.getElementById(elBars); bars.innerHTML = '';
-dias.forEach(x=>{
-const b = document.createElement('div');
-const v = x[campo];
-b.className = 'bar' + (v===0?' zero':'');
-b.style.height = v===0 ? '2px' : Math.max(6, Math.round(v/max*100)) + '%';
-const [Y,M,D] = x.dia.split('-');
-b.setAttribute('data-tip', D+'/'+M+': '+v);
-bars.appendChild(b);
-});
-const fmt = s => { const [Y,M,D]=s.split('-'); return D+'/'+M; };
-document.getElementById(elAx).innerHTML = '<span>'+fmt(dias[0].dia)+'</span><span>'+fmt(dias[dias.length-1].dia)+'</span>';
-}
-desenhaBarras(j.dias, 'downloads', 'chDl', 'axDl');
-desenhaBarras(j.dias, 'relatos', 'chRel', 'axRel');
+const f = s => { const [Y,M,D]=s.split('-'); return D+'/'+M; };
+barras('chDl', j.dias, 'downloads', x => f(x.dia)+': '+x.downloads);
+barras('chRel', j.dias, 'relatos', x => f(x.dia)+': '+x.relatos);
+document.getElementById('axDl').innerHTML = document.getElementById('axRel').innerHTML = '<span>'+f(j.dias[0].dia)+'</span><span>'+f(j.dias[j.dias.length-1].dia)+'</span>';
 }
 if(j.ranking){
 const cats = {};
@@ -188,25 +275,21 @@ else if(x.recurso.startsWith('Kit:')) c = 'Kit · arquivos';
 cats[c] = (cats[c]||0) + x.cliques;
 });
 const entries = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
-if(entries.length){
-document.getElementById('catsWrap').innerHTML = entries.map(([c,n])=>`<span class="cat">${c}<b>${n.toLocaleString('pt-BR')}</b></span>`).join('');
-}
+if(entries.length) document.getElementById('catsWrap').innerHTML = entries.map(([c,n])=>`<span class="cat">${c}<b>${fmtN(n)}</b></span>`).join('');
 }
 if(j.teaser){
-document.getElementById('tPlay').textContent = j.teaser.play.toLocaleString('pt-BR');
-document.getElementById('tShare').textContent = j.teaser.share.toLocaleString('pt-BR');
-document.getElementById('tDl').textContent = j.teaser.download.toLocaleString('pt-BR');
+document.getElementById('tPlay').textContent = fmtN(j.teaser.play);
+document.getElementById('tShare').textContent = fmtN(j.teaser.share);
+document.getElementById('tDl').textContent = fmtN(j.teaser.download);
 }
 if(j.popup){
-const respostas = j.popup.sim + j.popup.nao;
+const resp = j.popup.sim + j.popup.nao;
 const pcts = [];
 const base = j.popup.alcance || j.popup.exibido;
-if(base > 0) pcts.push('Taxa de resposta: <b>'+Math.round(respostas/base*100)+'%</b>');
-if(respostas > 0) pcts.push('Já realizaram: <b>'+Math.round(j.popup.sim/respostas*100)+'%</b>');
-if(j.popup.motivos.length) pcts.push('Motivo mais comum: <b>'+j.popup.motivos[0].motivo+'</b>');
-document.getElementById('popPcts').innerHTML = pcts.join(' · ') || '<span class="muted">Sem interações ainda.</span>';
-// taxas do funil
-const resp = j.popup.sim + j.popup.nao;
+if(base > 0) pcts.push('Taxa de resposta: <b>'+Math.round(resp/base*100)+'%</b>');
+if(resp > 0) pcts.push('Já realizaram: <b>'+Math.round(j.popup.sim/resp*100)+'%</b>');
+if(j.popup.motivos.length) pcts.push('Motivo mais comum: <b>'+esc(j.popup.motivos[0].motivo)+'</b>');
+document.getElementById('popPcts').innerHTML = pcts.join(' · ') || '<span class="muted">Sem interações.</span>';
 if(j.popup.exibido > 0 && resp > 0){
 const txResp = Math.round(resp/j.popup.exibido*100);
 const txSim = Math.round(j.popup.sim/resp*100);
@@ -214,30 +297,27 @@ let extra = '';
 if(j.popup.motivos.length){
 const top = j.popup.motivos[0];
 const txMot = Math.round(top.respostas/Math.max(1,j.popup.nao)*100);
-extra = `<span>Motivo mais citado: <b>${top.motivo.replace(/</g,'&lt;')}</b> (${txMot}% dos "ainda não")</span>`;
+extra = `<span>Motivo mais citado: <b>${esc(top.motivo)}</b> (${txMot}% dos "ainda não")</span>`;
 }
-document.getElementById('popRates').innerHTML =
-`<span>Taxa de resposta: <b>${txResp}%</b></span><span>Já realizaram: <b>${txSim}%</b> das respostas</span>${extra}`;
+document.getElementById('popRates').innerHTML = `<span>Taxa de resposta: <b>${txResp}%</b></span><span>Já realizaram: <b>${txSim}%</b> das respostas</span>${extra}`;
 document.getElementById('popRates').style.display = 'flex';
 }
-document.getElementById('pAlc').textContent = (j.popup.alcance||0).toLocaleString('pt-BR');
-if(j.popup.exibido > 0) document.getElementById('pAlcExtra').textContent = 'exibições totais (com repetições): ' + j.popup.exibido.toLocaleString('pt-BR');
-document.getElementById('pSim').textContent = j.popup.sim.toLocaleString('pt-BR');
-document.getElementById('pNao').textContent = j.popup.nao.toLocaleString('pt-BR');
+document.getElementById('pAlc').textContent = fmtN(j.popup.alcance);
+if(j.popup.exibido > 0) document.getElementById('pAlcExtra').textContent = 'exibições totais (com repetições): ' + fmtN(j.popup.exibido);
+document.getElementById('pSim').textContent = fmtN(j.popup.sim);
+document.getElementById('pNao').textContent = fmtN(j.popup.nao);
 if(j.popup.motivos.length){
 let mh = '<table><tr><th>Motivo</th><th style="text-align:right">Respostas</th></tr>';
-j.popup.motivos.forEach(x => { mh += `<tr><td>${x.motivo.replace(/</g,'&lt;')}</td><td class="n">${x.respostas.toLocaleString('pt-BR')}</td></tr>`; });
-mh += '</table>';
-document.getElementById('motWrap').innerHTML = mh;
+j.popup.motivos.forEach(x => { mh += `<tr><td>${esc(x.motivo)}</td><td class="n">${fmtN(x.respostas)}</td></tr>`; });
+document.getElementById('motWrap').innerHTML = mh + '</table>';
 }
 }
-if(j.ranking.length){
+if(j.ranking && j.ranking.length){
 let html = '<table><tr><th>Recurso</th><th style="text-align:right">Cliques</th></tr>';
-j.ranking.forEach(x => { html += `<tr><td>${x.recurso.replace(/</g,'&lt;')}</td><td class="n">${x.cliques.toLocaleString('pt-BR')}</td></tr>`; });
-html += '</table>';
-document.getElementById('rankWrap').innerHTML = html;
+j.ranking.forEach(x => { html += `<tr><td>${esc(x.recurso)}</td><td class="n">${fmtN(x.cliques)}</td></tr>`; });
+document.getElementById('rankWrap').innerHTML = html + '</table>';
 } else {
-document.getElementById('rankWrap').innerHTML = '<p class="muted">Nenhum download registrado ainda.</p>';
+document.getElementById('rankWrap').innerHTML = '<p class="muted">Nenhum download registrado.</p>';
 }
 mostrar(true);
 }catch(e){
