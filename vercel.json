@@ -4,13 +4,6 @@
     "entrypoint": "proxy.js",
     "matcher": ["/((?!painel|api/).*)"]
   },
-  "redirects": [
-    {
-      "source": "/((?!painel|api/).*)",
-      "destination": "https://resources.comeandseefoundation.org/",
-      "permanent": false
-    }
-  ],
   "headers": [
     {
       "source": "/painel",
