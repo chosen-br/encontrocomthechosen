@@ -56,10 +56,10 @@ export default function middleware(req, ctx) {
   const url = new URL(req.url);
   const destino = new URL(DESTINO);
   url.searchParams.forEach((v, k) => destino.searchParams.append(k, v)); // preserva UTMs
-  // Response.redirect tem headers imutáveis; montamos à mão para incluir diagnóstico
+  // Response.redirect tem headers imutáveis; montamos à mão
   const resposta = new Response(null, {
     status: 307,
-    headers: { Location: destino.toString(), 'x-tc-mw': '1', 'x-tc-env': R_URL && R_TOK ? '1' : '0', 'x-tc-ctx': ctx && ctx.waitUntil ? '1' : '0' },
+    headers: { Location: destino.toString(), 'x-tc-mw': '1' }, // x-tc-mw: diagnóstico (prova que o middleware respondeu)
   });
 
   try {
