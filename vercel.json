@@ -2,14 +2,22 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "proxy": {
     "entrypoint": "proxy.js",
-    "matcher": ["/((?!painel|api/).*)"]
+    "matcher": [
+      "/((?!painel|api/|og.jpg).*)"
+    ]
   },
   "headers": [
     {
       "source": "/painel",
       "headers": [
-        { "key": "Cache-Control", "value": "no-store" },
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
       ]
     }
   ],

@@ -1,6 +1,6 @@
 // Routing Middleware (Vercel, runtime Node). O domínio virou um redirecionamento: toda visita é
 // registrada (sem cookie, sem script, sem IP) e enviada para o destino.
-// Exceções: /painel (dashboard privado) e /api/* (stats/reset do painel).
+// Exceções: /painel (dashboard privado), /api/* (stats/reset do painel) e /og.jpg (imagem do cartão de prévia).
 const DESTINO = 'https://resources.comeandseefoundation.org/';
 const TZ = 'America/Sao_Paulo';
 
@@ -10,6 +10,34 @@ const R_URL = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
 const R_TOK = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 
 const BOT_RE = /bot|crawl|spider|slurp|facebookexternalhit|whatsapp\/|telegrambot|skypeuripreview|preview|headless|curl\/|wget|python-requests|go-http-client|vercel-screenshot|lighthouse|pingdom|uptime/i;
+
+// Robôs que montam o cartão de prévia de link (WhatsApp, Messenger/iMessage, Telegram, X, LinkedIn, Slack, Discord)
+// recebem uma página mínima só com as tags Open Graph abaixo, em vez do redirect. Pessoas nunca veem essa página;
+// o Googlebot não está aqui de propósito (segue o redirect, melhor para SEO).
+const PREVIEW_RE = /whatsapp|facebookexternalhit|facebot|telegrambot|twitterbot|linkedinbot|slackbot|discordbot|skypeuripreview|pinterest|embedly|vkshare/i;
+const OG = {
+  title: 'Recursos gratuitos de The Chosen para sua igreja',
+  desc: 'Cenas, perguntas para discussão, guias de episódio e notas de ensino para liderar, compartilhar e discipular.',
+  image: 'https://encontrocomthechosen.com.br/og.jpg', // 1200x630, servido direto (fora do redirect: ver matcher no vercel.json)
+  url: 'https://encontrocomthechosen.com.br/',
+};
+function paginaPrevia() {
+  const e = (t) => t.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  const html = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">'
+    + '<title>' + e(OG.title) + '</title>'
+    + '<meta name="description" content="' + e(OG.desc) + '">'
+    + '<meta property="og:type" content="website"><meta property="og:locale" content="pt_BR">'
+    + '<meta property="og:site_name" content="Encontro com The Chosen">'
+    + '<meta property="og:title" content="' + e(OG.title) + '">'
+    + '<meta property="og:description" content="' + e(OG.desc) + '">'
+    + '<meta property="og:url" content="' + OG.url + '">'
+    + '<meta property="og:image" content="' + OG.image + '"><meta property="og:image:secure_url" content="' + OG.image + '">'
+    + '<meta property="og:image:type" content="image/jpeg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
+    + '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + e(OG.title) + '">'
+    + '<meta name="twitter:description" content="' + e(OG.desc) + '"><meta name="twitter:image" content="' + OG.image + '">'
+    + '</head><body><p><a href="' + DESTINO + '">' + e(OG.title) + '</a></p></body></html>';
+  return new Response(html, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=3600', 'x-tc-mw': 'preview' } });
+}
 
 function origem(refHost, utmSource) {
   if (utmSource) return utmSource.toLowerCase().slice(0, 40);
@@ -56,8 +84,9 @@ export default function middleware(req, ctx) {
   const url = new URL(req.url);
   const destino = new URL(DESTINO);
   url.searchParams.forEach((v, k) => destino.searchParams.append(k, v)); // preserva UTMs
+  // Robô de prévia de link recebe o cartão; todo o resto recebe o redirect.
   // Response.redirect tem headers imutáveis; montamos à mão
-  const resposta = new Response(null, {
+  const resposta = PREVIEW_RE.test(req.headers.get('user-agent') || '') ? paginaPrevia() : new Response(null, {
     status: 307,
     headers: { Location: destino.toString(), 'x-tc-mw': '1' }, // x-tc-mw: diagnóstico (prova que o middleware respondeu)
   });
