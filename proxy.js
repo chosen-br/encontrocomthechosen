@@ -4,7 +4,7 @@
 const DESTINO = 'https://resources.comeandseefoundation.org/';
 const TZ = 'America/Sao_Paulo';
 
-export const config = { matcher: ['/((?!painel|api/).*)'] };
+// O matcher (quais rotas passam por aqui) fica no vercel.json, em proxy.matcher.
 
 const R_URL = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
 const R_TOK = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
