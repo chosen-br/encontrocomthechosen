@@ -5,181 +5,238 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Painel · Encontro com The Chosen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--teal:#00C9B1;--bg:#141414;--raised:#1f1f1f;--line:rgba(240,240,240,.13);--ink:#f0f0f0;--soft:rgba(240,240,240,.7);--mute:rgba(240,240,240,.45)}
+/* Paleta: preto esverdeado (puxa para o teal da marca), uma única cor de destaque (teal institucional The Chosen),
+   dourado da T6 reservado ao selo de fase de testes. Texto nunca usa a cor de destaque, exceto o número-herói. */
+:root{--bg:#0F1413;--surface:#161D1B;--surface2:#1C2523;--line:rgba(236,242,240,.09);--line2:rgba(236,242,240,.16);--ink:#ECF2F0;--ink2:#B8C6C2;--mute:#7F918C;--teal:#01B8AF;--teal-dim:#0B4A46;--gold:#E9A83E;--r-list:10px;--r-small:7px}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif;min-height:100vh;padding:2.2rem 1.2rem}
-.wrap{max-width:860px;margin:0 auto}
-h1{font-size:1.25rem;font-weight:800;letter-spacing:.02em;margin-bottom:.3rem}
-.sub{color:var(--mute);font-size:.85rem;margin-bottom:2rem}
-.sub a{color:var(--soft)}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
-.card{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.4rem 1.5rem}
-.card .lbl{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:.5rem}
-.card .num{font-size:2.6rem;font-weight:800;color:var(--teal);line-height:1;font-variant-numeric:tabular-nums}
-.card .extra{font-size:.75rem;color:var(--mute);margin-top:.6rem}
-h2{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0 0 .8rem}
-table{width:100%;border-collapse:collapse;background:var(--raised);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-th,td{text-align:left;padding:.7rem 1rem;font-size:.87rem;border-bottom:1px solid var(--line)}
-th{color:var(--mute);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
-td.n{text-align:right;font-variant-numeric:tabular-nums;color:var(--teal);font-weight:700;width:90px}
-td.p{width:46px;text-align:right;color:var(--mute);font-size:.75rem;font-variant-numeric:tabular-nums}
-tr:last-child td{border-bottom:none}
-.gate{max-width:380px;margin:14vh auto 0;text-align:center}
-.gate input{width:100%;padding:.85rem 1rem;background:var(--raised);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-size:.95rem;margin:.9rem 0}
-.gate button{width:100%;padding:.85rem;background:var(--teal);border:none;border-radius:9px;font-weight:800;letter-spacing:.06em;cursor:pointer;font-size:.85rem}
-.err{color:#ff7a7a;font-size:.8rem;margin-top:.6rem;display:none}
-.muted{color:var(--mute);font-size:.85rem;padding:2rem 0;text-align:center}
-.refresh{background:none;border:1px solid var(--line);color:var(--soft);border-radius:8px;padding:.45rem .9rem;font-size:.75rem;cursor:pointer;margin-bottom:1.4rem}
-.refresh:hover{border-color:var(--teal);color:var(--teal)}
-.chart-bars{display:flex;align-items:flex-end;gap:3px;height:110px;margin-top:1rem}
-.cb{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;position:relative}
-.cb .b-dl{background:var(--teal);border-radius:2px 2px 0 0;min-height:2px;opacity:.9}
-.cb .b-rel{background:#e8b34b;border-radius:2px 2px 0 0;min-height:0}
-.cb:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);color:var(--ink);font-size:.68rem;padding:.3rem .5rem;border-radius:6px;white-space:nowrap;z-index:5}
-.legend{display:flex;gap:1.2rem;font-size:.72rem;color:var(--mute);margin-top:.7rem}
-.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:.35rem;vertical-align:-1px}
-.rates{display:flex;flex-wrap:wrap;gap:1.4rem;background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1rem 0 1.4rem;font-size:.85rem;color:var(--soft)}
-.rates b{color:var(--teal)}
-.chart{background:var(--raised);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1.3rem 1rem;margin-bottom:1.6rem}
-.chart h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 .9rem;font-weight:600}
-.bars{display:flex;align-items:flex-end;gap:3px;height:90px}
-.bar{flex:1;background:var(--teal);opacity:.85;border-radius:3px 3px 0 0;min-height:2px;position:relative}
-.bar.zero{background:var(--line);opacity:.6}
-.bar.hi{opacity:1}
-.bar:hover{opacity:1;filter:brightness(1.15)}
-.bar:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#000;border:1px solid var(--line);color:var(--ink);font-size:.68rem;padding:.25rem .5rem;border-radius:6px;white-space:nowrap;z-index:5}
-.chart .axis{display:flex;justify-content:space-between;font-size:.65rem;color:var(--mute);margin-top:.5rem}
-.pcts{display:flex;gap:1.4rem;flex-wrap:wrap;margin:.2rem 0 1.4rem;font-size:.82rem;color:var(--soft)}
-.pcts b{color:var(--teal)}
-.cats{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.6rem}
-.cat{background:var(--raised);border:1px solid var(--line);border-radius:999px;padding:.45rem .95rem;font-size:.8rem;color:var(--soft)}
-.cat b{color:var(--teal);margin-left:.35rem}
-/* acessos (redirecionamento) */
-.toolbar{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-bottom:1.4rem}
-.fase{font-size:.8rem;color:var(--soft);margin:-1.2rem 0 1.2rem;line-height:1.5}
+html{color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;line-height:1.5;min-height:100vh;padding:40px 20px 80px;-webkit-font-smoothing:antialiased}
+a{color:var(--ink2)}
+.wrap{max-width:960px;margin:0 auto}
+button{font-family:inherit}
+/* ---- cabeçalho ---- */
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:28px}
+header h1{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+header .dest{color:var(--mute);font-size:14px;margin-top:4px}
+header .dest a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line2)}
+.controls{display:flex;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:var(--r-small);overflow:hidden}
+.seg button{background:none;border:none;color:var(--ink2);padding:7px 13px;font-size:13px;cursor:pointer;font-weight:500}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.refresh{background:none;border:1px solid var(--line2);color:var(--ink2);border-radius:var(--r-small);padding:7px 12px;font-size:13px;cursor:pointer}
+.refresh:hover,.seg button:not(.on):hover{border-color:var(--ink2);color:var(--ink)}
+.fase{font-size:14px;color:var(--ink2);margin:-10px 0 28px;line-height:1.55;max-width:720px}
 .fase:empty{display:none}
-.badge{display:inline-block;background:var(--teal);color:#04211f;font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;margin-right:.4rem;vertical-align:1px}
-.badge.teste{background:#e8b34b;color:#2b1d00}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{background:none;border:none;color:var(--soft);padding:.45rem .9rem;font-size:.75rem;cursor:pointer;font-weight:600}
-.seg button.on{background:var(--teal);color:#04211f}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.6rem}
-.grid2 .chart{margin:0}
-.dim{background:var(--raised);border:1px solid var(--line);border-radius:12px;overflow:visible} /* visible: a explicação do "i" pode sair da caixa */
-.dim h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding:1rem 1.2rem .6rem;font-weight:600}
-.dim table{border:none;border-radius:0}
-.dim td{padding:.55rem 1.2rem}
-.dim .pb{position:relative;z-index:0}
-.dim .pb::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:var(--w);background:var(--teal);opacity:.14;border-radius:0 4px 4px 0;z-index:-1}
-.dim .vazio{color:var(--mute);font-size:.8rem;padding:.4rem 1.2rem 1.1rem}
-.dim h3{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
-.dim h3 .hl{display:flex;align-items:center;gap:.45rem}
-/* ícone "ⓘ" com explicação ao passar o mouse (ou tocar, no celular) */
-.help{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--line);color:var(--mute);font-size:.62rem;font-weight:700;cursor:help;text-transform:none;letter-spacing:0;flex:none}
-.help::after{content:attr(data-tip);position:absolute;top:calc(100% + 8px);left:0;width:min(300px,70vw);background:#000;border:1px solid var(--line);color:var(--ink);font-size:.74rem;font-weight:400;letter-spacing:0;text-transform:none;line-height:1.45;padding:.6rem .75rem;border-radius:8px;z-index:20;display:none;white-space:normal}
+.badge{display:inline-block;background:var(--teal);color:#04211F;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.badge.teste{background:var(--gold);color:#2B1D00}
+/* ---- herói: o número de hoje + os 30 dias ---- */
+.hero{display:grid;grid-template-columns:minmax(200px,1fr) 2fr;gap:24px 40px;align-items:end;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.hero .big{font-size:64px;font-weight:700;line-height:.95;letter-spacing:-.03em;color:var(--teal);font-variant-numeric:tabular-nums}
+.hero .big-l{font-size:15px;color:var(--ink2);margin-top:8px}
+.hero .big-l b{color:var(--ink);font-weight:500}
+.stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:18px}
+.stat .n{font-size:22px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat .l{font-size:13px;color:var(--mute)}
+.chart h3,.sec h2{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.chart h3 span.sub,.sec h2 span.sub{color:var(--mute);font-weight:400;font-size:13px}
+.bars{display:flex;align-items:flex-end;gap:3px;height:120px}
+.bars.h{height:72px}
+.bar{flex:1;background:var(--teal-dim);border-radius:3px 3px 0 0;min-height:2px;position:relative;transition:background .12s}
+.bar.zero{background:var(--line)}
+.bar.hi{background:var(--teal)}
+.bar:hover{background:var(--teal)}
+.bar:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:12px;font-weight:500;padding:4px 8px;border-radius:6px;white-space:nowrap;z-index:5}
+.axis{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-top:6px}
+/* ---- seções ---- */
+.sec{margin-bottom:36px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+/* ---- mapa ---- */
+.mapwrap{display:grid;grid-template-columns:3fr 2fr;gap:24px;align-items:start}
+.map{position:relative;background:var(--surface);border-radius:var(--r-list);padding:16px}
+.map svg{width:100%;height:auto;display:block}
+.map path{fill:var(--surface2);stroke:var(--bg);stroke-width:.8;transition:fill .15s;cursor:default}
+.map path:hover{stroke:var(--ink);stroke-width:1.2}
+.map .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;padding:6px 10px;border-radius:6px;display:none;z-index:6;white-space:nowrap}
+.map .tip b{font-weight:700}
+.map .loading{color:var(--mute);font-size:14px;padding:60px 0;text-align:center}
+.legend{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mute);margin-top:10px}
+.legend .ramp{flex:1;max-width:160px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--surface2),var(--teal-dim),var(--teal))}
+.maptoggle{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap}
+/* ---- listas ---- */
+.dim{background:var(--surface);border-radius:var(--r-list);padding:14px 16px 10px}
+.dim h3{font-size:14px;font-weight:500;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.dim h3 .hl{display:flex;align-items:center;gap:6px}
+.dim table{width:100%;border-collapse:collapse}
+.dim td{padding:7px 0;font-size:14px;border-top:1px solid var(--line)}
+.dim tr:first-child td{border-top:none}
+.dim td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:500;width:64px;white-space:nowrap}
+.dim td.p{width:44px;text-align:right;color:var(--mute);font-size:12px;font-variant-numeric:tabular-nums}
+.dim td.pb{position:relative;z-index:0;padding-left:8px}
+.dim td.pb::before{content:'';position:absolute;left:0;top:5px;bottom:5px;width:var(--w);background:var(--teal);opacity:.13;border-radius:3px;z-index:-1}
+.dim .vazio{color:var(--mute);font-size:13px;padding:10px 0 12px}
+.dim .rodape{display:flex;justify-content:space-between;align-items:center;padding-top:8px;font-size:12px;color:var(--mute)}
+.dim .todos{background:none;border:none;color:var(--ink2);font-size:13px;cursor:pointer;padding:4px 0;text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}
+.dim .todos:hover{color:var(--ink);text-decoration-color:var(--ink)}
+.help{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--line2);color:var(--mute);font-size:10px;font-weight:700;cursor:help;flex:none;line-height:1}
+.help::after{content:attr(data-tip);position:absolute;top:calc(100% + 8px);left:0;width:min(320px,72vw);background:var(--ink);color:var(--bg);font-size:13px;font-weight:400;line-height:1.45;padding:10px 12px;border-radius:8px;z-index:20;display:none;white-space:normal}
 .help:hover::after,.help:focus::after,.help.on::after{display:block}
-.card .lbl{display:flex;align-items:center;gap:.45rem}
-.dim .todos{background:none;border:1px solid var(--line);color:var(--soft);border-radius:6px;padding:.25rem .6rem;font-size:.68rem;cursor:pointer;font-weight:600;letter-spacing:.04em}
-.dim .todos:hover{border-color:var(--teal);color:var(--teal)}
-.dim .rodape{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1.2rem .9rem;font-size:.75rem;color:var(--mute)}
-/* lista completa (modal com páginas) */
-.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:1rem}
+.note{font-size:13px;color:var(--mute);line-height:1.55;max-width:720px}
+/* ---- modal (lista completa) ---- */
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px}
 .modal.on{display:flex}
-.modal .back{position:absolute;inset:0;background:rgba(0,0,0,.72)}
-.modal .box{position:relative;width:min(640px,100%);max-height:88vh;display:flex;flex-direction:column;background:var(--raised);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.modal .top{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
-.modal .top h3{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0;flex:1}
-.modal .top input{background:var(--bg);border:1px solid var(--line);border-radius:7px;color:var(--ink);padding:.4rem .7rem;font-size:.8rem;width:170px}
-.modal .top .x{background:none;border:none;color:var(--soft);font-size:1.3rem;cursor:pointer;line-height:1}
-.modal .body{overflow:auto;flex:1}
-.modal table{border:none;border-radius:0}
-.modal td{padding:.55rem 1.2rem}
-.modal .pg{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.2rem;border-top:1px solid var(--line);font-size:.75rem;color:var(--mute)}
-.modal .pg button{background:none;border:1px solid var(--line);color:var(--soft);border-radius:6px;padding:.3rem .7rem;font-size:.72rem;cursor:pointer}
+.modal .back{position:absolute;inset:0;background:rgba(5,8,8,.75)}
+.modal .box{position:relative;width:min(620px,100%);max-height:88vh;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.modal .top{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.modal .top h3{font-size:15px;font-weight:500;margin:0;flex:1}
+.modal .top input{background:var(--bg);border:1px solid var(--line2);border-radius:var(--r-small);color:var(--ink);padding:6px 10px;font-size:14px;width:170px;font-family:inherit}
+.modal .top .x{background:none;border:none;color:var(--ink2);font-size:22px;cursor:pointer;line-height:1}
+.modal .body{overflow:auto;flex:1;padding:4px 18px}
+.modal table{width:100%;border-collapse:collapse}
+.modal td,.modal th{padding:8px 0;font-size:14px;border-top:1px solid var(--line);text-align:left}
+.modal th{color:var(--mute);font-size:12px;font-weight:500;border-top:none}
+.modal td.n{text-align:right;font-weight:500;font-variant-numeric:tabular-nums;width:70px}
+.modal td.p{width:44px;text-align:right;color:var(--mute);font-size:12px}
+.modal td.pb{position:relative;z-index:0;padding-left:8px}
+.modal td.pb::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:var(--w);background:var(--teal);opacity:.13;border-radius:3px;z-index:-1}
+.modal .pg{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}
+.modal .pg button{background:none;border:1px solid var(--line2);color:var(--ink2);border-radius:var(--r-small);padding:5px 11px;font-size:13px;cursor:pointer}
 .modal .pg button:disabled{opacity:.35;cursor:default}
-.modal .pg button:not(:disabled):hover{border-color:var(--teal);color:var(--teal)}
-.note{font-size:.75rem;color:var(--mute);margin:-.6rem 0 1.6rem;line-height:1.5}
-details.arq{margin-top:3rem;border-top:1px solid var(--line);padding-top:1.4rem}
-details.arq summary{cursor:pointer;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);list-style:none;display:flex;align-items:center;gap:.6rem}
-details.arq summary::before{content:'▸';color:var(--teal);transition:transform .15s}
+/* ---- arquivo (site antigo) ---- */
+details.arq{margin-top:48px;border-top:1px solid var(--line);padding-top:20px}
+details.arq summary{cursor:pointer;font-size:14px;color:var(--ink2);list-style:none}
+details.arq summary::before{content:'›';display:inline-block;margin-right:8px;transition:transform .15s;color:var(--mute)}
 details.arq[open] summary::before{transform:rotate(90deg)}
-details.arq .inner{margin-top:1.4rem}
-@media(max-width:760px){.cards{grid-template-columns:1fr 1fr !important}.grid2{grid-template-columns:1fr}}
-@media(max-width:460px){.cards{grid-template-columns:1fr !important}}
+details.arq .inner{margin-top:20px}
+.arq .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.arq .card{background:var(--surface);border-radius:var(--r-list);padding:14px 16px}
+.arq .card .lbl{font-size:13px;color:var(--mute)}
+.arq .card .num{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.arq .card .extra{font-size:12px;color:var(--mute);margin-top:4px}
+.arq h2{font-size:14px;font-weight:500;margin:20px 0 8px}
+.arq table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--r-list);overflow:hidden}
+.arq th,.arq td{text-align:left;padding:8px 14px;font-size:14px;border-top:1px solid var(--line)}
+.arq th{color:var(--mute);font-size:12px;font-weight:500;border-top:none}
+.arq td.n{text-align:right;font-weight:500;width:90px}
+.arq .chart{background:var(--surface);border-radius:var(--r-list);padding:14px 16px;margin-bottom:12px}
+.arq .pcts,.arq .rates{font-size:13px;color:var(--ink2);margin:6px 0 12px;display:flex;gap:16px;flex-wrap:wrap}
+.arq .cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.arq .cat{background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--ink2)}
+.arq .cat b{color:var(--ink);margin-left:4px}
+.muted{color:var(--mute);font-size:13px}
+/* ---- login ---- */
+.gate{max-width:360px;margin:16vh auto 0}
+.gate h1{font-size:20px;font-weight:700;margin-bottom:4px}
+.gate p{color:var(--mute);font-size:14px}
+.gate input{width:100%;padding:12px 14px;background:var(--surface);border:1px solid var(--line2);border-radius:var(--r-small);color:var(--ink);font-size:15px;margin:18px 0 10px;font-family:inherit}
+.gate button{width:100%;padding:12px;background:var(--teal);border:none;border-radius:var(--r-small);font-weight:700;cursor:pointer;font-size:14px;color:#04211F}
+.err{color:#FF8A80;font-size:13px;margin-top:8px;display:none}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero .big{font-size:56px}.grid2{grid-template-columns:1fr}.mapwrap{grid-template-columns:1fr}.arq .cards{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <div id="gate" class="gate">
-<h1>Painel privado</h1>
-<p class="sub">Encontro com The Chosen · métricas internas</p>
+<h1>Painel do encontrocomthechosen.com.br</h1>
+<p>Acesso restrito. Informe a chave do painel.</p>
 <input id="key" type="password" placeholder="Chave de acesso" autocomplete="off">
 <button onclick="entrar()">Entrar</button>
 <p class="err" id="err">Chave incorreta.</p>
 </div>
 
 <div id="app" class="wrap" style="display:none">
+<header>
+<div>
 <h1>encontrocomthechosen.com.br</h1>
-<p class="sub">Acessos ao domínio · redirecionando para <a href="https://resources.comeandseefoundation.org/" target="_blank" rel="noopener">resources.comeandseefoundation.org</a> · <span id="rdUltimo">sem dados ainda</span></p>
-<p class="fase" id="fase"></p>
-<div class="toolbar">
-<button class="refresh" style="margin:0" onclick="carregar()">↻ Atualizar</button>
+<p class="dest">Redirecionando para <a href="https://resources.comeandseefoundation.org/" target="_blank" rel="noopener">resources.comeandseefoundation.org</a><span id="rdUltimo"></span></p>
+</div>
+<div class="controls">
 <div class="seg" id="seg"><button class="on" data-p="mes">Este mês</button><button data-p="tudo">Desde o início</button></div>
+<button class="refresh" onclick="carregar()">Atualizar</button>
 </div>
+</header>
+<p class="fase" id="fase"></p>
 
-<div class="cards" style="grid-template-columns:1fr 1fr 1fr 1fr">
-<div class="card"><div class="lbl">Hoje <span class="help" tabindex="0" data-tip="Acessos de pessoas ao domínio desde a meia-noite (horário de Brasília). Cada abertura do link conta 1; a mesma pessoa abrindo duas vezes conta 2.">i</span></div><div class="num" id="rdHoje">–</div><div class="extra" id="rdOntem">ontem: –</div></div>
-<div class="card"><div class="lbl">Últimos 7 dias <span class="help" tabindex="0" data-tip="Soma de hoje + os 6 dias anteriores. A média por dia ajuda a comparar semanas.">i</span></div><div class="num" id="rd7">–</div><div class="extra" id="rdMedia7">média/dia: –</div></div>
-<div class="card"><div class="lbl">Últimos 30 dias <span class="help" tabindex="0" data-tip="Soma de hoje + os 29 dias anteriores.">i</span></div><div class="num" id="rd30">–</div><div class="extra" id="rdMedia30">média/dia: –</div></div>
-<div class="card"><div class="lbl">Total <span class="help" tabindex="0" data-tip="Acessos de pessoas desde que a contagem começou. Robôs (Google, prévias de link do WhatsApp, varreduras automáticas, scanners de e-mail corporativo) são separados e não entram em nenhum gráfico; o detalhe deles aparece no fim da página.">i</span></div><div class="num" id="rdTotal">–</div><div class="extra" id="rdBots">desde o início</div></div>
+<section class="hero">
+<div>
+<div class="big" id="rdHoje">–</div>
+<div class="big-l">acessos hoje <span class="help" tabindex="0" data-tip="Pessoas que abriram o link desde a meia-noite (horário de Brasília). Cada abertura conta 1; a mesma pessoa abrindo duas vezes conta 2. Robôs, prévias de link e varreduras não entram.">i</span><br><span id="rdOntem">ontem: –</span></div>
+<div class="stats">
+<div class="stat"><div class="n" id="rd7">–</div><div class="l">últimos 7 dias <span id="rdMedia7"></span></div></div>
+<div class="stat"><div class="n" id="rd30">–</div><div class="l">últimos 30 dias <span id="rdMedia30"></span></div></div>
+<div class="stat"><div class="n" id="rdTotal">–</div><div class="l" id="rdBots">no total</div></div>
 </div>
+</div>
+<div class="chart"><h3>Por dia <span class="sub">últimos 30 dias</span></h3><div class="bars" id="chDia"></div><div class="axis" id="axDia"></div></div>
+</section>
 
-<div class="chart"><h3>Acessos por dia · últimos 30 dias</h3><div class="bars" id="chDia"></div><div class="axis" id="axDia"></div></div>
-<div class="chart"><h3 id="hHora">Acessos por hora do dia</h3><div class="bars" id="chHora"></div><div class="axis"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span></div></div>
+<section class="sec">
+<h2>Onde estão <span class="help" tabindex="0" data-tip="Localização deduzida da conexão (geolocalização por IP feita pela Vercel; o IP não é guardado). Operadoras de celular às vezes registram a cidade da central, não a da pessoa: trate como aproximação. Acessos de fora do Brasil em volume pequeno costumam ser varreduras que passaram pelo filtro, ou brasileiros no exterior.">i</span></h2>
+<div class="mapwrap">
+<div>
+<div class="maptoggle"><div class="seg" id="mapseg"><button class="on" data-m="br">Brasil</button><button data-m="world">Mundo</button></div><span class="muted" id="mapInfo"></span></div>
+<div class="map" id="map"><div class="loading">Carregando mapa…</div><div class="tip" id="mapTip"></div></div>
+<div class="legend"><span>menos</span><div class="ramp"></div><span>mais acessos</span></div>
+</div>
+<div style="display:grid;gap:16px">
+<div class="dim"><h3><span class="hl">Estado</span></h3><div id="dRegion"></div></div>
+<div class="dim"><h3><span class="hl">Cidade</span></h3><div id="dCity"></div></div>
+<div class="dim"><h3><span class="hl">País</span></h3><div id="dCountry"></div></div>
+</div>
+</div>
+</section>
 
+<section class="sec">
+<h2>Como chegaram</h2>
 <div class="grid2">
-<div class="dim"><h3><span class="hl">De onde vieram <span class="help" tabindex="0" data-tip="Quem trouxe a pessoa até o link. Vem do 'referrer' que o navegador informa ou do utm_source, se o link tiver. 'Direto / apps' = sem informação: link digitado, favorito, ou aberto dentro de apps como WhatsApp, Instagram e e-mail, que não contam de onde vieram. Por isso WhatsApp quase sempre aparece como 'Direto'.">i</span></span></h3><div id="dSrc"></div></div>
+<div class="dim"><h3><span class="hl">De onde vieram <span class="help" tabindex="0" data-tip="Quem trouxe a pessoa até o link: o site de origem que o navegador informa, ou o utm_source se o link tiver. 'Direto / apps' = sem informação: link digitado, favorito, ou aberto dentro de apps como WhatsApp, Instagram e e-mail, que não contam de onde vieram. Por isso o WhatsApp quase sempre aparece como 'Direto'.">i</span></span></h3><div id="dSrc"></div></div>
 <div class="dim"><h3><span class="hl">Dispositivo <span class="help" tabindex="0" data-tip="Deduzido do navegador: celular, tablet ou computador.">i</span></span></h3><div id="dDevice"></div></div>
-<div class="dim"><h3><span class="hl">Campanhas (utm_campaign) <span class="help" tabindex="0" data-tip="Só aparece quando o link divulgado tem ?utm_campaign=... (ex.: criado no Bitly ou à mão). Links sem UTM não entram aqui.">i</span></span></h3><div id="dCamp"></div></div>
-<div class="dim"><h3><span class="hl">Link usado <span class="help" tabindex="0" data-tip="O caminho que a pessoa abriu antes de ser redirecionada. '/' é o endereço principal. Caminhos como /kit, /visao ou /perguntas são links antigos do site que ainda circulam (materiais, posts, resultados do Google) — todos redirecionam igual.">i</span></span></h3><div id="dPath"></div></div>
-<div class="dim"><h3><span class="hl">Estado (Brasil) <span class="help" tabindex="0" data-tip="Estado brasileiro deduzido da conexão (geolocalização por IP, feita pela Vercel; o IP não é guardado). Acessos de fora do Brasil ficam só em País e Cidade.">i</span></span></h3><div id="dRegion"></div></div>
-<div class="dim"><h3><span class="hl">Cidade <span class="help" tabindex="0" data-tip="Cidade deduzida da conexão. Operadoras de celular às vezes registram a cidade da central, não a da pessoa — trate como aproximação.">i</span></span></h3><div id="dCity"></div></div>
-<div class="dim"><h3><span class="hl">País <span class="help" tabindex="0" data-tip="País da conexão. Acessos de fora do Brasil em volume pequeno costumam ser varreduras automáticas que passaram pelo filtro, ou brasileiros no exterior/VPN.">i</span></span></h3><div id="dCountry"></div></div>
-<div class="dim"><h3><span class="hl">Site de origem (detalhe) <span class="help" tabindex="0" data-tip="O endereço exato de onde a pessoa veio (versão detalhada de 'De onde vieram'). 'com.google.android.gm' = app do Gmail no Android; 'l.instagram.com' = link clicado no Instagram.">i</span></span></h3><div id="dRef"></div></div>
+<div class="dim"><h3><span class="hl">Campanhas <span class="help" tabindex="0" data-tip="Só aparece quando o link divulgado tem ?utm_campaign=... (ex.: criado no Bitly ou à mão). Links sem UTM não entram aqui.">i</span></span></h3><div id="dCamp"></div></div>
+<div class="dim"><h3><span class="hl">Link usado <span class="help" tabindex="0" data-tip="O caminho que a pessoa abriu antes de ser redirecionada. '/' é o endereço principal. Caminhos como /kit, /visao ou /perguntas são links antigos do site que ainda circulam (materiais, posts, resultados do Google); todos redirecionam igual.">i</span></span></h3><div id="dPath"></div></div>
+<div class="dim"><h3><span class="hl">Site de origem, em detalhe <span class="help" tabindex="0" data-tip="O endereço exato de onde a pessoa veio. 'com.google.android.gm' = app do Gmail no Android; 'l.instagram.com' = link clicado no Instagram.">i</span></span></h3><div id="dRef"></div></div>
+<div class="dim"><h3><span class="hl">Por hora do dia <span class="help" tabindex="0" data-tip="Em que horas as pessoas abrem o link (horário de Brasília). Ajuda a escolher quando postar.">i</span></span></h3><div class="bars h" id="chHora"></div><div class="axis"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span></div><div class="rodape" id="horaInfo"></div></div>
 </div>
-<div class="grid2" id="botsWrap" style="display:none">
-<div class="dim"><h3><span class="hl">Filtrado como robô <span class="help" tabindex="0" data-tip="Acessos que NÃO entram nos números acima. 'robô declarado' = se identifica (Googlebot, prévia do WhatsApp). 'varredura' = programa procurando falhas (wp-admin, .env etc.) fingindo ser navegador. 'scanner de e-mail' = sistema de segurança corporativo que abre o link antes do destinatário.">i</span></span></h3><div id="dBots"></div></div>
-<div class="dim"><h3><span class="hl">Caminhos de varredura <span class="help" tabindex="0" data-tip="Os caminhos que as varreduras tentaram. Nenhum deles existe neste domínio; todos receberam o redirect normal.">i</span></span></h3><div id="dBotPaths"></div></div>
-</div>
-<p class="note">Contagem feita no redirecionamento, sem cookies nem scripts: cada acesso conta 1 (a mesma pessoa voltando conta de novo). Passe o mouse (ou toque) no <b>i</b> de cada bloco para a explicação. Em cada bloco, "Ver todos" abre a lista completa com páginas e busca.</p>
+</section>
 
-<div class="modal" id="modal"><div class="back"></div><div class="box"><div class="top"><h3 id="mTitle"></h3><input id="mBusca" placeholder="Buscar…"><button class="x" id="mClose" aria-label="Fechar">×</button></div><div class="body" id="mBody"></div><div class="pg"><button id="mPrev">‹ Anterior</button><span id="mInfo"></span><button id="mNext">Próxima ›</button></div></div></div>
+<section class="sec" id="botsWrap" style="display:none">
+<h2>Filtrado como robô <span class="help" tabindex="0" data-tip="Acessos que NÃO entram nos números acima. 'Robô declarado' se identifica (Googlebot, prévia do WhatsApp). 'Varredura' é um programa procurando falhas (wp-admin, .env etc.) fingindo ser navegador. 'Scanner de e-mail' é o sistema de segurança corporativo que abre o link antes do destinatário.">i</span></h2>
+<div class="grid2">
+<div class="dim"><h3><span class="hl">Motivo</span></h3><div id="dBots"></div></div>
+<div class="dim"><h3><span class="hl">Caminhos tentados pelas varreduras</span></h3><div id="dBotPaths"></div></div>
+</div>
+</section>
+
+<p class="note">Contagem feita no redirecionamento, sem cookies nem scripts: cada acesso conta 1 (a mesma pessoa voltando conta de novo). Passe o mouse (ou toque) no <b>i</b> para a explicação de cada número. "Ver todos" abre a lista completa com páginas e busca.</p>
+
+<div class="modal" id="modal"><div class="back"></div><div class="box"><div class="top"><h3 id="mTitle"></h3><input id="mBusca" placeholder="Buscar"><button class="x" id="mClose" aria-label="Fechar">×</button></div><div class="body" id="mBody"></div><div class="pg"><button id="mPrev">Anterior</button><span id="mInfo"></span><button id="mNext">Próxima</button></div></div></div>
 
 <details class="arq">
-<summary>Arquivo · site antigo (até outubro de 2026)</summary>
+<summary>Métricas do site antigo (até outubro de 2026)</summary>
 <div class="inner">
-<div class="cards" style="grid-template-columns:1fr 1fr 1fr 1fr">
+<div class="cards">
 <div class="card"><div class="lbl">Cadastros</div><div class="num" id="nCad">–</div><div class="extra">via formulário de cadastro</div></div>
-<div class="card"><div class="lbl">Acessos liberados</div><div class="num" id="nAcc">–</div><div class="extra" id="accExtra">navegadores que digitaram a senha (1x cada)</div></div>
-<div class="card"><div class="lbl">Recursos baixados</div><div class="num" id="nDl">–</div><div class="extra">cliques em botões de download (cenas, guias e kit)</div></div>
+<div class="card"><div class="lbl">Acessos liberados</div><div class="num" id="nAcc">–</div><div class="extra" id="accExtra">navegadores que digitaram a senha</div></div>
+<div class="card"><div class="lbl">Recursos baixados</div><div class="num" id="nDl">–</div><div class="extra">cliques em download (cenas, guias e kit)</div></div>
 <div class="card"><div class="lbl">Encontros relatados</div><div class="num" id="nRel">–</div><div class="extra" id="ultimoRel">via formulário Relatar Encontro</div></div>
 </div>
 <h2>Por tipo de recurso</h2>
-<div id="catWrap" style="margin-bottom:2rem"><p class="muted">Sem dados.</p></div>
-<div class="chart"><h3>Downloads · últimos 30 dias</h3><div class="bars" id="chDl"></div><div class="axis" id="axDl"></div></div>
-<div class="chart"><h3>Encontros relatados · últimos 30 dias</h3><div class="bars" id="chRel"></div><div class="axis" id="axRel"></div></div>
+<div id="catWrap"><p class="muted">Sem dados.</p></div>
+<div class="chart" style="margin-top:12px"><h3>Downloads <span class="sub">últimos 30 dias do site</span></h3><div class="bars h" id="chDl"></div><div class="axis" id="axDl"></div></div>
+<div class="chart"><h3>Encontros relatados <span class="sub">últimos 30 dias do site</span></h3><div class="bars h" id="chRel"></div><div class="axis" id="axRel"></div></div>
 <h2>Downloads por categoria</h2>
 <div class="cats" id="catsWrap"><span class="muted">Sem dados.</span></div>
 <h2>Ranking por recurso</h2>
 <div id="rankWrap"><p class="muted">Carregando…</p></div>
-<h2 style="margin-top:2rem">Teaser · Temporada 6</h2>
-<div class="cards" style="grid-template-columns:1fr 1fr 1fr">
+<h2>Teaser da Temporada 6</h2>
+<div class="cards" style="grid-template-columns:repeat(3,1fr)">
 <div class="card"><div class="lbl">Reproduções</div><div class="num" id="tPlay">–</div></div>
 <div class="card"><div class="lbl">Compartilhamentos</div><div class="num" id="tShare">–</div></div>
 <div class="card"><div class="lbl">Downloads</div><div class="num" id="tDl">–</div></div>
 </div>
-<h2 style="margin-top:2rem">Popup "Já realizou seu Encontro?"</h2>
-<div class="cards" style="grid-template-columns:1fr 1fr 1fr">
+<h2>Popup "Já realizou seu Encontro?"</h2>
+<div class="cards" style="grid-template-columns:repeat(3,1fr)">
 <div class="card"><div class="lbl">Pessoas alcançadas</div><div class="num" id="pAlc">–</div><div class="extra" id="pAlcExtra">navegadores únicos que viram o popup</div></div>
 <div class="card"><div class="lbl">Sim, já realizei</div><div class="num" id="pSim">–</div></div>
 <div class="card"><div class="lbl">Ainda não</div><div class="num" id="pNao">–</div></div>
@@ -196,22 +253,30 @@ const KEY_STORE = 'tc_painel_key';
 let periodo = 'mes';
 let ultimoJson = null;
 const fmtN = n => (n||0).toLocaleString('pt-BR');
-const esc = s => String(s).replace(/</g,'&lt;');
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 const UF = {AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
 const SRC = {direto:'Direto / apps',instagram:'Instagram',facebook:'Facebook',whatsapp:'WhatsApp',youtube:'YouTube',google:'Google',bing:'Bing',x:'X (Twitter)',linkedin:'LinkedIn',tiktok:'TikTok',telegram:'Telegram',thechosen:'Site The Chosen',outros:'Outros sites'};
 const DEV = {celular:'Celular',desktop:'Computador',tablet:'Tablet'};
 const PAIS = {BR:'Brasil',US:'Estados Unidos',PT:'Portugal',AR:'Argentina',PY:'Paraguai',UY:'Uruguai',CL:'Chile',MX:'México',ES:'Espanha',IT:'Itália',DE:'Alemanha',FR:'França',GB:'Reino Unido',CA:'Canadá',JP:'Japão',AO:'Angola',MZ:'Moçambique',MA:'Marrocos',NL:'Holanda',IE:'Irlanda',CO:'Colômbia',PE:'Peru',BO:'Bolívia',VE:'Venezuela',EC:'Equador',CH:'Suíça',BE:'Bélgica',AU:'Austrália',IN:'Índia',RU:'Rússia',CN:'China',SG:'Singapura',KR:'Coreia do Sul',IL:'Israel',ZA:'África do Sul',SE:'Suécia',NO:'Noruega',FI:'Finlândia',DK:'Dinamarca',PL:'Polônia',TR:'Turquia',AE:'Emirados Árabes'};
-// abreviação do país para a lista de cidades ("Miami, FL, EUA")
 const PAIS_ABR = {US:'EUA',AR:'ARG',PT:'POR',UY:'URU',PY:'PAR',CL:'CHI',MX:'MEX',ES:'ESP',IT:'ITA',DE:'ALE',FR:'FRA',GB:'GBR',CA:'CAN',JP:'JAP',AO:'ANG',MZ:'MOÇ',MA:'MAR',NL:'HOL',IE:'IRL',CO:'COL',PE:'PER',BO:'BOL',VE:'VEN',EC:'EQU',CH:'SUI',BE:'BEL',AU:'AUS',IN:'IND',RU:'RUS',CN:'CHN',IL:'ISR',ZA:'AFS',SE:'SUE',NO:'NOR',PL:'POL',TR:'TUR',AE:'EAU'};
+// nome completo de QUALQUER código de país (ISO 3166), em português, pelo próprio navegador; o mapa acima é só reserva
+let _dn = null; try { _dn = new Intl.DisplayNames(['pt-BR'], { type: 'region' }); } catch(e) {}
+function nomePais(cc){
+if(!cc || cc === 'desconhecido') return 'Desconhecido';
+if(PAIS[cc]) return PAIS[cc];
+try { const n = _dn && _dn.of(cc); if(n && n !== cc) return n; } catch(e) {}
+return cc;
+}
 const MOTIVO = {'robo-declarado':'Robô declarado (Google, prévias de link)','varredura':'Varredura automática (fingindo navegador)','scanner-de-email':'Scanner de e-mail corporativo','sem-user-agent':'Sem identificação de navegador'};
 // cidade vem como "Cidade|REGIAO|PAIS" (registros antigos vêm só com o nome)
 function fmtCidade(v){
 const p = v.split('|');
 if(p.length < 3) return v;
 const [cid, reg, pais] = p;
-const regOk = reg && reg !== 'desconhecido' && !/^\d+$/.test(reg); // regiões numéricas (ex.: Portugal "11") não ajudam
+// sigla da região só onde ela é conhecida do leitor (estados do Brasil/EUA, províncias do Canadá/Austrália)
+const regOk = reg && reg !== 'desconhecido' && /^[A-Z]{2}$/.test(reg) && ['BR','US','CA','AU'].includes(pais);
 if(pais === 'BR') return cid + (regOk ? ', ' + reg : '');
-return cid + (regOk ? ', ' + reg : '') + ', ' + (PAIS_ABR[pais] || pais);
+return cid + (regOk ? ', ' + reg : '') + ', ' + (PAIS_ABR[pais] || nomePais(pais));
 }
 
 function entrar(){
@@ -239,7 +304,6 @@ b.setAttribute('data-tip', tip(x));
 box.appendChild(b);
 });
 }
-// linhas de uma lista; cada linha mostra no hover "N de T acessos"
 function linhas(lista, total, rotulo){
 return lista.map(x => {
 const pct = total ? Math.round(x.n/total*100) : 0;
@@ -247,15 +311,15 @@ const r = rotulo ? rotulo(x.valor) : x.valor;
 return `<tr title="${esc(r)}: ${fmtN(x.n)} de ${fmtN(total)} acessos no período (${pct}%)"><td class="pb" style="--w:${pct}%">${esc(r)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`;
 }).join('');
 }
-const LISTAS = {}; // listas completas, para o "Ver todos"
+const LISTAS = {};
 function tabelaDim(el, lista, rotulo, limite, titulo){
 const box = document.getElementById(el);
-if(!lista || !lista.length){ box.innerHTML = '<p class="vazio">Sem dados no período.</p>'; return; }
-const lim = limite || 8;
+if(!lista || !lista.length){ box.innerHTML = '<p class="vazio">Nada registrado no período.</p>'; return; }
+const lim = limite || 7;
 const total = lista.reduce((s,x) => s + x.n, 0);
-LISTAS[el] = { lista, total, rotulo, titulo: titulo || box.parentElement.querySelector('.hl, h3').textContent.replace(/\s*i$/, '').trim() };
+LISTAS[el] = { lista, total, rotulo, titulo: titulo || box.parentElement.querySelector('.hl').childNodes[0].textContent.trim() };
 let h = '<table>' + linhas(lista.slice(0, lim), total, rotulo) + '</table>';
-h += `<div class="rodape"><span>${lista.length > lim ? '+ ' + fmtN(lista.length - lim) + ' outros · ' : ''}${fmtN(total)} acessos</span><button class="todos" onclick="abrirLista('${el}')">Ver todos (${fmtN(lista.length)})</button></div>`;
+h += `<div class="rodape"><span>${fmtN(total)} acessos${lista.length > lim ? ' em ' + fmtN(lista.length) + ' itens' : ''}</span>${lista.length > lim ? `<button class="todos" onclick="abrirLista('${el}')">Ver todos</button>` : ''}</div>`;
 box.innerHTML = h;
 }
 // ---- lista completa: modal com busca e páginas ----
@@ -279,9 +343,9 @@ if(L.pagina >= paginas) L.pagina = paginas - 1;
 const ini = L.pagina * POR_PAGINA;
 const fatia = filtrada.slice(ini, ini + POR_PAGINA);
 document.getElementById('mBody').innerHTML = fatia.length
-? '<table><tr><th>#</th><th></th><th style="text-align:right">Acessos</th><th></th></tr>' + fatia.map((x,i) => { const pct = L.total ? Math.round(x.n/L.total*100) : 0; const r = L.rotulo ? L.rotulo(x.valor) : x.valor; return `<tr><td style="color:var(--mute);width:40px">${ini+i+1}</td><td class="pb" style="--w:${pct}%">${esc(r)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`; }).join('') + '</table>'
-: '<p class="muted">Nada encontrado.</p>';
-document.getElementById('mInfo').textContent = `${fmtN(filtrada.length)} itens · página ${L.pagina+1} de ${paginas}`;
+? '<table><tr><th style="width:36px">#</th><th></th><th style="text-align:right">Acessos</th><th></th></tr>' + fatia.map((x,i) => { const pct = L.total ? Math.round(x.n/L.total*100) : 0; const r = L.rotulo ? L.rotulo(x.valor) : x.valor; return `<tr><td style="color:var(--mute)">${ini+i+1}</td><td class="pb" style="--w:${pct}%">${esc(r)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`; }).join('') + '</table>'
+: '<p class="muted" style="padding:16px 0">Nada encontrado com esse termo.</p>';
+document.getElementById('mInfo').textContent = `${fmtN(filtrada.length)} itens, página ${L.pagina+1} de ${paginas}`;
 document.getElementById('mPrev').disabled = L.pagina === 0;
 document.getElementById('mNext').disabled = L.pagina >= paginas - 1;
 }
@@ -292,47 +356,110 @@ function fecharModal(){ document.getElementById('modal').classList.remove('on');
 document.getElementById('mClose').addEventListener('click', fecharModal);
 document.querySelector('#modal .back').addEventListener('click', fecharModal);
 document.addEventListener('keydown', e => { if(e.key === 'Escape') fecharModal(); });
-// no celular não há hover: tocar no "i" abre/fecha a explicação
 document.addEventListener('click', e => { const h = e.target.closest('.help'); document.querySelectorAll('.help.on').forEach(x => { if(x !== h) x.classList.remove('on'); }); if(h) h.classList.toggle('on'); });
+
+// ---- mapa (Brasil por estado / Mundo por país) ----
+// Mapas SVG do pacote @svg-maps (CC-BY 4.0), carregados do jsDelivr só quando o painel abre; o Mundo só quando pedido.
+const MAPAS = { br: 'https://cdn.jsdelivr.net/npm/@svg-maps/brazil@2/+esm', world: 'https://cdn.jsdelivr.net/npm/@svg-maps/world@1/+esm' };
+const mapaCache = {};
+let mapaAtual = 'br';
+let mapaDados = { br: {}, world: {} }; // id (minúsculo) -> n
+async function carregaMapa(tipo){
+if(mapaCache[tipo]) return mapaCache[tipo];
+const m = await import(MAPAS[tipo]);
+mapaCache[tipo] = m.default || m;
+return mapaCache[tipo];
+}
+function corMapa(n, max){
+if(!n) return 'var(--surface2)';
+const t = Math.sqrt(n / max); // raiz: espalha os valores pequenos, senão só o maior aparece
+const a = [11,74,70], b = [1,184,175]; // teal escuro -> teal
+return `rgb(${a.map((v,i) => Math.round(v + (b[i]-v)*t)).join(',')})`;
+}
+async function desenhaMapa(){
+const box = document.getElementById('map');
+const tip = document.getElementById('mapTip');
+let dados;
+try { dados = await carregaMapa(mapaAtual); }
+catch(e){ box.innerHTML = '<div class="loading">Não foi possível carregar o mapa agora. Verifique a conexão e clique em Atualizar.</div>'; return; }
+const vals = mapaDados[mapaAtual] || {};
+const max = Math.max(1, ...Object.values(vals));
+const total = Object.values(vals).reduce((s,n) => s+n, 0);
+const nome = (loc) => mapaAtual === 'br' ? (UF[loc.id.toUpperCase()] || loc.name) : nomePais(loc.id.toUpperCase());
+const svg = `<svg viewBox="${dados.viewBox}" role="img" aria-label="${esc(dados.label)}">` + dados.locations.map(l => {
+const n = vals[l.id] || 0;
+return `<path d="${l.path}" data-id="${l.id}" style="fill:${corMapa(n, max)}"></path>`;
+}).join('') + '</svg>';
+box.innerHTML = svg + '<div class="tip" id="mapTip"></div>';
+const t2 = document.getElementById('mapTip');
+box.querySelectorAll('path').forEach(p => {
+const loc = dados.locations.find(l => l.id === p.dataset.id);
+const n = vals[p.dataset.id] || 0;
+p.addEventListener('mousemove', ev => {
+const r = box.getBoundingClientRect();
+t2.innerHTML = `<b>${esc(nome(loc))}</b> ${n ? fmtN(n) + ' acesso' + (n===1?'':'s') + (total ? ' (' + Math.round(n/total*100) + '%)' : '') : 'sem acessos'}`;
+t2.style.display = 'block';
+t2.style.left = Math.min(ev.clientX - r.left + 14, r.width - t2.offsetWidth - 8) + 'px';
+t2.style.top = (ev.clientY - r.top - 36) + 'px';
+});
+p.addEventListener('mouseleave', () => { t2.style.display = 'none'; });
+});
+const com = Object.values(vals).filter(n => n > 0).length;
+document.getElementById('mapInfo').textContent = mapaAtual === 'br'
+? `${com} de 27 estados com acessos`
+: `${com} países com acessos`;
+}
+document.getElementById('mapseg').addEventListener('click', e => {
+const b = e.target.closest('button'); if(!b) return;
+mapaAtual = b.dataset.m;
+document.querySelectorAll('#mapseg button').forEach(x => x.classList.toggle('on', x===b));
+document.getElementById('map').innerHTML = '<div class="loading">Carregando mapa…</div>';
+desenhaMapa();
+});
+
 function desenhaRedirect(r){
 document.getElementById('rdHoje').textContent = fmtN(r.hoje);
 document.getElementById('rdOntem').textContent = 'ontem: ' + fmtN(r.ontem);
 document.getElementById('rd7').textContent = fmtN(r.ult7);
-document.getElementById('rdMedia7').textContent = 'média/dia: ' + fmtN(Math.round(r.ult7/7));
+document.getElementById('rdMedia7').textContent = '· ' + fmtN(Math.round(r.ult7/7)) + '/dia';
 document.getElementById('rd30').textContent = fmtN(r.ult30);
-document.getElementById('rdMedia30').textContent = 'média/dia: ' + fmtN(Math.round(r.ult30/30));
+document.getElementById('rdMedia30').textContent = '· ' + fmtN(Math.round(r.ult30/30)) + '/dia';
 document.getElementById('rdTotal').textContent = fmtN(r.humanos);
-document.getElementById('rdBots').textContent = r.bots ? 'pessoas · + ' + fmtN(r.bots) + ' robôs/prévias ignorados' : 'desde o início';
-if(r.ultimo){ document.getElementById('rdUltimo').textContent = 'último acesso: ' + new Date(r.ultimo).toLocaleString('pt-BR'); }
+document.getElementById('rdBots').textContent = 'no total' + (r.bots ? ', fora ' + fmtN(r.bots) + ' robôs filtrados' : '');
+if(r.ultimo){ document.getElementById('rdUltimo').textContent = ' — último acesso ' + new Date(r.ultimo).toLocaleString('pt-BR', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }
 if(r.fase){
 const [Y,M,D] = (r.inicio_oficial||'').split('-');
 document.getElementById('fase').innerHTML = r.fase === 'teste'
-? `<span class="badge teste">Período de testes</span> os números abaixo são de teste e serão arquivados; a contagem oficial começa do zero em <b>${D}/${M}/${Y} às 00:00</b> (Brasília), automaticamente.`
-: `<span class="badge">Contagem oficial</span> desde ${D}/${M}/${Y} às 00:00 (Brasília).`;
+? `<span class="badge teste">Período de testes</span>Os números abaixo são de teste e serão arquivados. A contagem oficial começa do zero em <b>${D}/${M}/${Y} às 00:00</b> (Brasília), automaticamente.`
+: `<span class="badge">Contagem oficial</span>desde ${D}/${M}/${Y}.`;
 }
 const hojeStr = r.dias[r.dias.length-1].dia;
 barras('chDia', r.dias, 'n', x => { const [Y,M,D] = x.dia.split('-'); return D+'/'+M+': '+fmtN(x.n)+' acesso'+(x.n===1?'':'s'); }, x => x.dia===hojeStr);
 const f = s => { const [Y,M,D] = s.split('-'); return D+'/'+M; };
-document.getElementById('axDia').innerHTML = '<span>'+f(r.dias[0].dia)+'</span><span>'+f(hojeStr)+'</span>';
+document.getElementById('axDia').innerHTML = '<span>'+f(r.dias[0].dia)+'</span><span>hoje</span>';
 const horas = periodo==='mes' ? r.horas.mes : r.horas.tudo;
 const pico = horas.reduce((a,b) => b.n > a.n ? b : a, horas[0]);
-document.getElementById('hHora').textContent = 'Acessos por hora do dia' + (periodo==='mes' ? ' · este mês' : ' · desde o início') + (pico.n ? ' · pico às ' + parseInt(pico.hora,10) + 'h' : '');
 barras('chHora', horas, 'n', x => parseInt(x.hora,10)+'h: '+fmtN(x.n), x => x.n>0 && x.hora===pico.hora);
+document.getElementById('horaInfo').innerHTML = pico.n ? `<span>pico às ${parseInt(pico.hora,10)}h${periodo==='mes' ? ', este mês' : ''}</span>` : '<span>sem dados no período</span>';
 const d = periodo==='mes' ? r.dims.mes : r.dims.tudo;
 tabelaDim('dSrc', d.src, v => SRC[v] || v);
 tabelaDim('dDevice', d.device, v => DEV[v] || v, 3);
 tabelaDim('dCamp', d.utm_campaign);
 tabelaDim('dPath', d.path);
-tabelaDim('dRegion', (d.region||[]).filter(x => UF[x.valor]), v => UF[v]); // só estados brasileiros
-tabelaDim('dCity', d.city, fmtCidade);
-tabelaDim('dCountry', d.country, v => PAIS[v] || v, 5);
-tabelaDim('dRef', d.ref, null, 8);
-// robôs filtrados (sempre "desde o início": não são separados por mês)
+const estados = (d.region||[]).filter(x => UF[x.valor]);
+tabelaDim('dRegion', estados, v => UF[v], 6);
+tabelaDim('dCity', d.city, fmtCidade, 6);
+tabelaDim('dCountry', d.country, nomePais, 4);
+tabelaDim('dRef', d.ref, null, 7);
 if(r.bots_motivos && r.bots_motivos.length){
 document.getElementById('botsWrap').style.display = '';
-tabelaDim('dBots', r.bots_motivos, v => MOTIVO[v] || v, 6, 'Filtrado como robô');
-tabelaDim('dBotPaths', r.bots_paths, null, 6, 'Caminhos de varredura');
+tabelaDim('dBots', r.bots_motivos, v => MOTIVO[v] || v, 6, 'Motivo do filtro');
+tabelaDim('dBotPaths', r.bots_paths, null, 6, 'Caminhos tentados pelas varreduras');
 }
+// dados do mapa (ids em minúsculo, como no @svg-maps)
+mapaDados.br = {}; estados.forEach(x => { mapaDados.br[x.valor.toLowerCase()] = x.n; });
+mapaDados.world = {}; (d.country||[]).forEach(x => { if(x.valor && x.valor !== 'desconhecido') mapaDados.world[x.valor.toLowerCase()] = x.n; });
+desenhaMapa();
 }
 async function carregar(){
 const k = localStorage.getItem(KEY_STORE);
@@ -351,9 +478,7 @@ document.getElementById('accExtra').textContent = 'razão acessos/cadastros: ' +
 }
 document.getElementById('nDl').textContent = fmtN(j.downloads_total);
 document.getElementById('nRel').textContent = fmtN(j.relatos_total);
-if(j.ultimo_relato){
-document.getElementById('ultimoRel').textContent = 'último relato: ' + new Date(j.ultimo_relato).toLocaleString('pt-BR');
-}
+if(j.ultimo_relato){ document.getElementById('ultimoRel').textContent = 'último relato: ' + new Date(j.ultimo_relato).toLocaleString('pt-BR'); }
 if(j.ranking && j.ranking.length){
 const cats = {};
 j.ranking.forEach(x=>{ const m = x.recurso.match(/^([^:]+):/); const cat = m ? m[1].trim() : 'Outros'; cats[cat] = (cats[cat]||0) + x.cliques; });
@@ -374,8 +499,8 @@ j.ranking.forEach(x=>{
 let c = 'Outros';
 if(x.recurso.startsWith('Cena:')) c = 'Biblioteca de Cenas';
 else if(x.recurso.startsWith('Guia:')) c = 'Guias';
-else if(x.recurso.startsWith('Kit (Canva):')) c = 'Kit · editável (Canva)';
-else if(x.recurso.startsWith('Kit:')) c = 'Kit · arquivos';
+else if(x.recurso.startsWith('Kit (Canva):')) c = 'Kit editável (Canva)';
+else if(x.recurso.startsWith('Kit:')) c = 'Kit, arquivos';
 cats[c] = (cats[c]||0) + x.cliques;
 });
 const entries = Object.entries(cats).sort((a,b)=>b[1]-a[1]);
@@ -393,7 +518,7 @@ const base = j.popup.alcance || j.popup.exibido;
 if(base > 0) pcts.push('Taxa de resposta: <b>'+Math.round(resp/base*100)+'%</b>');
 if(resp > 0) pcts.push('Já realizaram: <b>'+Math.round(j.popup.sim/resp*100)+'%</b>');
 if(j.popup.motivos.length) pcts.push('Motivo mais comum: <b>'+esc(j.popup.motivos[0].motivo)+'</b>');
-document.getElementById('popPcts').innerHTML = pcts.join(' · ') || '<span class="muted">Sem interações.</span>';
+document.getElementById('popPcts').innerHTML = pcts.join(' ') || '<span class="muted">Sem interações.</span>';
 if(j.popup.exibido > 0 && resp > 0){
 const txResp = Math.round(resp/j.popup.exibido*100);
 const txSim = Math.round(j.popup.sim/resp*100);
@@ -425,7 +550,7 @@ document.getElementById('rankWrap').innerHTML = '<p class="muted">Nenhum downloa
 }
 mostrar(true);
 }catch(e){
-document.getElementById('rankWrap').innerHTML = '<p class="muted">Erro ao carregar. Tente atualizar.</p>';
+document.getElementById('rankWrap').innerHTML = '<p class="muted">Não foi possível carregar. Clique em Atualizar.</p>';
 mostrar(true);
 }
 }
