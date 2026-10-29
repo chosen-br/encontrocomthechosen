@@ -57,18 +57,48 @@ tr:last-child td{border-bottom:none}
 .cat b{color:var(--teal);margin-left:.35rem}
 /* acessos (redirecionamento) */
 .toolbar{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-bottom:1.4rem}
+.fase{font-size:.8rem;color:var(--soft);margin:-1.2rem 0 1.2rem;line-height:1.5}
+.fase:empty{display:none}
+.badge{display:inline-block;background:var(--teal);color:#04211f;font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;margin-right:.4rem;vertical-align:1px}
+.badge.teste{background:#e8b34b;color:#2b1d00}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .seg button{background:none;border:none;color:var(--soft);padding:.45rem .9rem;font-size:.75rem;cursor:pointer;font-weight:600}
 .seg button.on{background:var(--teal);color:#04211f}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.6rem}
 .grid2 .chart{margin:0}
-.dim{background:var(--raised);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.dim{background:var(--raised);border:1px solid var(--line);border-radius:12px;overflow:visible} /* visible: a explicação do "i" pode sair da caixa */
 .dim h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);padding:1rem 1.2rem .6rem;font-weight:600}
 .dim table{border:none;border-radius:0}
 .dim td{padding:.55rem 1.2rem}
 .dim .pb{position:relative;z-index:0}
 .dim .pb::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:var(--w);background:var(--teal);opacity:.14;border-radius:0 4px 4px 0;z-index:-1}
 .dim .vazio{color:var(--mute);font-size:.8rem;padding:.4rem 1.2rem 1.1rem}
+.dim h3{display:flex;align-items:center;justify-content:space-between;gap:.6rem}
+.dim h3 .hl{display:flex;align-items:center;gap:.45rem}
+/* ícone "ⓘ" com explicação ao passar o mouse (ou tocar, no celular) */
+.help{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;border:1px solid var(--line);color:var(--mute);font-size:.62rem;font-weight:700;cursor:help;text-transform:none;letter-spacing:0;flex:none}
+.help::after{content:attr(data-tip);position:absolute;top:calc(100% + 8px);left:0;width:min(300px,70vw);background:#000;border:1px solid var(--line);color:var(--ink);font-size:.74rem;font-weight:400;letter-spacing:0;text-transform:none;line-height:1.45;padding:.6rem .75rem;border-radius:8px;z-index:20;display:none;white-space:normal}
+.help:hover::after,.help:focus::after,.help.on::after{display:block}
+.card .lbl{display:flex;align-items:center;gap:.45rem}
+.dim .todos{background:none;border:1px solid var(--line);color:var(--soft);border-radius:6px;padding:.25rem .6rem;font-size:.68rem;cursor:pointer;font-weight:600;letter-spacing:.04em}
+.dim .todos:hover{border-color:var(--teal);color:var(--teal)}
+.dim .rodape{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1.2rem .9rem;font-size:.75rem;color:var(--mute)}
+/* lista completa (modal com páginas) */
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal.on{display:flex}
+.modal .back{position:absolute;inset:0;background:rgba(0,0,0,.72)}
+.modal .box{position:relative;width:min(640px,100%);max-height:88vh;display:flex;flex-direction:column;background:var(--raised);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.modal .top{display:flex;align-items:center;gap:.8rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.modal .top h3{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0;flex:1}
+.modal .top input{background:var(--bg);border:1px solid var(--line);border-radius:7px;color:var(--ink);padding:.4rem .7rem;font-size:.8rem;width:170px}
+.modal .top .x{background:none;border:none;color:var(--soft);font-size:1.3rem;cursor:pointer;line-height:1}
+.modal .body{overflow:auto;flex:1}
+.modal table{border:none;border-radius:0}
+.modal td{padding:.55rem 1.2rem}
+.modal .pg{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.2rem;border-top:1px solid var(--line);font-size:.75rem;color:var(--mute)}
+.modal .pg button{background:none;border:1px solid var(--line);color:var(--soft);border-radius:6px;padding:.3rem .7rem;font-size:.72rem;cursor:pointer}
+.modal .pg button:disabled{opacity:.35;cursor:default}
+.modal .pg button:not(:disabled):hover{border-color:var(--teal);color:var(--teal)}
 .note{font-size:.75rem;color:var(--mute);margin:-.6rem 0 1.6rem;line-height:1.5}
 details.arq{margin-top:3rem;border-top:1px solid var(--line);padding-top:1.4rem}
 details.arq summary{cursor:pointer;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);list-style:none;display:flex;align-items:center;gap:.6rem}
@@ -91,32 +121,39 @@ details.arq .inner{margin-top:1.4rem}
 <div id="app" class="wrap" style="display:none">
 <h1>encontrocomthechosen.com.br</h1>
 <p class="sub">Acessos ao domínio · redirecionando para <a href="https://resources.comeandseefoundation.org/" target="_blank" rel="noopener">resources.comeandseefoundation.org</a> · <span id="rdUltimo">sem dados ainda</span></p>
+<p class="fase" id="fase"></p>
 <div class="toolbar">
 <button class="refresh" style="margin:0" onclick="carregar()">↻ Atualizar</button>
 <div class="seg" id="seg"><button class="on" data-p="mes">Este mês</button><button data-p="tudo">Desde o início</button></div>
 </div>
 
 <div class="cards" style="grid-template-columns:1fr 1fr 1fr 1fr">
-<div class="card"><div class="lbl">Hoje</div><div class="num" id="rdHoje">–</div><div class="extra" id="rdOntem">ontem: –</div></div>
-<div class="card"><div class="lbl">Últimos 7 dias</div><div class="num" id="rd7">–</div><div class="extra" id="rdMedia7">média/dia: –</div></div>
-<div class="card"><div class="lbl">Últimos 30 dias</div><div class="num" id="rd30">–</div><div class="extra" id="rdMedia30">média/dia: –</div></div>
-<div class="card"><div class="lbl">Total</div><div class="num" id="rdTotal">–</div><div class="extra" id="rdBots">desde o início</div></div>
+<div class="card"><div class="lbl">Hoje <span class="help" tabindex="0" data-tip="Acessos de pessoas ao domínio desde a meia-noite (horário de Brasília). Cada abertura do link conta 1; a mesma pessoa abrindo duas vezes conta 2.">i</span></div><div class="num" id="rdHoje">–</div><div class="extra" id="rdOntem">ontem: –</div></div>
+<div class="card"><div class="lbl">Últimos 7 dias <span class="help" tabindex="0" data-tip="Soma de hoje + os 6 dias anteriores. A média por dia ajuda a comparar semanas.">i</span></div><div class="num" id="rd7">–</div><div class="extra" id="rdMedia7">média/dia: –</div></div>
+<div class="card"><div class="lbl">Últimos 30 dias <span class="help" tabindex="0" data-tip="Soma de hoje + os 29 dias anteriores.">i</span></div><div class="num" id="rd30">–</div><div class="extra" id="rdMedia30">média/dia: –</div></div>
+<div class="card"><div class="lbl">Total <span class="help" tabindex="0" data-tip="Acessos de pessoas desde que a contagem começou. Robôs (Google, prévias de link do WhatsApp, varreduras automáticas, scanners de e-mail corporativo) são separados e não entram em nenhum gráfico; o detalhe deles aparece no fim da página.">i</span></div><div class="num" id="rdTotal">–</div><div class="extra" id="rdBots">desde o início</div></div>
 </div>
 
 <div class="chart"><h3>Acessos por dia · últimos 30 dias</h3><div class="bars" id="chDia"></div><div class="axis" id="axDia"></div></div>
 <div class="chart"><h3 id="hHora">Acessos por hora do dia</h3><div class="bars" id="chHora"></div><div class="axis"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span></div></div>
 
 <div class="grid2">
-<div class="dim"><h3>De onde vieram</h3><div id="dSrc"></div></div>
-<div class="dim"><h3>Dispositivo</h3><div id="dDevice"></div></div>
-<div class="dim"><h3>Campanhas (utm_campaign)</h3><div id="dCamp"></div></div>
-<div class="dim"><h3>Link usado</h3><div id="dPath"></div></div>
-<div class="dim"><h3>Estado</h3><div id="dRegion"></div></div>
-<div class="dim"><h3>Cidade</h3><div id="dCity"></div></div>
-<div class="dim"><h3>País</h3><div id="dCountry"></div></div>
-<div class="dim"><h3>Site de origem (detalhe)</h3><div id="dRef"></div></div>
+<div class="dim"><h3><span class="hl">De onde vieram <span class="help" tabindex="0" data-tip="Quem trouxe a pessoa até o link. Vem do 'referrer' que o navegador informa ou do utm_source, se o link tiver. 'Direto / apps' = sem informação: link digitado, favorito, ou aberto dentro de apps como WhatsApp, Instagram e e-mail, que não contam de onde vieram. Por isso WhatsApp quase sempre aparece como 'Direto'.">i</span></span></h3><div id="dSrc"></div></div>
+<div class="dim"><h3><span class="hl">Dispositivo <span class="help" tabindex="0" data-tip="Deduzido do navegador: celular, tablet ou computador.">i</span></span></h3><div id="dDevice"></div></div>
+<div class="dim"><h3><span class="hl">Campanhas (utm_campaign) <span class="help" tabindex="0" data-tip="Só aparece quando o link divulgado tem ?utm_campaign=... (ex.: criado no Bitly ou à mão). Links sem UTM não entram aqui.">i</span></span></h3><div id="dCamp"></div></div>
+<div class="dim"><h3><span class="hl">Link usado <span class="help" tabindex="0" data-tip="O caminho que a pessoa abriu antes de ser redirecionada. '/' é o endereço principal. Caminhos como /kit, /visao ou /perguntas são links antigos do site que ainda circulam (materiais, posts, resultados do Google) — todos redirecionam igual.">i</span></span></h3><div id="dPath"></div></div>
+<div class="dim"><h3><span class="hl">Estado (Brasil) <span class="help" tabindex="0" data-tip="Estado brasileiro deduzido da conexão (geolocalização por IP, feita pela Vercel; o IP não é guardado). Acessos de fora do Brasil ficam só em País e Cidade.">i</span></span></h3><div id="dRegion"></div></div>
+<div class="dim"><h3><span class="hl">Cidade <span class="help" tabindex="0" data-tip="Cidade deduzida da conexão. Operadoras de celular às vezes registram a cidade da central, não a da pessoa — trate como aproximação.">i</span></span></h3><div id="dCity"></div></div>
+<div class="dim"><h3><span class="hl">País <span class="help" tabindex="0" data-tip="País da conexão. Acessos de fora do Brasil em volume pequeno costumam ser varreduras automáticas que passaram pelo filtro, ou brasileiros no exterior/VPN.">i</span></span></h3><div id="dCountry"></div></div>
+<div class="dim"><h3><span class="hl">Site de origem (detalhe) <span class="help" tabindex="0" data-tip="O endereço exato de onde a pessoa veio (versão detalhada de 'De onde vieram'). 'com.google.android.gm' = app do Gmail no Android; 'l.instagram.com' = link clicado no Instagram.">i</span></span></h3><div id="dRef"></div></div>
 </div>
-<p class="note">Contagem feita no redirecionamento, sem cookies nem scripts: cada acesso conta 1 (a mesma pessoa voltando conta de novo). "Direto" inclui links abertos dentro de apps como WhatsApp e Instagram, que não informam a origem. Robôs (Google, prévias de link) são contados à parte e não entram nos gráficos.</p>
+<div class="grid2" id="botsWrap" style="display:none">
+<div class="dim"><h3><span class="hl">Filtrado como robô <span class="help" tabindex="0" data-tip="Acessos que NÃO entram nos números acima. 'robô declarado' = se identifica (Googlebot, prévia do WhatsApp). 'varredura' = programa procurando falhas (wp-admin, .env etc.) fingindo ser navegador. 'scanner de e-mail' = sistema de segurança corporativo que abre o link antes do destinatário.">i</span></span></h3><div id="dBots"></div></div>
+<div class="dim"><h3><span class="hl">Caminhos de varredura <span class="help" tabindex="0" data-tip="Os caminhos que as varreduras tentaram. Nenhum deles existe neste domínio; todos receberam o redirect normal.">i</span></span></h3><div id="dBotPaths"></div></div>
+</div>
+<p class="note">Contagem feita no redirecionamento, sem cookies nem scripts: cada acesso conta 1 (a mesma pessoa voltando conta de novo). Passe o mouse (ou toque) no <b>i</b> de cada bloco para a explicação. Em cada bloco, "Ver todos" abre a lista completa com páginas e busca.</p>
+
+<div class="modal" id="modal"><div class="back"></div><div class="box"><div class="top"><h3 id="mTitle"></h3><input id="mBusca" placeholder="Buscar…"><button class="x" id="mClose" aria-label="Fechar">×</button></div><div class="body" id="mBody"></div><div class="pg"><button id="mPrev">‹ Anterior</button><span id="mInfo"></span><button id="mNext">Próxima ›</button></div></div></div>
 
 <details class="arq">
 <summary>Arquivo · site antigo (até outubro de 2026)</summary>
@@ -163,7 +200,19 @@ const esc = s => String(s).replace(/</g,'&lt;');
 const UF = {AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
 const SRC = {direto:'Direto / apps',instagram:'Instagram',facebook:'Facebook',whatsapp:'WhatsApp',youtube:'YouTube',google:'Google',bing:'Bing',x:'X (Twitter)',linkedin:'LinkedIn',tiktok:'TikTok',telegram:'Telegram',thechosen:'Site The Chosen',outros:'Outros sites'};
 const DEV = {celular:'Celular',desktop:'Computador',tablet:'Tablet'};
-const PAIS = {BR:'Brasil',US:'Estados Unidos',PT:'Portugal',AR:'Argentina',PY:'Paraguai',UY:'Uruguai',CL:'Chile',MX:'México',ES:'Espanha',IT:'Itália',DE:'Alemanha',FR:'França',GB:'Reino Unido',CA:'Canadá',JP:'Japão',AO:'Angola',MZ:'Moçambique'};
+const PAIS = {BR:'Brasil',US:'Estados Unidos',PT:'Portugal',AR:'Argentina',PY:'Paraguai',UY:'Uruguai',CL:'Chile',MX:'México',ES:'Espanha',IT:'Itália',DE:'Alemanha',FR:'França',GB:'Reino Unido',CA:'Canadá',JP:'Japão',AO:'Angola',MZ:'Moçambique',MA:'Marrocos',NL:'Holanda',IE:'Irlanda',CO:'Colômbia',PE:'Peru',BO:'Bolívia',VE:'Venezuela',EC:'Equador',CH:'Suíça',BE:'Bélgica',AU:'Austrália',IN:'Índia',RU:'Rússia',CN:'China',SG:'Singapura',KR:'Coreia do Sul',IL:'Israel',ZA:'África do Sul',SE:'Suécia',NO:'Noruega',FI:'Finlândia',DK:'Dinamarca',PL:'Polônia',TR:'Turquia',AE:'Emirados Árabes'};
+// abreviação do país para a lista de cidades ("Miami, FL, EUA")
+const PAIS_ABR = {US:'EUA',AR:'ARG',PT:'POR',UY:'URU',PY:'PAR',CL:'CHI',MX:'MEX',ES:'ESP',IT:'ITA',DE:'ALE',FR:'FRA',GB:'GBR',CA:'CAN',JP:'JAP',AO:'ANG',MZ:'MOÇ',MA:'MAR',NL:'HOL',IE:'IRL',CO:'COL',PE:'PER',BO:'BOL',VE:'VEN',EC:'EQU',CH:'SUI',BE:'BEL',AU:'AUS',IN:'IND',RU:'RUS',CN:'CHN',IL:'ISR',ZA:'AFS',SE:'SUE',NO:'NOR',PL:'POL',TR:'TUR',AE:'EAU'};
+const MOTIVO = {'robo-declarado':'Robô declarado (Google, prévias de link)','varredura':'Varredura automática (fingindo navegador)','scanner-de-email':'Scanner de e-mail corporativo','sem-user-agent':'Sem identificação de navegador'};
+// cidade vem como "Cidade|REGIAO|PAIS" (registros antigos vêm só com o nome)
+function fmtCidade(v){
+const p = v.split('|');
+if(p.length < 3) return v;
+const [cid, reg, pais] = p;
+const regOk = reg && reg !== 'desconhecido' && !/^\d+$/.test(reg); // regiões numéricas (ex.: Portugal "11") não ajudam
+if(pais === 'BR') return cid + (regOk ? ', ' + reg : '');
+return cid + (regOk ? ', ' + reg : '') + ', ' + (PAIS_ABR[pais] || pais);
+}
 
 function entrar(){
 const k = document.getElementById('key').value.trim();
@@ -190,18 +239,61 @@ b.setAttribute('data-tip', tip(x));
 box.appendChild(b);
 });
 }
-function tabelaDim(el, lista, rotulo, limite){
+// linhas de uma lista; cada linha mostra no hover "N de T acessos"
+function linhas(lista, total, rotulo){
+return lista.map(x => {
+const pct = total ? Math.round(x.n/total*100) : 0;
+const r = rotulo ? rotulo(x.valor) : x.valor;
+return `<tr title="${esc(r)}: ${fmtN(x.n)} de ${fmtN(total)} acessos no período (${pct}%)"><td class="pb" style="--w:${pct}%">${esc(r)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`;
+}).join('');
+}
+const LISTAS = {}; // listas completas, para o "Ver todos"
+function tabelaDim(el, lista, rotulo, limite, titulo){
 const box = document.getElementById(el);
 if(!lista || !lista.length){ box.innerHTML = '<p class="vazio">Sem dados no período.</p>'; return; }
+const lim = limite || 8;
 const total = lista.reduce((s,x) => s + x.n, 0);
-let h = '<table>';
-lista.slice(0, limite || 8).forEach(x => {
-const pct = total ? Math.round(x.n/total*100) : 0;
-h += `<tr><td class="pb" style="--w:${pct}%">${esc(rotulo ? rotulo(x.valor) : x.valor)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`;
-});
-if(lista.length > (limite||8)) h += `<tr><td class="vazio" colspan="3">+ ${lista.length-(limite||8)} outros</td></tr>`;
-box.innerHTML = h + '</table>';
+LISTAS[el] = { lista, total, rotulo, titulo: titulo || box.parentElement.querySelector('.hl, h3').textContent.replace(/\s*i$/, '').trim() };
+let h = '<table>' + linhas(lista.slice(0, lim), total, rotulo) + '</table>';
+h += `<div class="rodape"><span>${lista.length > lim ? '+ ' + fmtN(lista.length - lim) + ' outros · ' : ''}${fmtN(total)} acessos</span><button class="todos" onclick="abrirLista('${el}')">Ver todos (${fmtN(lista.length)})</button></div>`;
+box.innerHTML = h;
 }
+// ---- lista completa: modal com busca e páginas ----
+const POR_PAGINA = 15;
+let mEstado = null;
+function abrirLista(el){
+const L = LISTAS[el]; if(!L) return;
+mEstado = { ...L, pagina: 0, busca: '' };
+document.getElementById('mTitle').textContent = L.titulo;
+document.getElementById('mBusca').value = '';
+document.getElementById('modal').classList.add('on');
+renderModal();
+document.getElementById('mBusca').focus();
+}
+function renderModal(){
+const L = mEstado; if(!L) return;
+const q = L.busca.toLowerCase();
+const filtrada = L.lista.filter(x => !q || String(L.rotulo ? L.rotulo(x.valor) : x.valor).toLowerCase().includes(q));
+const paginas = Math.max(1, Math.ceil(filtrada.length / POR_PAGINA));
+if(L.pagina >= paginas) L.pagina = paginas - 1;
+const ini = L.pagina * POR_PAGINA;
+const fatia = filtrada.slice(ini, ini + POR_PAGINA);
+document.getElementById('mBody').innerHTML = fatia.length
+? '<table><tr><th>#</th><th></th><th style="text-align:right">Acessos</th><th></th></tr>' + fatia.map((x,i) => { const pct = L.total ? Math.round(x.n/L.total*100) : 0; const r = L.rotulo ? L.rotulo(x.valor) : x.valor; return `<tr><td style="color:var(--mute);width:40px">${ini+i+1}</td><td class="pb" style="--w:${pct}%">${esc(r)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`; }).join('') + '</table>'
+: '<p class="muted">Nada encontrado.</p>';
+document.getElementById('mInfo').textContent = `${fmtN(filtrada.length)} itens · página ${L.pagina+1} de ${paginas}`;
+document.getElementById('mPrev').disabled = L.pagina === 0;
+document.getElementById('mNext').disabled = L.pagina >= paginas - 1;
+}
+document.getElementById('mPrev').addEventListener('click', () => { mEstado.pagina--; renderModal(); });
+document.getElementById('mNext').addEventListener('click', () => { mEstado.pagina++; renderModal(); });
+document.getElementById('mBusca').addEventListener('input', e => { mEstado.busca = e.target.value; mEstado.pagina = 0; renderModal(); });
+function fecharModal(){ document.getElementById('modal').classList.remove('on'); }
+document.getElementById('mClose').addEventListener('click', fecharModal);
+document.querySelector('#modal .back').addEventListener('click', fecharModal);
+document.addEventListener('keydown', e => { if(e.key === 'Escape') fecharModal(); });
+// no celular não há hover: tocar no "i" abre/fecha a explicação
+document.addEventListener('click', e => { const h = e.target.closest('.help'); document.querySelectorAll('.help.on').forEach(x => { if(x !== h) x.classList.remove('on'); }); if(h) h.classList.toggle('on'); });
 function desenhaRedirect(r){
 document.getElementById('rdHoje').textContent = fmtN(r.hoje);
 document.getElementById('rdOntem').textContent = 'ontem: ' + fmtN(r.ontem);
@@ -212,6 +304,12 @@ document.getElementById('rdMedia30').textContent = 'média/dia: ' + fmtN(Math.ro
 document.getElementById('rdTotal').textContent = fmtN(r.humanos);
 document.getElementById('rdBots').textContent = r.bots ? 'pessoas · + ' + fmtN(r.bots) + ' robôs/prévias ignorados' : 'desde o início';
 if(r.ultimo){ document.getElementById('rdUltimo').textContent = 'último acesso: ' + new Date(r.ultimo).toLocaleString('pt-BR'); }
+if(r.fase){
+const [Y,M,D] = (r.inicio_oficial||'').split('-');
+document.getElementById('fase').innerHTML = r.fase === 'teste'
+? `<span class="badge teste">Período de testes</span> os números abaixo são de teste e serão arquivados; a contagem oficial começa do zero em <b>${D}/${M}/${Y} às 00:00</b> (Brasília), automaticamente.`
+: `<span class="badge">Contagem oficial</span> desde ${D}/${M}/${Y} às 00:00 (Brasília).`;
+}
 const hojeStr = r.dias[r.dias.length-1].dia;
 barras('chDia', r.dias, 'n', x => { const [Y,M,D] = x.dia.split('-'); return D+'/'+M+': '+fmtN(x.n)+' acesso'+(x.n===1?'':'s'); }, x => x.dia===hojeStr);
 const f = s => { const [Y,M,D] = s.split('-'); return D+'/'+M; };
@@ -225,10 +323,16 @@ tabelaDim('dSrc', d.src, v => SRC[v] || v);
 tabelaDim('dDevice', d.device, v => DEV[v] || v, 3);
 tabelaDim('dCamp', d.utm_campaign);
 tabelaDim('dPath', d.path);
-tabelaDim('dRegion', d.region, v => UF[v] || (v.includes('-') ? (PAIS[v.split('-')[0]] || v.split('-')[0]) + ' · ' + v.split('-')[1] : v));
-tabelaDim('dCity', d.city);
+tabelaDim('dRegion', (d.region||[]).filter(x => UF[x.valor]), v => UF[v]); // só estados brasileiros
+tabelaDim('dCity', d.city, fmtCidade);
 tabelaDim('dCountry', d.country, v => PAIS[v] || v, 5);
 tabelaDim('dRef', d.ref, null, 8);
+// robôs filtrados (sempre "desde o início": não são separados por mês)
+if(r.bots_motivos && r.bots_motivos.length){
+document.getElementById('botsWrap').style.display = '';
+tabelaDim('dBots', r.bots_motivos, v => MOTIVO[v] || v, 6, 'Filtrado como robô');
+tabelaDim('dBotPaths', r.bots_paths, null, 6, 'Caminhos de varredura');
+}
 }
 async function carregar(){
 const k = localStorage.getItem(KEY_STORE);

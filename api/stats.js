@@ -2,6 +2,7 @@
 const R_URL = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
 const R_TOK = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 const TZ = 'America/Sao_Paulo';
+const INICIO_OFICIAL = '2026-11-01'; // mesma data do proxy.js: antes, lê o espaço de teste; depois, o oficial
 
 async function redis(path) {
   const r = await fetch(`${R_URL}/${path}`, { headers: { Authorization: `Bearer ${R_TOK}` } });
@@ -45,13 +46,17 @@ function diaBR(offset) {
 const DIMS = ['src', 'ref', 'path', 'utm_campaign', 'utm_medium', 'device', 'country', 'region', 'city'];
 
 async function dadosRedirect() {
-  const mes = diaBR(0).slice(0, 7);
+  const hoje = diaBR(0);
+  const mes = hoje.slice(0, 7);
+  const ns = hoje < INICIO_OFICIAL ? 'rdteste:' : 'rd:';
   const cmds = [
-    ['GET', 'rd:total'], ['GET', 'rd:humanos'], ['GET', 'rd:bots'], ['GET', 'rd:last'],
-    ['HGETALL', 'rd:byday'], ['HGETALL', 'rd:byhour'], ['HGETALL', 'rd:byhour:' + mes],
+    ['GET', ns + 'total'], ['GET', ns + 'humanos'], ['GET', ns + 'bots'], ['GET', ns + 'last'],
+    ['HGETALL', ns + 'byday'], ['HGETALL', ns + 'byhour'], ['HGETALL', ns + 'byhour:' + mes],
   ];
-  for (const d of DIMS) { cmds.push(['HGETALL', 'rd:' + d]); cmds.push(['HGETALL', 'rd:' + d + ':' + mes]); }
+  for (const d of DIMS) { cmds.push(['HGETALL', ns + '' + d]); cmds.push(['HGETALL', ns + '' + d + ':' + mes]); }
+  cmds.push(['HGETALL', ns + 'bots:motivo'], ['HGETALL', ns + 'bots:path']);
   const r = await pipeline(cmds);
+  const iBots = 7 + DIMS.length * 2;
 
   const byday = hashToMap(r[4]);
   const dias = [];
@@ -72,8 +77,12 @@ async function dadosRedirect() {
     total: parseInt(r[0], 10) || 0,
     humanos: parseInt(r[1], 10) || 0,
     bots: parseInt(r[2], 10) || 0,
+    bots_motivos: hashToList(r[iBots], 'valor', 'n'),
+    bots_paths: hashToList(r[iBots + 1], 'valor', 'n'),
     ultimo: r[3] || null,
     mes_atual: mes,
+    fase: ns === 'rd:' ? 'oficial' : 'teste',
+    inicio_oficial: INICIO_OFICIAL,
     hoje: soma(0, 0), ontem: soma(1, 1), ult7: soma(0, 6), ult30: soma(0, 29),
     dias,
     por_mes: Object.entries(porMes).sort().map(([m, n]) => ({ mes: m, n })),

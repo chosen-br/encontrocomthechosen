@@ -3,6 +3,9 @@
 // Exceções: /painel (dashboard privado), /api/* (stats/reset do painel) e /og.jpg (imagem do cartão de prévia).
 const DESTINO = 'https://resources.comeandseefoundation.org/';
 const TZ = 'America/Sao_Paulo';
+// Contagem oficial começa em 01/11/2026 00:00 (Brasília). Antes disso, os acessos vão para o espaço de teste
+// (chaves rdteste:*) e não misturam com os oficiais (rd:*). A virada é automática, pela data em Brasília.
+const INICIO_OFICIAL = '2026-11-01';
 
 // O matcher (quais rotas passam por aqui) fica no vercel.json, em proxy.matcher.
 
@@ -10,6 +13,18 @@ const R_URL = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
 const R_TOK = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 
 const BOT_RE = /bot|crawl|spider|slurp|facebookexternalhit|whatsapp\/|telegrambot|skypeuripreview|preview|headless|curl\/|wget|python-requests|go-http-client|vercel-screenshot|lighthouse|pingdom|uptime/i;
+// Varreduras automáticas que se disfarçam de navegador: procuram WordPress, arquivos de config etc.
+// (/.well-known/traffic-advice é o Chrome/Google checando se pode pré-carregar — também não é pessoa.)
+const SCANNER_PATH_RE = /^\/(\.well-known|wp-admin|wp-login|wp-content|wp-includes|wp-json|xmlrpc|\.env|\.git|\.aws|phpmyadmin|cgi-bin|vendor\/|administrator|owa\/|autodiscover|backup|config\.|setup\.|install\.)|\.(php|asp|aspx|jsp|cgi)$/i;
+// Scanners de segurança de e-mail corporativo: abrem o link antes da pessoa clicar.
+const EMAIL_SCANNER_RE = /defend\.egress|safelinks\.protection\.outlook|urldefense|proofpoint|mimecast|barracuda|clicktime\.symantec|linkprotect\.cudasvc|protection\.sophos/i;
+function motivoRobo(ua, path, refHost) {
+  if (!ua) return 'sem-user-agent';
+  if (BOT_RE.test(ua)) return 'robo-declarado';
+  if (SCANNER_PATH_RE.test(path)) return 'varredura';
+  if (EMAIL_SCANNER_RE.test(refHost)) return 'scanner-de-email';
+  return '';
+}
 
 // Robôs que montam o cartão de prévia de link (WhatsApp, Messenger/iMessage, Telegram, X, LinkedIn, Slack, Discord)
 // recebem uma página mínima só com as tags Open Graph abaixo, em vez do redirect. Pessoas nunca veem essa página;
@@ -98,13 +113,17 @@ export default function middleware(req, ctx) {
 
     const ua = req.headers.get('user-agent') || '';
     const t = agora();
-    const cmds = [['INCR', 'rd:total'], ['SET', 'rd:last', t.iso]];
+    const ns = t.dia < INICIO_OFICIAL ? 'rdteste:' : 'rd:';
+    const cmds = [['INCR', ns + 'total'], ['SET', ns + 'last', t.iso]];
 
-    if (BOT_RE.test(ua) || !ua) {
-      cmds.push(['INCR', 'rd:bots']);
+    let refHost = '';
+    try { refHost = new URL(req.headers.get('referer') || '').hostname; } catch (e) {}
+    const motivo = motivoRobo(ua, path, refHost);
+    if (motivo) {
+      cmds.push(['INCR', ns + 'bots']);
+      cmds.push(['HINCRBY', ns + 'bots:motivo', motivo, 1]);
+      if (motivo === 'varredura') cmds.push(['HINCRBY', ns + 'bots:path', path.toLowerCase().slice(0, 60), 1]);
     } else {
-      let refHost = '';
-      try { refHost = new URL(req.headers.get('referer') || '').hostname; } catch (e) {}
       const q = url.searchParams;
       const g = geo(req);
       const dims = {
@@ -116,16 +135,16 @@ export default function middleware(req, ctx) {
         device: dispositivo(ua),
         country: g.country,
         region: g.country === 'BR' ? g.region : g.country + '-' + g.region,
-        city: g.city,
+        city: g.city + '|' + g.region + '|' + g.country, // o painel formata ("Petrolina, PE" / "Miami, FL, EUA")
       };
-      cmds.push(['INCR', 'rd:humanos']);
-      cmds.push(['HINCRBY', 'rd:byday', t.dia, 1]);
-      cmds.push(['HINCRBY', 'rd:byhour', t.hora, 1]);
-      cmds.push(['HINCRBY', 'rd:byhour:' + t.mes, t.hora, 1]);
+      cmds.push(['INCR', ns + 'humanos']);
+      cmds.push(['HINCRBY', ns + 'byday', t.dia, 1]);
+      cmds.push(['HINCRBY', ns + 'byhour', t.hora, 1]);
+      cmds.push(['HINCRBY', ns + 'byhour:' + t.mes, t.hora, 1]);
       for (const [k, v] of Object.entries(dims)) {
         if (!v) continue;
-        cmds.push(['HINCRBY', 'rd:' + k, v, 1]);
-        cmds.push(['HINCRBY', 'rd:' + k + ':' + t.mes, v, 1]);
+        cmds.push(['HINCRBY', ns + '' + k, v, 1]);
+        cmds.push(['HINCRBY', ns + '' + k + ':' + t.mes, v, 1]);
       }
     }
 

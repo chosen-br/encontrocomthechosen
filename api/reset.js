@@ -19,14 +19,22 @@ export default async function handler(req, res) {
     if (!R_URL || !R_TOK) return res.status(200).json({ ok: false, error: 'storage-not-configured' });
 
     const escopo = (req.query && req.query.escopo) || '';
-    if (!['redirect', 'arquivo', 'tudo'].includes(escopo)) return res.status(400).json({ ok: false, error: 'informe escopo=redirect|arquivo|tudo' });
+    if (!['redirect', 'redirect-teste', 'arquivo', 'tudo', 'mover-para-teste'].includes(escopo)) {
+      return res.status(400).json({ ok: false, error: 'informe escopo=redirect|redirect-teste|arquivo|tudo|mover-para-teste' });
+    }
+
+    // mover-para-teste: renomeia rd:* -> rdteste:* (usado uma vez, ao criar a fase de testes)
+    if (escopo === 'mover-para-teste') {
+      const r = await redis('keys/rd:*');
+      const ks = r.result || [];
+      for (const k of ks) await redis(`rename/${encodeURIComponent(k)}/${encodeURIComponent('rdteste:' + k.slice(3))}`);
+      return res.status(200).json({ ok: true, movidas: ks.length });
+    }
 
     let keys = [];
     if (escopo === 'arquivo' || escopo === 'tudo') keys = keys.concat(ARQUIVO);
-    if (escopo === 'redirect' || escopo === 'tudo') {
-      const r = await redis('keys/rd:*');
-      keys = keys.concat(r.result || []);
-    }
+    if (escopo === 'redirect' || escopo === 'tudo') keys = keys.concat((await redis('keys/rd:*')).result || []);
+    if (escopo === 'redirect-teste' || escopo === 'tudo') keys = keys.concat((await redis('keys/rdteste:*')).result || []);
     for (const k of keys) await redis(`del/${encodeURIComponent(k)}`);
 
     return res.status(200).json({ ok: true, zerado: escopo, chaves: keys.length });
