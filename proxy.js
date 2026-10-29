@@ -114,6 +114,7 @@ export default function middleware(req, ctx) {
     const ua = req.headers.get('user-agent') || '';
     const t = agora();
     const ns = t.dia < INICIO_OFICIAL ? 'rdteste:' : 'rd:';
+    const dia = ns + 'd:' + t.dia; // hash do dia: campos "dimensao=valor" (é o que permite filtrar por período no painel)
     const cmds = [['INCR', ns + 'total'], ['SET', ns + 'last', t.iso]];
 
     let refHost = '';
@@ -122,7 +123,12 @@ export default function middleware(req, ctx) {
     if (motivo) {
       cmds.push(['INCR', ns + 'bots']);
       cmds.push(['HINCRBY', ns + 'bots:motivo', motivo, 1]);
-      if (motivo === 'varredura') cmds.push(['HINCRBY', ns + 'bots:path', path.toLowerCase().slice(0, 60), 1]);
+      cmds.push(['HINCRBY', dia, 'bot=' + motivo, 1]);
+      if (motivo === 'varredura') {
+        const p = path.toLowerCase().slice(0, 60);
+        cmds.push(['HINCRBY', ns + 'bots:path', p, 1]);
+        cmds.push(['HINCRBY', dia, 'botpath=' + p, 1]);
+      }
     } else {
       const q = url.searchParams;
       const g = geo(req);
@@ -140,11 +146,11 @@ export default function middleware(req, ctx) {
       cmds.push(['INCR', ns + 'humanos']);
       cmds.push(['HINCRBY', ns + 'byday', t.dia, 1]);
       cmds.push(['HINCRBY', ns + 'byhour', t.hora, 1]);
-      cmds.push(['HINCRBY', ns + 'byhour:' + t.mes, t.hora, 1]);
+      cmds.push(['HINCRBY', dia, 'hour=' + t.hora, 1]);
       for (const [k, v] of Object.entries(dims)) {
         if (!v) continue;
-        cmds.push(['HINCRBY', ns + '' + k, v, 1]);
-        cmds.push(['HINCRBY', ns + '' + k + ':' + t.mes, v, 1]);
+        cmds.push(['HINCRBY', ns + k, v, 1]);        // desde o início
+        cmds.push(['HINCRBY', dia, k + '=' + v, 1]); // só este dia
       }
     }
 

@@ -22,7 +22,12 @@ header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-be
 header h1{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
 header .dest{color:var(--mute);font-size:14px;margin-top:4px}
 header .dest a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line2)}
-.controls{display:flex;gap:8px;align-items:center}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.range{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mute)}
+.range input{background:var(--surface);border:1px solid var(--line2);border-radius:var(--r-small);color:var(--ink);padding:5px 8px;font-size:13px;font-family:inherit;min-width:0;width:128px}
+.range input:focus{outline:none;border-color:var(--ink2)}
+.range input::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer}
+#app.loading section,#app.loading .note{opacity:.5;transition:opacity .15s}
 .seg{display:inline-flex;border:1px solid var(--line2);border-radius:var(--r-small);overflow:hidden}
 .seg button{background:none;border:none;color:var(--ink2);padding:7px 13px;font-size:13px;cursor:pointer;font-weight:500}
 .seg button.on{background:var(--ink);color:var(--bg)}
@@ -33,17 +38,19 @@ header .dest a{color:var(--ink2);text-decoration:none;border-bottom:1px solid va
 .badge{display:inline-block;background:var(--teal);color:#04211F;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;margin-right:6px;vertical-align:1px}
 .badge.teste{background:var(--gold);color:#2B1D00}
 /* ---- herói: o número de hoje + os 30 dias ---- */
-.hero{display:grid;grid-template-columns:minmax(200px,1fr) 2fr;gap:24px 40px;align-items:end;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.hero{display:grid;grid-template-columns:minmax(220px,1fr) 2fr;gap:24px 40px;align-items:end;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:28px}
 .hero .big{font-size:64px;font-weight:700;line-height:.95;letter-spacing:-.03em;color:var(--teal);font-variant-numeric:tabular-nums}
 .hero .big-l{font-size:15px;color:var(--ink2);margin-top:8px}
 .hero .big-l b{color:var(--ink);font-weight:500}
-.stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:18px}
+.stats{display:flex;gap:14px 28px;flex-wrap:wrap;margin-top:18px}
+.stats .stat:last-child{flex-basis:100%}
 .stat .n{font-size:22px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .stat .l{font-size:13px;color:var(--mute)}
 .chart h3,.sec h2{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .chart h3 span.sub,.sec h2 span.sub{color:var(--mute);font-weight:400;font-size:13px}
 .bars{display:flex;align-items:flex-end;gap:3px;height:120px}
-.bars.h{height:72px}
+.bars.many{gap:1px}
+.bars.h{height:auto;min-height:80px;flex:1}
 .bar{flex:1;background:var(--teal-dim);border-radius:3px 3px 0 0;min-height:2px;position:relative;transition:background .12s}
 .bar.zero{background:var(--line)}
 .bar.hi{background:var(--teal)}
@@ -52,10 +59,14 @@ header .dest a{color:var(--ink2);text-decoration:none;border-bottom:1px solid va
 .axis{display:flex;justify-content:space-between;font-size:12px;color:var(--mute);margin-top:6px}
 /* ---- seções ---- */
 .sec{margin-bottom:36px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.stack{display:grid;gap:16px;grid-template-rows:1fr 1fr}
+.stack3{display:grid;gap:16px;grid-template-rows:repeat(3,1fr)}
 /* ---- mapa ---- */
-.mapwrap{display:grid;grid-template-columns:3fr 2fr;gap:24px;align-items:start}
-.map{position:relative;background:var(--surface);border-radius:var(--r-list);padding:16px}
+.mapwrap{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:stretch}
+.mapcol{display:flex;flex-direction:column}
+.map{position:relative;background:var(--surface);border-radius:var(--r-list);padding:16px;flex:1;display:flex;align-items:center}
 .map svg{width:100%;height:auto;display:block}
 .map path{fill:var(--surface2);stroke:var(--bg);stroke-width:.8;transition:fill .15s;cursor:default}
 .map path:hover{stroke:var(--ink);stroke-width:1.2}
@@ -66,7 +77,26 @@ header .dest a{color:var(--ink2);text-decoration:none;border-bottom:1px solid va
 .legend .ramp{flex:1;max-width:160px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--surface2),var(--teal-dim),var(--teal))}
 .maptoggle{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px;flex-wrap:wrap}
 /* ---- listas ---- */
-.dim{background:var(--surface);border-radius:var(--r-list);padding:14px 16px 10px}
+.dim{background:var(--surface);border-radius:var(--r-list);padding:14px 16px 10px;display:flex;flex-direction:column}
+.dim .corpo{flex:1;display:flex;flex-direction:column}
+.dim .corpo>table{width:100%}
+.dim .rodape{margin-top:auto}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px;vertical-align:-1px;flex:none}
+/* rosca: parte-de-um-todo, até 5 fatias + "Outros"; a legenda ao lado carrega a identidade (cor nunca sozinha) */
+.donut{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;flex:1}
+.donut svg{width:150px;height:150px;display:block}
+.donut .c{position:relative}
+.donut .mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.donut .mid b{font-size:24px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.donut .mid span{font-size:11px;color:var(--mute);margin-top:3px}
+.donut circle{transition:opacity .12s;cursor:default}
+.donut svg:hover circle{opacity:.45}
+.donut svg circle:hover{opacity:1}
+.donut .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:5px 9px;border-radius:6px;display:none;z-index:6;white-space:nowrap;left:50%;transform:translateX(-50%);bottom:calc(100% + 4px)}
+/* barra de proporção (100%): para 2–3 classes lê melhor que uma pizza de duas fatias */
+.prop{display:flex;gap:2px;height:16px;border-radius:5px;overflow:hidden;margin:10px 0 12px}
+.prop i{display:block;height:100%;min-width:3px;transition:opacity .12s}
+.prop:hover i{opacity:.5}.prop i:hover{opacity:1}
 .dim h3{font-size:14px;font-weight:500;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
 .dim h3 .hl{display:flex;align-items:center;gap:6px}
 .dim table{width:100%;border-collapse:collapse}
@@ -133,7 +163,8 @@ details.arq .inner{margin-top:20px}
 .gate input{width:100%;padding:12px 14px;background:var(--surface);border:1px solid var(--line2);border-radius:var(--r-small);color:var(--ink);font-size:15px;margin:18px 0 10px;font-family:inherit}
 .gate button{width:100%;padding:12px;background:var(--teal);border:none;border-radius:var(--r-small);font-weight:700;cursor:pointer;font-size:14px;color:#04211F}
 .err{color:#FF8A80;font-size:13px;margin-top:8px;display:none}
-@media(max-width:760px){.hero{grid-template-columns:1fr}.hero .big{font-size:56px}.grid2{grid-template-columns:1fr}.mapwrap{grid-template-columns:1fr}.arq .cards{grid-template-columns:1fr 1fr}}
+@media(max-width:880px){.grid3{grid-template-columns:1fr 1fr}.grid3>:nth-child(3){grid-column:span 2}}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero .big{font-size:56px}.grid2,.grid3{grid-template-columns:1fr}.grid3>:nth-child(3){grid-column:auto}.mapwrap{grid-template-columns:1fr}.stack,.stack3{grid-template-rows:none}.arq .cards{grid-template-columns:1fr 1fr}.donut{grid-template-columns:1fr;justify-items:center;gap:10px}.donut table{width:100%}.range input{width:124px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -153,7 +184,8 @@ details.arq .inner{margin-top:20px}
 <p class="dest">Redirecionando para <a href="https://resources.comeandseefoundation.org/" target="_blank" rel="noopener">resources.comeandseefoundation.org</a><span id="rdUltimo"></span></p>
 </div>
 <div class="controls">
-<div class="seg" id="seg"><button class="on" data-p="mes">Este mês</button><button data-p="tudo">Desde o início</button></div>
+<div class="seg" id="seg"><button data-p="7">7 dias</button><button data-p="30">30 dias</button><button class="on" data-p="mes">Este mês</button><button data-p="tudo">Tudo</button></div>
+<div class="range"><input type="date" id="de" aria-label="De"><span>até</span><input type="date" id="ate" aria-label="Até"></div>
 <button class="refresh" onclick="carregar()">Atualizar</button>
 </div>
 </header>
@@ -161,54 +193,59 @@ details.arq .inner{margin-top:20px}
 
 <section class="hero">
 <div>
-<div class="big" id="rdHoje">–</div>
-<div class="big-l">acessos hoje <span class="help" tabindex="0" data-tip="Pessoas que abriram o link desde a meia-noite (horário de Brasília). Cada abertura conta 1; a mesma pessoa abrindo duas vezes conta 2. Robôs, prévias de link e varreduras não entram.">i</span><br><span id="rdOntem">ontem: –</span></div>
+<div class="big" id="rdPer">–</div>
+<div class="big-l"><span id="rdPerL">acessos no período</span> <span class="help" tabindex="0" data-tip="Pessoas que abriram o link no período escolhido acima (datas em horário de Brasília). Cada abertura conta 1; a mesma pessoa abrindo duas vezes conta 2. Robôs, prévias de link e varreduras não entram. Todos os blocos abaixo seguem o mesmo período.">i</span><br><span id="rdMedia"></span></div>
 <div class="stats">
-<div class="stat"><div class="n" id="rd7">–</div><div class="l">últimos 7 dias <span id="rdMedia7"></span></div></div>
-<div class="stat"><div class="n" id="rd30">–</div><div class="l">últimos 30 dias <span id="rdMedia30"></span></div></div>
-<div class="stat"><div class="n" id="rdTotal">–</div><div class="l" id="rdBots">no total</div></div>
+<div class="stat"><div class="n" id="rdHoje">–</div><div class="l">hoje</div></div>
+<div class="stat"><div class="n" id="rdOntem">–</div><div class="l">ontem</div></div>
+<div class="stat"><div class="n" id="rd7">–</div><div class="l">7 dias</div></div>
+<div class="stat"><div class="n" id="rdTotal">–</div><div class="l" id="rdBots">desde o início</div></div>
 </div>
 </div>
-<div class="chart"><h3>Por dia <span class="sub">últimos 30 dias</span></h3><div class="bars" id="chDia"></div><div class="axis" id="axDia"></div></div>
+<div class="chart"><h3>Por dia <span class="sub" id="chDiaSub"></span></h3><div class="bars" id="chDia"></div><div class="axis" id="axDia"></div></div>
 </section>
 
 <section class="sec">
 <h2>Onde estão <span class="help" tabindex="0" data-tip="Localização deduzida da conexão (geolocalização por IP feita pela Vercel; o IP não é guardado). Operadoras de celular às vezes registram a cidade da central, não a da pessoa: trate como aproximação. Acessos de fora do Brasil em volume pequeno costumam ser varreduras que passaram pelo filtro, ou brasileiros no exterior.">i</span></h2>
 <div class="mapwrap">
-<div>
+<div class="mapcol">
 <div class="maptoggle"><div class="seg" id="mapseg"><button class="on" data-m="br">Brasil</button><button data-m="world">Mundo</button></div><span class="muted" id="mapInfo"></span></div>
 <div class="map" id="map"><div class="loading">Carregando mapa…</div><div class="tip" id="mapTip"></div></div>
 <div class="legend"><span>menos</span><div class="ramp"></div><span>mais acessos</span></div>
 </div>
-<div style="display:grid;gap:16px">
-<div class="dim"><h3><span class="hl">Estado</span></h3><div id="dRegion"></div></div>
-<div class="dim"><h3><span class="hl">Cidade</span></h3><div id="dCity"></div></div>
-<div class="dim"><h3><span class="hl">País</span></h3><div id="dCountry"></div></div>
+<div class="stack3">
+<div class="dim"><h3><span class="hl">Estado</span></h3><div class="corpo" id="dRegion"></div></div>
+<div class="dim"><h3><span class="hl">Cidade</span></h3><div class="corpo" id="dCity"></div></div>
+<div class="dim"><h3><span class="hl">País</span></h3><div class="corpo" id="dCountry"></div></div>
 </div>
 </div>
 </section>
 
 <section class="sec">
 <h2>Como chegaram</h2>
-<div class="grid2">
-<div class="dim"><h3><span class="hl">De onde vieram <span class="help" tabindex="0" data-tip="Quem trouxe a pessoa até o link: o site de origem que o navegador informa, ou o utm_source se o link tiver. 'Direto / apps' = sem informação: link digitado, favorito, ou aberto dentro de apps como WhatsApp, Instagram e e-mail, que não contam de onde vieram. Por isso o WhatsApp quase sempre aparece como 'Direto'.">i</span></span></h3><div id="dSrc"></div></div>
-<div class="dim"><h3><span class="hl">Dispositivo <span class="help" tabindex="0" data-tip="Deduzido do navegador: celular, tablet ou computador.">i</span></span></h3><div id="dDevice"></div></div>
-<div class="dim"><h3><span class="hl">Campanhas <span class="help" tabindex="0" data-tip="Só aparece quando o link divulgado tem ?utm_campaign=... (ex.: criado no Bitly ou à mão). Links sem UTM não entram aqui.">i</span></span></h3><div id="dCamp"></div></div>
-<div class="dim"><h3><span class="hl">Link usado <span class="help" tabindex="0" data-tip="O caminho que a pessoa abriu antes de ser redirecionada. '/' é o endereço principal. Caminhos como /kit, /visao ou /perguntas são links antigos do site que ainda circulam (materiais, posts, resultados do Google); todos redirecionam igual.">i</span></span></h3><div id="dPath"></div></div>
-<div class="dim"><h3><span class="hl">Site de origem, em detalhe <span class="help" tabindex="0" data-tip="O endereço exato de onde a pessoa veio. 'com.google.android.gm' = app do Gmail no Android; 'l.instagram.com' = link clicado no Instagram.">i</span></span></h3><div id="dRef"></div></div>
-<div class="dim"><h3><span class="hl">Por hora do dia <span class="help" tabindex="0" data-tip="Em que horas as pessoas abrem o link (horário de Brasília). Ajuda a escolher quando postar.">i</span></span></h3><div class="bars h" id="chHora"></div><div class="axis"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span></div><div class="rodape" id="horaInfo"></div></div>
+<div class="grid2" style="margin-bottom:16px">
+<div class="dim"><h3><span class="hl">De onde vieram <span class="help" tabindex="0" data-tip="Quem trouxe a pessoa até o link: o site de origem que o navegador informa, ou o utm_source se o link tiver. 'Direto / apps' = sem informação: link digitado, favorito, ou aberto dentro de apps como WhatsApp, Instagram e e-mail, que não contam de onde vieram. Por isso o WhatsApp quase sempre aparece como 'Direto'.">i</span></span></h3><div class="corpo" id="dSrc"></div></div>
+<div class="stack">
+<div class="dim"><h3><span class="hl">Dispositivo <span class="help" tabindex="0" data-tip="Deduzido do navegador: celular, tablet ou computador.">i</span></span></h3><div class="corpo" id="dDevice"></div></div>
+<div class="dim"><h3><span class="hl">Campanhas <span class="help" tabindex="0" data-tip="Só aparece quando o link divulgado tem ?utm_campaign=... (ex.: criado no Bitly ou à mão). Links sem UTM não entram aqui.">i</span></span></h3><div class="corpo" id="dCamp"></div></div>
+</div>
+</div>
+<div class="grid3">
+<div class="dim"><h3><span class="hl">Link usado <span class="help" tabindex="0" data-tip="O caminho que a pessoa abriu antes de ser redirecionada. '/' é o endereço principal. Caminhos como /kit, /visao ou /perguntas são links antigos do site que ainda circulam (materiais, posts, resultados do Google); todos redirecionam igual.">i</span></span></h3><div class="corpo" id="dPath"></div></div>
+<div class="dim"><h3><span class="hl">Site de origem, em detalhe <span class="help" tabindex="0" data-tip="O endereço exato de onde a pessoa veio. 'com.google.android.gm' = app do Gmail no Android; 'l.instagram.com' = link clicado no Instagram.">i</span></span></h3><div class="corpo" id="dRef"></div></div>
+<div class="dim"><h3><span class="hl">Por hora do dia <span class="help" tabindex="0" data-tip="Em que horas as pessoas abrem o link (horário de Brasília). Ajuda a escolher quando postar.">i</span></span></h3><div class="corpo"><div class="bars h" id="chHora"></div><div class="axis"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span></div><div class="rodape" id="horaInfo"></div></div></div>
 </div>
 </section>
 
 <section class="sec" id="botsWrap" style="display:none">
 <h2>Filtrado como robô <span class="help" tabindex="0" data-tip="Acessos que NÃO entram nos números acima. 'Robô declarado' se identifica (Googlebot, prévia do WhatsApp). 'Varredura' é um programa procurando falhas (wp-admin, .env etc.) fingindo ser navegador. 'Scanner de e-mail' é o sistema de segurança corporativo que abre o link antes do destinatário.">i</span></h2>
 <div class="grid2">
-<div class="dim"><h3><span class="hl">Motivo</span></h3><div id="dBots"></div></div>
-<div class="dim"><h3><span class="hl">Caminhos tentados pelas varreduras</span></h3><div id="dBotPaths"></div></div>
+<div class="dim"><h3><span class="hl">Motivo</span></h3><div class="corpo" id="dBots"></div></div>
+<div class="dim"><h3><span class="hl">Caminhos tentados pelas varreduras</span></h3><div class="corpo" id="dBotPaths"></div></div>
 </div>
 </section>
 
-<p class="note">Contagem feita no redirecionamento, sem cookies nem scripts: cada acesso conta 1 (a mesma pessoa voltando conta de novo). Passe o mouse (ou toque) no <b>i</b> para a explicação de cada número. "Ver todos" abre a lista completa com páginas e busca.</p>
+<p class="note">Contagem feita no redirecionamento, sem cookies nem scripts: cada acesso conta 1 (a mesma pessoa voltando conta de novo). Escolha o período no alto (atalhos ou datas de/até); todos os blocos seguem o mesmo período. Passe o mouse (ou toque) no <b>i</b> para a explicação de cada número. "Ver todos" abre a lista completa com páginas e busca.</p>
 
 <div class="modal" id="modal"><div class="back"></div><div class="box"><div class="top"><h3 id="mTitle"></h3><input id="mBusca" placeholder="Buscar"><button class="x" id="mClose" aria-label="Fechar">×</button></div><div class="body" id="mBody"></div><div class="pg"><button id="mPrev">Anterior</button><span id="mInfo"></span><button id="mNext">Próxima</button></div></div></div>
 
@@ -250,8 +287,13 @@ details.arq .inner{margin-top:20px}
 
 <script>
 const KEY_STORE = 'tc_painel_key';
-let periodo = 'mes';
+let periodo = { p: 'mes' }; // {p:'7'|'30'|'mes'|'tudo'} ou {de,ate}
 let ultimoJson = null;
+const fBR = s => { const [Y,M,D] = s.split('-'); return D+'/'+M; };
+const fLong = s => { const [Y,M,D] = s.split('-'); return new Date(Date.UTC(+Y,+M-1,+D)).toLocaleDateString('pt-BR',{day:'numeric',month:'long',timeZone:'UTC'}); };
+// rampa de uma cor só (teal da marca), do mais claro ao mais escuro; "Outros" fica em cinza
+const RAMPA = ['#01B8AF','#0A9A93','#107C77','#145E5B','#1A4341'];
+const COR_OUTROS = '#3B4946';
 const fmtN = n => (n||0).toLocaleString('pt-BR');
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 const UF = {AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
@@ -287,10 +329,17 @@ carregar();
 }
 document.getElementById('seg').addEventListener('click', e => {
 const b = e.target.closest('button'); if(!b) return;
-periodo = b.dataset.p;
+periodo = { p: b.dataset.p };
 document.querySelectorAll('#seg button').forEach(x => x.classList.toggle('on', x===b));
-if(ultimoJson && ultimoJson.redirect) desenhaRedirect(ultimoJson.redirect);
+carregar();
 });
+['de','ate'].forEach(id => document.getElementById(id).addEventListener('change', () => {
+const de = document.getElementById('de').value, ate = document.getElementById('ate').value;
+if(!de || !ate) return;
+periodo = { de, ate };
+document.querySelectorAll('#seg button').forEach(x => x.classList.remove('on'));
+carregar();
+}));
 
 function barras(el, serie, campoV, tip, destaque){
 const box = document.getElementById(el); box.innerHTML = '';
@@ -304,12 +353,65 @@ b.setAttribute('data-tip', tip(x));
 box.appendChild(b);
 });
 }
-function linhas(lista, total, rotulo){
-return lista.map(x => {
+function linhas(lista, total, rotulo, cores){
+return lista.map((x, i) => {
 const pct = total ? Math.round(x.n/total*100) : 0;
-const r = rotulo ? rotulo(x.valor) : x.valor;
-return `<tr title="${esc(r)}: ${fmtN(x.n)} de ${fmtN(total)} acessos no período (${pct}%)"><td class="pb" style="--w:${pct}%">${esc(r)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`;
+const r = rotulo ? rotulo(x.r !== undefined ? x : x.valor) : x.valor;
+const sw = cores ? `<i class="sw" style="background:${cores[i]}"></i>` : '';
+return `<tr title="${esc(r)}: ${fmtN(x.n)} de ${fmtN(total)} acessos no período (${pct}%)"><td class="${cores ? '' : 'pb'}" style="--w:${pct}%">${sw}${esc(r)}</td><td class="n">${fmtN(x.n)}</td><td class="p">${pct}%</td></tr>`;
 }).join('');
+}
+// agrupa o que passa do limite em "Outros"; devolve itens já com rótulo (r) e a cor de cada um
+function comOutros(lista, lim, rotulo){
+const rot = x => ({ ...x, r: rotulo ? rotulo(x.valor) : x.valor });
+if(lista.length <= lim) return { itens: lista.map(rot), cores: RAMPA.slice(0, lista.length) };
+const topo = lista.slice(0, lim).map(rot);
+const resto = lista.slice(lim).reduce((s,x) => s + x.n, 0);
+topo.push({ valor: '__outros', n: resto, r: 'Outros (' + fmtN(lista.length - lim) + ')' });
+return { itens: topo, cores: RAMPA.slice(0, lim).concat([COR_OUTROS]) };
+}
+function rodape(el, lista, total, lim){
+return `<div class="rodape"><span>${fmtN(total)} acessos${lista.length > lim ? ' em ' + fmtN(lista.length) + ' itens' : ''}</span>${lista.length > lim ? `<button class="todos" onclick="abrirLista('${el}')">Ver todos</button>` : ''}</div>`;
+}
+function guardaLista(el, lista, total, rotulo, titulo){
+const box = document.getElementById(el);
+LISTAS[el] = { lista, total, rotulo, titulo: titulo || box.parentElement.querySelector('.hl').childNodes[0].textContent.trim() };
+return box;
+}
+// rosca (parte de um todo): até 5 fatias + Outros, 2px de respiro entre fatias, total no centro
+function rosca(el, lista, rotulo, titulo){
+const box = document.getElementById(el);
+if(!lista || !lista.length){ box.innerHTML = '<p class="vazio">Nada registrado no período.</p>'; return; }
+const total = lista.reduce((s,x) => s + x.n, 0);
+guardaLista(el, lista, total, rotulo, titulo);
+const { itens, cores } = comOutros(lista, 5, rotulo);
+const R = 60, C = 2*Math.PI*R;
+let off = 0;
+const fatias = itens.map((x, i) => {
+const frac = x.n / total;
+const len = Math.max(0, frac*C - (itens.length > 1 ? 2 : 0)); // 2px de respiro
+const h = `<circle r="${R}" cx="75" cy="75" fill="none" stroke="${cores[i]}" stroke-width="22" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" data-i="${i}"></circle>`;
+off += frac*C;
+return h;
+}).join('');
+box.innerHTML = `<div class="donut"><div class="c"><svg viewBox="0 0 150 150" role="img" aria-label="${esc(LISTAS[el].titulo)}"><g transform="rotate(-90 75 75)">${fatias}</g></svg><div class="mid"><b>${fmtN(total)}</b><span>acessos</span></div><div class="tip"></div></div><table>${linhas(itens, total, x => x.r !== undefined ? x.r : x, cores)}</table></div>` + rodape(el, lista, total, 5);
+box.querySelectorAll('table tr').forEach((tr, i) => { const x = itens[i]; tr.title = `${x.r}: ${fmtN(x.n)} de ${fmtN(total)} acessos (${Math.round(x.n/total*100)}%)`; });
+const tip = box.querySelector('.tip');
+box.querySelectorAll('circle').forEach(c => {
+const x = itens[+c.dataset.i];
+c.addEventListener('mouseenter', () => { tip.innerHTML = `<b>${esc(x.r)}</b> ${fmtN(x.n)} (${Math.round(x.n/total*100)}%)`; tip.style.display = 'block'; });
+c.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+});
+}
+// barra de proporção (100%) + linhas com amostra de cor
+function proporcao(el, lista, rotulo, titulo){
+const box = document.getElementById(el);
+if(!lista || !lista.length){ box.innerHTML = '<p class="vazio">Nada registrado no período.</p>'; return; }
+const total = lista.reduce((s,x) => s + x.n, 0);
+guardaLista(el, lista, total, rotulo, titulo);
+const { itens, cores } = comOutros(lista, 4, rotulo);
+const seg = itens.map((x, i) => `<i style="width:${(x.n/total*100).toFixed(2)}%;background:${cores[i]}" title="${esc(x.r)}: ${fmtN(x.n)} (${Math.round(x.n/total*100)}%)"></i>`).join('');
+box.innerHTML = `<div class="prop">${seg}</div><table>${linhas(itens, total, x => x.r !== undefined ? x.r : x, cores)}</table>` + rodape(el, lista, total, 4);
 }
 const LISTAS = {};
 function tabelaDim(el, lista, rotulo, limite, titulo){
@@ -318,9 +420,7 @@ if(!lista || !lista.length){ box.innerHTML = '<p class="vazio">Nada registrado n
 const lim = limite || 7;
 const total = lista.reduce((s,x) => s + x.n, 0);
 LISTAS[el] = { lista, total, rotulo, titulo: titulo || box.parentElement.querySelector('.hl').childNodes[0].textContent.trim() };
-let h = '<table>' + linhas(lista.slice(0, lim), total, rotulo) + '</table>';
-h += `<div class="rodape"><span>${fmtN(total)} acessos${lista.length > lim ? ' em ' + fmtN(lista.length) + ' itens' : ''}</span>${lista.length > lim ? `<button class="todos" onclick="abrirLista('${el}')">Ver todos</button>` : ''}</div>`;
-box.innerHTML = h;
+box.innerHTML = '<table>' + linhas(lista.slice(0, lim), total, rotulo) + '</table>' + rodape(el, lista, total, lim);
 }
 // ---- lista completa: modal com busca e páginas ----
 const POR_PAGINA = 15;
@@ -418,14 +518,23 @@ desenhaMapa();
 });
 
 function desenhaRedirect(r){
+const P = r.periodo;
+document.getElementById('rdPer').textContent = fmtN(P.n);
+const nd = P.dias.length;
+let rot;
+if(P.preset === 'tudo') rot = 'acessos desde ' + fBR(P.de);
+else if(P.de === P.ate) rot = 'acessos ' + (P.de === r.hoje_dia ? 'hoje' : 'em ' + fBR(P.de));
+else rot = 'acessos de ' + fBR(P.de) + ' a ' + (P.ate === r.hoje_dia ? 'hoje' : fBR(P.ate));
+document.getElementById('rdPerL').textContent = rot;
+document.getElementById('rdMedia').textContent = nd > 1 ? 'média de ' + fmtN(Math.round(P.n/nd*10)/10) + ' por dia em ' + nd + ' dias' : '';
+// as datas do seletor refletem o período em uso
+document.getElementById('de').value = P.de; document.getElementById('ate').value = P.ate;
+document.getElementById('de').max = document.getElementById('ate').max = r.hoje_dia;
 document.getElementById('rdHoje').textContent = fmtN(r.hoje);
-document.getElementById('rdOntem').textContent = 'ontem: ' + fmtN(r.ontem);
+document.getElementById('rdOntem').textContent = fmtN(r.ontem);
 document.getElementById('rd7').textContent = fmtN(r.ult7);
-document.getElementById('rdMedia7').textContent = '· ' + fmtN(Math.round(r.ult7/7)) + '/dia';
-document.getElementById('rd30').textContent = fmtN(r.ult30);
-document.getElementById('rdMedia30').textContent = '· ' + fmtN(Math.round(r.ult30/30)) + '/dia';
 document.getElementById('rdTotal').textContent = fmtN(r.humanos);
-document.getElementById('rdBots').textContent = 'no total' + (r.bots ? ', fora ' + fmtN(r.bots) + ' robôs filtrados' : '');
+document.getElementById('rdBots').textContent = 'desde o início' + (r.bots ? ', fora ' + fmtN(r.bots) + ' robôs' : '');
 if(r.ultimo){ document.getElementById('rdUltimo').textContent = ' — último acesso ' + new Date(r.ultimo).toLocaleString('pt-BR', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }
 if(r.fase){
 const [Y,M,D] = (r.inicio_oficial||'').split('-');
@@ -433,28 +542,30 @@ document.getElementById('fase').innerHTML = r.fase === 'teste'
 ? `<span class="badge teste">Período de testes</span>Os números abaixo são de teste e serão arquivados. A contagem oficial começa do zero em <b>${D}/${M}/${Y} às 00:00</b> (Brasília), automaticamente.`
 : `<span class="badge">Contagem oficial</span>desde ${D}/${M}/${Y}.`;
 }
-const hojeStr = r.dias[r.dias.length-1].dia;
-barras('chDia', r.dias, 'n', x => { const [Y,M,D] = x.dia.split('-'); return D+'/'+M+': '+fmtN(x.n)+' acesso'+(x.n===1?'':'s'); }, x => x.dia===hojeStr);
-const f = s => { const [Y,M,D] = s.split('-'); return D+'/'+M; };
-document.getElementById('axDia').innerHTML = '<span>'+f(r.dias[0].dia)+'</span><span>hoje</span>';
-const horas = periodo==='mes' ? r.horas.mes : r.horas.tudo;
+const maxDia = P.dias.reduce((a,b) => b.n > a.n ? b : a, P.dias[0]);
+barras('chDia', P.dias, 'n', x => fBR(x.dia)+': '+fmtN(x.n)+' acesso'+(x.n===1?'':'s'), x => x.n > 0 && x.dia === maxDia.dia);
+document.getElementById('chDia').classList.toggle('many', nd > 60);
+document.getElementById('chDiaSub').textContent = nd === 1 ? fLong(P.de) : fLong(P.de) + ' a ' + fLong(P.ate);
+document.getElementById('axDia').innerHTML = '<span>'+fBR(P.de)+'</span>' + (maxDia.n && nd > 1 ? '<span>maior dia: ' + fBR(maxDia.dia) + ' (' + fmtN(maxDia.n) + ')</span>' : '') + '<span>'+(P.ate === r.hoje_dia ? 'hoje' : fBR(P.ate))+'</span>';
+const horas = P.horas;
 const pico = horas.reduce((a,b) => b.n > a.n ? b : a, horas[0]);
 barras('chHora', horas, 'n', x => parseInt(x.hora,10)+'h: '+fmtN(x.n), x => x.n>0 && x.hora===pico.hora);
-document.getElementById('horaInfo').innerHTML = pico.n ? `<span>pico às ${parseInt(pico.hora,10)}h${periodo==='mes' ? ', este mês' : ''}</span>` : '<span>sem dados no período</span>';
-const d = periodo==='mes' ? r.dims.mes : r.dims.tudo;
-tabelaDim('dSrc', d.src, v => SRC[v] || v);
-tabelaDim('dDevice', d.device, v => DEV[v] || v, 3);
-tabelaDim('dCamp', d.utm_campaign);
-tabelaDim('dPath', d.path);
+document.getElementById('horaInfo').innerHTML = pico.n ? `<span>pico às ${parseInt(pico.hora,10)}h no período</span>` : '<span>sem dados no período</span>';
+const d = P.dims;
+rosca('dSrc', d.src, v => SRC[v] || v);
+proporcao('dDevice', d.device, v => DEV[v] || v);
+tabelaDim('dCamp', d.utm_campaign, null, 3);
+tabelaDim('dPath', d.path, null, 5);
 const estados = (d.region||[]).filter(x => UF[x.valor]);
-tabelaDim('dRegion', estados, v => UF[v], 6);
-tabelaDim('dCity', d.city, fmtCidade, 6);
+tabelaDim('dRegion', estados, v => UF[v], 4);
+tabelaDim('dCity', d.city, fmtCidade, 4);
 tabelaDim('dCountry', d.country, nomePais, 4);
-tabelaDim('dRef', d.ref, null, 7);
-if(r.bots_motivos && r.bots_motivos.length){
-document.getElementById('botsWrap').style.display = '';
-tabelaDim('dBots', r.bots_motivos, v => MOTIVO[v] || v, 6, 'Motivo do filtro');
-tabelaDim('dBotPaths', r.bots_paths, null, 6, 'Caminhos tentados pelas varreduras');
+tabelaDim('dRef', d.ref, null, 5);
+const B = P.bots || { motivos: [] };
+document.getElementById('botsWrap').style.display = B.motivos.length ? '' : 'none';
+if(B.motivos.length){
+tabelaDim('dBots', B.motivos, v => MOTIVO[v] || v, 5, 'Motivo do filtro');
+tabelaDim('dBotPaths', B.paths, null, 5, 'Caminhos tentados pelas varreduras');
 }
 // dados do mapa (ids em minúsculo, como no @svg-maps)
 mapaDados.br = {}; estados.forEach(x => { mapaDados.br[x.valor.toLowerCase()] = x.n; });
@@ -464,8 +575,11 @@ desenhaMapa();
 async function carregar(){
 const k = localStorage.getItem(KEY_STORE);
 if(!k) return;
+const app = document.getElementById('app');
+app.classList.add('loading');
 try{
-const r = await fetch('/api/stats', { headers: { 'x-panel-key': k } });
+const qs = periodo.de ? `de=${periodo.de}&ate=${periodo.ate}` : `p=${periodo.p}`;
+const r = await fetch('/api/stats?' + qs, { headers: { 'x-panel-key': k } });
 if(r.status === 401){ localStorage.removeItem(KEY_STORE); document.getElementById('err').style.display='block'; mostrar(false); return; }
 const j = await r.json();
 if(!j.ok){ document.getElementById('rankWrap').innerHTML = '<p class="muted">Armazenamento ainda não configurado na Vercel.</p>'; mostrar(true); return; }
@@ -553,6 +667,7 @@ mostrar(true);
 document.getElementById('rankWrap').innerHTML = '<p class="muted">Não foi possível carregar. Clique em Atualizar.</p>';
 mostrar(true);
 }
+app.classList.remove('loading');
 }
 function mostrar(ok){
 document.getElementById('gate').style.display = ok ? 'none' : '';

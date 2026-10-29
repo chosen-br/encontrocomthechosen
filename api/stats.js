@@ -44,50 +44,108 @@ function diaBR(offset) {
 }
 
 const DIMS = ['src', 'ref', 'path', 'utm_campaign', 'utm_medium', 'device', 'country', 'region', 'city'];
+const MAX_DIAS = 400; // limite de um pedido personalizado (1 HGETALL por dia)
 
-async function dadosRedirect() {
+const diaValido = (s) => /^\d{4}-\d{2}-\d{2}$/.test(s || '');
+function somaDias(d, n) {
+  const [Y, M, D] = d.split('-').map(Number);
+  return new Date(Date.UTC(Y, M - 1, D) + n * 86400000).toISOString().slice(0, 10);
+}
+function difDias(a, b) { // b - a, em dias
+  const u = (d) => { const [Y, M, D] = d.split('-').map(Number); return Date.UTC(Y, M - 1, D); };
+  return Math.round((u(b) - u(a)) / 86400000);
+}
+
+// Resolve o período pedido pelo painel. Presets: 7, 30, mes, tudo. Personalizado: de + ate (YYYY-MM-DD).
+function resolvePeriodo(q, hoje) {
+  q = q || {};
+  if (diaValido(q.de) && diaValido(q.ate)) {
+    let de = q.de, ate = q.ate;
+    if (ate > hoje) ate = hoje;
+    if (de > ate) [de, ate] = [ate, de];
+    if (difDias(de, ate) >= MAX_DIAS) de = somaDias(ate, -(MAX_DIAS - 1));
+    return { preset: 'custom', de, ate };
+  }
+  const p = String(q.p || 'mes');
+  if (p === '7') return { preset: '7', de: somaDias(hoje, -6), ate: hoje };
+  if (p === '30') return { preset: '30', de: somaDias(hoje, -29), ate: hoje };
+  if (p === 'tudo') return { preset: 'tudo', de: null, ate: hoje };
+  return { preset: 'mes', de: hoje.slice(0, 8) + '01', ate: hoje };
+}
+
+async function dadosRedirect(query) {
   const hoje = diaBR(0);
-  const mes = hoje.slice(0, 7);
   const ns = hoje < INICIO_OFICIAL ? 'rdteste:' : 'rd:';
+  const per = resolvePeriodo(query, hoje);
+
+  // 1ª rodada: totais, série diária e os acumulados "desde o início"
   const cmds = [
     ['GET', ns + 'total'], ['GET', ns + 'humanos'], ['GET', ns + 'bots'], ['GET', ns + 'last'],
-    ['HGETALL', ns + 'byday'], ['HGETALL', ns + 'byhour'], ['HGETALL', ns + 'byhour:' + mes],
+    ['HGETALL', ns + 'byday'], ['HGETALL', ns + 'byhour'], ['HGETALL', ns + 'bots:motivo'], ['HGETALL', ns + 'bots:path'],
   ];
-  for (const d of DIMS) { cmds.push(['HGETALL', ns + '' + d]); cmds.push(['HGETALL', ns + '' + d + ':' + mes]); }
-  cmds.push(['HGETALL', ns + 'bots:motivo'], ['HGETALL', ns + 'bots:path']);
+  for (const d of DIMS) cmds.push(['HGETALL', ns + d]);
   const r = await pipeline(cmds);
-  const iBots = 7 + DIMS.length * 2;
-
   const byday = hashToMap(r[4]);
-  const dias = [];
-  for (let i = 29; i >= 0; i--) { const d = diaBR(i); dias.push({ dia: d, n: byday[d] || 0 }); }
+  const diasComDados = Object.keys(byday).sort();
+  const primeiro = diasComDados[0] || hoje;
+  if (per.preset === 'tudo') per.de = primeiro < hoje ? primeiro : somaDias(hoje, -29);
   const soma = (a, b) => { let s = 0; for (let i = a; i <= b; i++) s += byday[diaBR(i)] || 0; return s; };
-  const horas = (m) => { const out = []; for (let h = 0; h < 24; h++) { const k = String(h).padStart(2, '0'); out.push({ hora: k, n: m[k] || 0 }); } return out; };
 
-  const tudo = {}, esteMes = {};
-  DIMS.forEach((d, i) => {
-    tudo[d] = hashToList(r[7 + i * 2], 'valor', 'n');
-    esteMes[d] = hashToList(r[8 + i * 2], 'valor', 'n');
-  });
-  // total de acessos humanos por mês (derivado do byday)
-  const porMes = {};
-  Object.entries(byday).forEach(([d, n]) => { const m = d.slice(0, 7); porMes[m] = (porMes[m] || 0) + n; });
+  // série do período
+  const dias = [];
+  for (let d = per.de; d <= per.ate; d = somaDias(d, 1)) dias.push({ dia: d, n: byday[d] || 0 });
+  const nPeriodo = dias.reduce((s, x) => s + x.n, 0);
+
+  // O período cobre tudo que existe? Então usa os acumulados (exatos desde o início). Senão, soma os hashes diários.
+  const cobreTudo = per.de <= primeiro && per.ate === hoje;
+  const horasDe = (m) => { const out = []; for (let h = 0; h < 24; h++) { const k = String(h).padStart(2, '0'); out.push({ hora: k, n: m[k] || 0 }); } return out; };
+  let dims = {}, horas, botsMotivos, botsPaths, nBots;
+  if (cobreTudo) {
+    DIMS.forEach((d, i) => { dims[d] = hashToList(r[8 + i], 'valor', 'n'); });
+    horas = horasDe(hashToMap(r[5]));
+    botsMotivos = hashToList(r[6], 'valor', 'n');
+    botsPaths = hashToList(r[7], 'valor', 'n');
+    nBots = parseInt(r[2], 10) || 0;
+  } else {
+    const agg = {}; DIMS.forEach((d) => { agg[d] = {}; });
+    const hm = {}, bm = {}, bp = {};
+    const add = (o, k, v) => { o[k] = (o[k] || 0) + v; };
+    const rr = await pipeline(dias.map((x) => ['HGETALL', ns + 'd:' + x.dia]));
+    for (const arr of rr) {
+      if (!arr) continue;
+      for (let i = 0; i < arr.length; i += 2) {
+        const f = arr[i], v = parseInt(arr[i + 1], 10) || 0;
+        const eq = f.indexOf('='); if (eq < 0) continue;
+        const k = f.slice(0, eq), val = f.slice(eq + 1);
+        if (k === 'hour') add(hm, val, v);
+        else if (k === 'bot') add(bm, val, v);
+        else if (k === 'botpath') add(bp, val, v);
+        else if (agg[k]) add(agg[k], val, v);
+      }
+    }
+    const lista = (o) => Object.entries(o).map(([valor, n]) => ({ valor: dec(valor), n })).sort((a, b) => b.n - a.n);
+    DIMS.forEach((d) => { dims[d] = lista(agg[d]); });
+    horas = horasDe(hm);
+    botsMotivos = lista(bm);
+    botsPaths = lista(bp);
+    nBots = botsMotivos.reduce((s, x) => s + x.n, 0);
+  }
 
   return {
     total: parseInt(r[0], 10) || 0,
     humanos: parseInt(r[1], 10) || 0,
     bots: parseInt(r[2], 10) || 0,
-    bots_motivos: hashToList(r[iBots], 'valor', 'n'),
-    bots_paths: hashToList(r[iBots + 1], 'valor', 'n'),
     ultimo: r[3] || null,
-    mes_atual: mes,
     fase: ns === 'rd:' ? 'oficial' : 'teste',
     inicio_oficial: INICIO_OFICIAL,
+    hoje_dia: hoje,
+    primeiro_dia: diasComDados[0] || null,
     hoje: soma(0, 0), ontem: soma(1, 1), ult7: soma(0, 6), ult30: soma(0, 29),
-    dias,
-    por_mes: Object.entries(porMes).sort().map(([m, n]) => ({ mes: m, n })),
-    horas: { tudo: horas(hashToMap(r[5])), mes: horas(hashToMap(r[6])) },
-    dims: { tudo, mes: esteMes },
+    periodo: {
+      preset: per.preset, de: per.de, ate: per.ate, completo: cobreTudo,
+      n: nPeriodo, dias, horas, dims,
+      bots: { n: nBots, motivos: botsMotivos, paths: botsPaths },
+    },
   };
 }
 
@@ -114,7 +172,7 @@ export default async function handler(req, res) {
       redis('get/t6:play'),
       redis('get/t6:share'),
       redis('get/t6:dl'),
-      dadosRedirect().catch(() => null),
+      dadosRedirect(req.query).catch(() => null),
     ]);
 
     // últimos 30 dias (fuso de Brasília), preenchendo zeros
